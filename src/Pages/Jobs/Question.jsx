@@ -15,32 +15,7 @@ const Question = () => {
   const [startTime, setStartTime] = useState(null);
   const [timerInterval, setTimerInterval] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [questions, setQuestions] = useState([
-    {
-      _id: "1",
-      questionText: "What is React?",
-      type: "MCQ",
-      options: [
-        { optionText: "A JavaScript library for building user interfaces" },
-        { optionText: "A programming language" },
-        { optionText: "A database management system" },
-        { optionText: "A styling framework" },
-      ],
-      correctAnswer: ["A JavaScript library for building user interfaces"],
-    },
-    {
-      _id: "2",
-      questionText: "What is JavaScript?",
-      type: "MCQ",
-      options: [
-        { optionText: "A markup language" },
-        { optionText: "A programming language" },
-        { optionText: "A database management system" },
-        { optionText: "A styling framework" },
-      ],
-      correctAnswer: ["A programming language"],
-    },
-  ]);
+  const [questions, setQuestions] = useState([]);
 
   const getTest = async (skills) => {
     try {
@@ -243,7 +218,7 @@ const Question = () => {
         </button>
       </div>
 
-      {/* {currentQuestion && (
+      {currentQuestion && (
         <div className="mt-[30px] flex sm:flex-row flex-col gap-[22px]">
           <div className="sm:w-[70%] w-full bg-[#FFFFFF] border border-[#E1E4E9] rounded-[10px]">
             <div className="flex justify-between border-b border-[#E3E6EA] pl-[20px] pr-[12px] items-center w-full">
@@ -383,7 +358,7 @@ const Question = () => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
