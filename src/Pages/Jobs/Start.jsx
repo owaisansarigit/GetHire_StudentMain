@@ -11,8 +11,8 @@ const Start = () => {
       {Loading ? (
         <div>Loading</div>
       ) : (
-        <div className="p-[28px] font-[Outfit] flex flex-col justify-center mt-[50px] items-center w-full">
-          <div className="max-w-[1225px] w-full m-auto bg-[#FFFFFF] py-[26px] px-[24px] rounded-[30px]">
+        <div className="p-[2px] font-[Outfit] flex flex-col justify-center mt-[5px] items-center w-full">
+          <div className="max-w-[1225px] w-full mx-auto bg-[#FFFFFF] py-[26px] px-[24px] rounded-[30px]">
             <div className="flex justify-end">
               <img src="/images/close.svg" alt="" />
             </div>
@@ -56,7 +56,7 @@ const Start = () => {
               <div className="bg-[#910FFF0D] flex flex-col justify-start pt-[50px] pb-[38px] items-center rounded-[16px]">
                 <div className="h-[38px] bg-[#910FFF] rounded-full w-[38px]"></div>
                 <p className="font-[Outfit] font-[500] text-[16px] leading-[20.16px] text-center text-[#000000] pt-[23px] pb-[17px]">
-                  Make ityour game
+                  Make it your game
                 </p>
                 <p className="font-[Outfit] px-[26px] font-[400] text-[14px] leading-[17.64px] text-center text-[#545454]">
                   Just relax, focus and beyourself whileplaying Good Luck!

@@ -177,7 +177,7 @@ const AddDetails = ({ Email, Number }) => {
           <div className="bg-blue-100 min-w-[1vw]"></div>
           <div className=" min-w-[77vw] flex flex-col justify-center p-10 items-center">
             <div className="w-full flex flex-col justify-center items-center">
-              <Box sx={{ width: "75%" }}>
+              <Box sx={{ width: "50%" }}>
                 <Stepper activeStep={activeStep}>
                   {stepsHead.map((label, index) => {
                     const stepProps = {};
@@ -356,7 +356,7 @@ const AddDetails = ({ Email, Number }) => {
           <div className="bg-blue-100 min-w-[1vw]"></div>
           <div className=" min-w-[77vw] flex flex-col justify-start p-10 items-center">
             <div className="w-full flex flex-col justify-start items-center pt-10">
-              <Box sx={{ width: "75%" }}>
+              <Box sx={{ width: "50%" }}>
                 <Stepper activeStep={activeStep}>
                   {stepsHead.map((label, index) => {
                     const stepProps = {};
@@ -501,6 +501,12 @@ const AddDetails = ({ Email, Number }) => {
                       <option value="Sales">Sales</option>
                       <option value="IT">IT</option>
                       <option value="Medicare">Medicare</option>
+                      <option value="Finance">Finance</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Healthcare">Healthcare</option>
+                      <option value="Education">Education</option>
+                      <option value="Retail">Retail</option>
+                      <option value="Hospitality">Hospitality</option>
                     </select>
                     {jobData.exprienceIn && (
                       <span className="text-blue-600 bg-blue-100 rounded-full py-1 px-4 text-sm font-semibold cursor-pointer">
@@ -583,7 +589,7 @@ const AddDetails = ({ Email, Number }) => {
           <div className="bg-blue-100 min-w-[1vw]"></div>
           <div className=" min-w-[77vw] flex flex-col justify-start p-5 items-center">
             <div className="w-full flex flex-col justify-start items-center">
-              <Box sx={{ width: "75%" }}>
+              <Box sx={{ width: "50%" }}>
                 <Stepper activeStep={activeStep}>
                   {stepsHead.map((label, index) => {
                     const stepProps = {};

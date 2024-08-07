@@ -204,12 +204,6 @@ const Question = () => {
           </div>
           <div className="max-w-[226px] w-full h-[9px] rounded-[4px] bg-gradient-to-tl from-[#0f87b3] to-[#462da1]"></div>
         </div>
-        <div className="flex flex-1 justify-center items-center gap-[14px]">
-          <img src="/images/start/item13.svg" alt="" />
-          <p className="font-[400] text-[18px] leading-[27px] text-[#545454]">
-            Performance
-          </p>
-        </div>
         <button
           onClick={handleFinishTest}
           className="w-[164px] flex-1 h-[45px] flex items-center text-[18px] leading-[22.68px] font-[400] text-white bg-[#4234A2] rounded-[5px] justify-center"
@@ -221,13 +215,30 @@ const Question = () => {
       {currentQuestion && (
         <div className="mt-[30px] flex sm:flex-row flex-col gap-[22px]">
           <div className="sm:w-[70%] w-full bg-[#FFFFFF] border border-[#E1E4E9] rounded-[10px]">
-            <div className="flex justify-between border-b border-[#E3E6EA] pl-[20px] pr-[12px] items-center w-full">
-              <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#000000] pt-[21px] pb-[15px]">
-                Question {currentQuestionIndex + 1}/{questions.length}
-              </h6>
-              <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#204F53] pt-[21px] pb-[15px]">
-                MCU
-              </h6>
+            <div className="flex flex-col justify-between border-b border-[#E3E6EA] pl-[20px] pr-[12px] items-center w-full">
+              <div className="flex justify-end pt-[22px] pb-[20px] pr-[35px] gap-[16px]">
+                <button
+                  className="border border-[#E1E4E9] rounded-[5px] py-[6px] px-[37px] font-[400] text-[18px] leading-[22.68px] text-[#97969D]"
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestionIndex === 0}
+                >
+                  Back
+                </button>
+                <button
+                  className="bg-gradient-to-tl from-[#0F87B3] rounded-[5px] py-[6px] px-[37px] font-[400] text-[18px] leading-[22.68px] to-[#462DA1] text-[#FFFFFF]"
+                  onClick={handleNextQuestion}
+                >
+                  Next
+                </button>
+              </div>
+              <div className="flex justify-between border-b border-[#E3E6EA] pl-[20px] pr-[12px] items-center w-full">
+                <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#000000] pt-[21px] pb-[15px]">
+                  Question {currentQuestionIndex + 1}/{questions.length}
+                </h6>
+                <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#204F53] pt-[21px] pb-[15px]">
+                  MCU
+                </h6>
+              </div>
             </div>
             <p className="text-[#545454] border-b border-[#E3E6EA] font-[400] text-[16px] leading-[28px] py-[27px] pl-[31px] pr-[46px]">
               {currentQuestion.questionText}
@@ -266,21 +277,6 @@ const Question = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-              <div className="flex justify-end pt-[22px] pb-[20px] pr-[35px] gap-[16px]">
-                <button
-                  className="border border-[#E1E4E9] rounded-[5px] py-[6px] px-[37px] font-[400] text-[18px] leading-[22.68px] text-[#97969D]"
-                  onClick={handlePreviousQuestion}
-                  disabled={currentQuestionIndex === 0}
-                >
-                  Back
-                </button>
-                <button
-                  className="bg-gradient-to-tl from-[#0F87B3] rounded-[5px] py-[6px] px-[37px] font-[400] text-[18px] leading-[22.68px] to-[#462DA1] text-[#FFFFFF]"
-                  onClick={handleNextQuestion}
-                >
-                  Next
-                </button>
               </div>
             </div>
           </div>

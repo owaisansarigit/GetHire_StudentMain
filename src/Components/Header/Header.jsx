@@ -3,6 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiAlignJustify } from "react-icons/fi";
 import InternshipModal from "../../Pages/Internship/InternshipModal";
 import Logo from "../../assets/Images/Gethire SVG.svg";
+import { Menu, MenuItem, IconButton } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { styled } from "@mui/material/styles";
+
+const DropdownLink = styled(Link)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "6px",
+  textDecoration: "none",
+}));
 
 const Header = () => {
   const navigate = useNavigate();
@@ -146,6 +157,29 @@ const Header = () => {
     }
   };
 
+
+  // material
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("StudentToken");
+    window.location.reload();
+    navigate("/");
+    handleClose();
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-menu" : undefined;
+
   return (
     <>
       <div className="bg-[#fff] h-[100px] w-full flex justify-between items-center p-[37px]">
@@ -158,7 +192,8 @@ const Header = () => {
         <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[43px]  font-[Outfit]">
           <Link to="/">Home</Link>
           <div
-            onClick={toggleInternshipDropDown}
+            // onClick={toggleInternshipDropDown}
+            onClick={() => navigate("/blank/Jobs")}
             className="relative cursor-pointer"
           >
             Internship
@@ -241,18 +276,37 @@ const Header = () => {
               alt=""
             />
           </Link>
-          <Link className="flex justify-center items-center gap-[6px]">
-            <img
-              src="/images/Ellipse2.svg"
-              className="w-[26px] h-[26px] rounded-[50%]"
-              alt=""
-            />
-            <img
-              src="/images/bxs_up-arrow.svg"
-              className="w-[12px] h-[9px]"
-              alt=""
-            />
-          </Link>
+          <div>
+            <DropdownLink onClick={handleClick}>
+              <img
+                src="/images/Ellipse2.svg"
+                className="w-[26px] h-[26px] rounded-[50%]"
+                alt="User Avatar"
+              />
+              <img
+                src="/images/bxs_up-arrow.svg"
+                className="w-[12px] h-[9px]"
+                alt="Arrow"
+              />
+            </DropdownLink>
+            <Menu
+              id={id}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": id,
+              }}
+            >
+              <MenuItem onClick={() => navigate("/blank/Portfolio")}>
+                Portfolio
+              </MenuItem>
+              <MenuItem onClick={() => navigate("/SkillManager")}>
+                My Skills
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </div>
         </div>
       </div>
 

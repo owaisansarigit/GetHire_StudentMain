@@ -1,10 +1,33 @@
 import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import { GetApi } from "../utilis/Api_Calling";
+import {
+  Box,
+  Button,
+  InputBase,
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Paper,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-// const socket = io("http://localhost:5000", { withCredentials: true });
-// const socket = io("https://get-hire.vercel.app", { withCredentials: true });
-const socket = io("https://gethire-backend.onrender.com", { withCredentials: true });
+// Socket connection
+const socket = io("https://gethire-backend.onrender.com", {
+  withCredentials: true,
+});
+
+// Styled components
+const SearchInput = styled(InputBase)(({ theme }) => ({
+  width: "100%",
+  padding: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.background.paper,
+}));
 
 const ChatComponent = () => {
   const studentId = localStorage.getItem("Studentid");
@@ -21,6 +44,7 @@ const ChatComponent = () => {
   const [showOldMessages, setShowOldMessages] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState({});
 
+  // Fetch companies
   const getCompanies = async () => {
     try {
       const response = await GetApi("api/adminroutes/GetAllCompany");
@@ -32,6 +56,7 @@ const ChatComponent = () => {
     }
   };
 
+  // Fetch messages
   const getMessages = async (conversationId) => {
     try {
       setLoadingMessages(true);
@@ -56,7 +81,6 @@ const ChatComponent = () => {
         ...prevUsers,
         [userId]: online,
       }));
-      console.log(userId);
     });
 
     return () => {
@@ -118,70 +142,73 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="flex overflow-hidden min-h-full max-h-full">
-      <div className="w-1/4 bg-gray-100 border-r border-gray-300 p-4 overflow-y-auto">
-        <h2 className="text-xl font-semibold mb-4">Companies</h2>
+    <Box className="flex overflow-hidden min-h-full max-h-full">
+      <Box
+        component="aside"
+        className="w-1/4 bg-gray-100 border-r border-gray-300 p-4 overflow-y-auto"
+      >
+        <Typography variant="h6" gutterBottom>
+          Companies
+        </Typography>
         {loadingCompanies ? (
-          <p>Loading companies...</p>
+          <CircularProgress />
         ) : (
-          <ul>
-            <li>
-              <input
-                type="text"
+          <List>
+            <ListItem>
+              <SearchInput
                 placeholder="Search by name or email"
-                className="w-full p-2 border rounded-lg"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                inputProps={{ "aria-label": "search" }}
               />
-            </li>
-            {companies.map((company) => (
-              <li
-                key={company._id}
-                className={`p-2 hover:bg-gray-200 mt-1 cursor-pointer rounded-lg 
-                  ${searchQuery !== "" ? "font-semibold" : ""}
-                  ${
-                    company._id === currentCompany?._id
-                      ? "bg-gray-200 font-semibold"
-                      : ""
-                  }`}
-                onClick={() => handleCompanyClick(company._id, company)}
-              >
-                {company.Name}
-                {onlineUsers[company._id] ? (
-                  <span className="ml-2 text-green-500">●</span>
-                ) : (
-                  <></>
-                )}
-              </li>
-            ))}
-          </ul>
+            </ListItem>
+            {companies
+              .filter((company) =>
+                company.Name.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map((company) => (
+                <ListItem
+                  key={company._id}
+                  button
+                  selected={company._id === currentCompany?._id}
+                  onClick={() => handleCompanyClick(company._id, company)}
+                >
+                  <ListItemText
+                    primary={company.Name}
+                    secondary={onlineUsers[company._id] ? "Online" : "Offline"}
+                  />
+                </ListItem>
+              ))}
+          </List>
         )}
-      </div>
-      <div className="w-3/4 flex flex-col relative max-h-[86vh] overflow-hidden">
+      </Box>
+      <Box className="w-3/4 flex flex-col relative max-h-[86vh] overflow-hidden">
         {currentCompany && (
-          <div className="p-2 bg-blue-400 text-white text-lg font-semibold rounded-t flex flex-col">
-            {currentCompany.Name}
-            <span className="text-sm">{currentCompany.Email}</span>
-          </div>
+          <Box className="p-2 bg-blue-400 text-white text-lg font-semibold rounded-t flex flex-col">
+            <Typography variant="h6">{currentCompany.Name}</Typography>
+            <Typography variant="body2">{currentCompany.Email}</Typography>
+          </Box>
         )}
-        <div
+        <Box
           className="flex-1 p-4 overflow-y-auto bg-gray-100"
           style={{ paddingBottom: "4rem" }}
         >
           {loadingMessages ? (
-            <p className="mx-auto">Loading messages...</p>
+            <CircularProgress />
           ) : (
-            <div className="messages flex flex-col p-2">
+            <Box className="messages flex flex-col p-2">
               {showOldMessages && (
-                <button
+                <Button
                   onClick={loadOldMessages}
-                  className="text-blue-500 mb-2 self-center"
+                  variant="text"
+                  color="primary"
+                  className="mb-2 self-center"
                 >
                   Load older messages
-                </button>
+                </Button>
               )}
-              {messages?.slice(-10).map((msg, index) => (
-                <div
+              {messages.slice(-10).map((msg, index) => (
+                <Box
                   key={index}
                   className={`p-2 my-2 rounded-lg inline-block max-w-xs ${
                     msg.senderId === studentId
@@ -189,33 +216,35 @@ const ChatComponent = () => {
                       : "bg-gray-200 text-left self-start"
                   }`}
                 >
-                  <div>{msg.message}</div>
-                  <div className="text-sm text-gray-500">
+                  <Typography variant="body1">{msg.message}</Typography>
+                  <Typography variant="caption" color="textSecondary">
                     {new Date(msg.timestamp).toLocaleString()}
-                  </div>
-                </div>
+                  </Typography>
+                </Box>
               ))}
               <div ref={messagesEndRef}></div>
-            </div>
+            </Box>
           )}
-        </div>
-        <div className="absolute bottom-0 left-0 w-full flex p-4 bg-white border-t border-gray-300">
-          <input
-            type="text"
+        </Box>
+        <Box className="absolute bottom-0 left-0 w-full flex p-4 bg-white border-t border-gray-300">
+          <InputBase
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a message..."
-            className="flex-1 p-2 border rounded-lg"
+            fullWidth
+            sx={{ padding: 1, borderRadius: 1, border: "1px solid #ccc" }}
           />
-          <button
+          <Button
             onClick={sendMessage}
-            className="ml-4 bg-blue-500 text-white rounded-lg p-2"
+            variant="contained"
+            color="primary"
+            sx={{ ml: 2 }}
           >
-            <i className="fa-solid fa-paper-plane"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+            Send
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
