@@ -44,6 +44,7 @@ function Signup() {
     const randomString = Math.random().toString(36).substring(2, 15);
     return timestamp + randomString;
   };
+
   const SendotpEmail = async () => {
     setLoading(true);
     const contact = useEmail ? Email : Number;
@@ -108,7 +109,7 @@ function Signup() {
         toast.error("Number is required", { autoClose: 1000 });
         return;
       }
-      
+
       if (Number.length !== 10 || isNaN(Number)) {
         toast.error("Phone number must be exactly 10 digits", {
           autoClose: 1000,
@@ -254,8 +255,6 @@ function Signup() {
                         <div className="flex items-center rounded mb-4 px-2">
                           <input
                             type={useEmail ? "email" : "text"}
-                            // placeholder="Email eg.john@doe.com"
-                            // className="rounded-lg border px-3 py-2 w-full"
                             placeholder={`Enter ${
                               useEmail ? "Email" : "Phone number"
                             } eg. ${useEmail ? "john@doe.com" : "1234567890"}`}
@@ -287,6 +286,7 @@ function Signup() {
                         </button>
                         <Button
                           onClick={useEmail ? SendotpEmail : SendOtptoNumber}
+                          // onClick={() => setShowDetail(true)}
                           className="w-[120px] h-[39px] bg-gradient-to-tl from-[#216ccf] to-[#216ccf] text-[#fff] text-[16px] font-[500]"
                           style={{
                             color: "#fff",
@@ -299,6 +299,7 @@ function Signup() {
                       </div>
                     </>
                   )}
+
                   {Showotp && (
                     <>
                       <>

@@ -1,61 +1,37 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
 import { PostApi } from "../utilis/Api_Calling";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  Button,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+} from "@mui/material";
+import {
+  predefinedJobTitles,
+  predefinedSkills,
+  predefinedLocations,
+} from "./SuggestionForRegister";
+import axios from "axios";
+
+const stepsHead = [
+  "Personal Information",
+  "Job Information",
+  "Additional Information",
+];
 
 const AddDetails = ({ Email, Number }) => {
   const navigate = useNavigate();
-  const [steps, setSteps] = useState(1);
+  const [steps, setSteps] = useState(2);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   const [jobTitles, setJobTitles] = useState([]);
   const [skills, setSkills] = useState([]);
   const [locations, setLocations] = useState([]);
-  const predefinedJobTitles = [
-    "Software Engineer",
-    "Business Development",
-    "Marketing Manager",
-    "Financial Analyst",
-    "Customer Success Manager",
-    "Data Scientist",
-    "Operations Specialist",
-    "Sales Representative",
-    "Content Strategist",
-    "UX/UI Designer",
-    "HR Coordinator",
-    "Legal Counsel",
-    "Product Manager",
-    "Quality Assurance Engineer",
-    "Project Coordinator",
-    "IT Support Specialist",
-    "Event Planner",
-    "Public Relations Coordinator",
-    "Supply Chain Analyst",
-    "Research Assistant",
-    "Graphic Designer",
-    "Executive Assistant",
-    "Social Media Specialist",
-    "Healthcare Administrator",
-    "Logistics Coordinator",
-  ];
-  const predefinedSkills = [
-    "JavaScript",
-    "Python",
-    "React",
-    "Node.js",
-    "CSS",
-    "HTML",
-    "Java",
-    "C++",
-    "SQL",
-    "Ruby",
-    "PHP",
-    "TypeScript",
-    "Swift",
-    "Go",
-    "Kotlin",
-  ];
-  const predefinedLocations = ["Indore", "Mumbai", "Pune", "Banglore"];
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
   const [jobData, setJobData] = useState({
     Name: "",
     Email,
@@ -73,14 +49,18 @@ const AddDetails = ({ Email, Number }) => {
     locations: [],
     values: [],
   });
+  const [recomSkills, setRecomSkills] = useState([]);
+
   const [sugInputs, setSugInputs] = useState({
     jobTitles: "",
     locations: "",
     skills: "",
   });
+
   const handleChange = (e) => {
     setJobData({ ...jobData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async () => {
     const fields = [
       { name: "Name", value: jobData.Name.trim() },
@@ -136,7 +116,7 @@ const AddDetails = ({ Email, Number }) => {
       }
     }
   };
-  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handleStep3 = () => {
     if (
       jobData.Name === "" ||
@@ -150,9 +130,11 @@ const AddDetails = ({ Email, Number }) => {
       });
     } else {
       setSteps(3);
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setFormSubmitted(false);
     }
   };
+
   const handleStep4 = () => {
     setFormSubmitted(true);
     if (jobData.youare === "workingProfessional") {
@@ -169,8 +151,10 @@ const AddDetails = ({ Email, Number }) => {
       }
     }
     setSteps(4);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setFormSubmitted(false);
   };
+
   const handleStep5 = () => {
     setFormSubmitted(true);
     if (jobData.jobTitles.length === 0 || !jobData.skills.length === 0) {
@@ -179,59 +163,41 @@ const AddDetails = ({ Email, Number }) => {
       });
       return;
     } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
       handleSubmit();
       setFormSubmitted(false);
     }
   };
+
   return (
     <>
-      {steps === 1 && (
-        <div className="min-w-[100vw] min-h-[100vh] bg-gray-100">
-          <div className="text-end p-5">
-            <Button variant="contained" color="primary">
-              Investors
-            </Button>
-          </div>
-          <div className="flex justify-center items-start gap-[13rem]">
-            <span className="min-w-[10vw]">Logo</span>
-            <div className="flex flex-col justify-center items-start mt-10 gap-10 w-full">
-              <div
-                className="flex flex-col w-[50vw] justify-center items-start border rounded-lg shadow-lg gap-5 p-10 hover:bg-gray-200 "
-                onClick={() => setSteps(2)}
-              >
-                <h2 className="text-4xl font-[600]">Find Work</h2>
-                <h6 className="text-xl font-[600] text-gray-400">
-                  Find jobs , freelancing entrepreneurs & consultants
-                </h6>
-              </div>
-              <div
-                className="flex flex-col w-[50vw] justify-center items-start border rounded-lg shadow-lg gap-5 p-10 hover:bg-gray-200 "
-                onClick={() => setSteps(2)}
-              >
-                <h2 className="text-4xl font-[600]">Hire Talent</h2>
-                <h6 className="text-xl font-[600] text-gray-400">
-                  Hire Employees , freelancers entrepreneurs & consultants
-                </h6>
-              </div>
-              <div
-                className="flex flex-col w-[50vw] justify-center items-start border rounded-lg shadow-lg gap-5 p-10 hover:bg-gray-200 "
-                onClick={() => setSteps(2)}
-              >
-                <h2 className="text-4xl font-[600]">Register as college</h2>
-                <h6 className="text-xl font-[600] text-gray-400">
-                  Some Details
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
       {steps === 2 && (
         <div className="flex min-w-[100vw] min-h-[100vh]">
           <div className="bg-blue-500 min-w-[22vw]">.</div>
           <div className="bg-blue-100 min-w-[1vw]"></div>
           <div className=" min-w-[77vw] flex flex-col justify-center p-10 items-center">
             <div className="w-full flex flex-col justify-center items-center">
+              <Box sx={{ width: "75%" }}>
+                <Stepper activeStep={activeStep}>
+                  {stepsHead.map((label, index) => {
+                    const stepProps = {};
+                    const labelProps = {};
+                    return (
+                      <Step key={label} {...stepProps}>
+                        <StepLabel
+                          {...labelProps}
+                          onClick={() => {
+                            setActiveStep(index);
+                            setSteps(index + 2);
+                          }}
+                        >
+                          {label}
+                        </StepLabel>
+                      </Step>
+                    );
+                  })}
+                </Stepper>
+              </Box>
               <h5 className="text-2xl font-semibold text-gray-400">
                 Personal Information
               </h5>
@@ -383,12 +349,34 @@ const AddDetails = ({ Email, Number }) => {
           </div>
         </div>
       )}
+
       {steps === 3 && (
         <div className="flex min-w-[100vw] min-h-[100vh]">
           <div className="bg-blue-500 min-w-[22vw]">.</div>
           <div className="bg-blue-100 min-w-[1vw]"></div>
           <div className=" min-w-[77vw] flex flex-col justify-start p-10 items-center">
             <div className="w-full flex flex-col justify-start items-center pt-10">
+              <Box sx={{ width: "75%" }}>
+                <Stepper activeStep={activeStep}>
+                  {stepsHead.map((label, index) => {
+                    const stepProps = {};
+                    const labelProps = {};
+                    return (
+                      <Step key={label} {...stepProps}>
+                        <StepLabel
+                          {...labelProps}
+                          onClick={() => {
+                            setActiveStep(index);
+                            setSteps(index + 2);
+                          }}
+                        >
+                          {label}
+                        </StepLabel>
+                      </Step>
+                    );
+                  })}
+                </Stepper>
+              </Box>
               <h5 className="text-gray-500 text-3xl font-semibold mb-3">
                 Work Experience
               </h5>
@@ -499,7 +487,7 @@ const AddDetails = ({ Email, Number }) => {
                       industries you're experinced in ?
                     </label>
                     <select
-                      className={`bg-gray-100 min-w-full p-3 border rounded-md my-2 bg-white text-gray-600 ${
+                      className={`bg-gray-100 min-w-full p-3 border rounded-md my-2  text-gray-600 ${
                         formSubmitted && !jobData.exprienceIn
                           ? "border-red-500"
                           : ""
@@ -528,7 +516,7 @@ const AddDetails = ({ Email, Number }) => {
                       Total years of experience
                     </label>
                     <select
-                      className={`bg-gray-100 min-w-full p-3 border rounded-md my-2 bg-white text-gray-600 ${
+                      className={`bg-gray-100 min-w-full p-3 border rounded-md my-2  text-gray-600 ${
                         formSubmitted && !jobData.Experience
                           ? "border-red-500"
                           : ""
@@ -588,12 +576,34 @@ const AddDetails = ({ Email, Number }) => {
           </div>
         </div>
       )}
+
       {steps === 4 && (
         <div className="flex min-w-[100vw] min-h-[100vh]">
           <div className="bg-blue-500 min-w-[22vw]">.</div>
           <div className="bg-blue-100 min-w-[1vw]"></div>
           <div className=" min-w-[77vw] flex flex-col justify-start p-5 items-center">
             <div className="w-full flex flex-col justify-start items-center">
+              <Box sx={{ width: "75%" }}>
+                <Stepper activeStep={activeStep}>
+                  {stepsHead.map((label, index) => {
+                    const stepProps = {};
+                    const labelProps = {};
+                    return (
+                      <Step key={label} {...stepProps}>
+                        <StepLabel
+                          {...labelProps}
+                          onClick={() => {
+                            setActiveStep(index);
+                            setSteps(index + 2);
+                          }}
+                        >
+                          {label}
+                        </StepLabel>
+                      </Step>
+                    );
+                  })}
+                </Stepper>
+              </Box>
               <h5 className="text-gray-500 text-2xl font-semibold mb-2 mt-5">
                 Additioanl Information
               </h5>
@@ -630,11 +640,11 @@ const AddDetails = ({ Email, Number }) => {
                       } else {
                         setJobTitles([]);
                       }
-                      setSelectedSuggestionIndex(-1); 
+                      setSelectedSuggestionIndex(-1);
                     }}
-                    onKeyDown={(e) => {
+                    onKeyDown={async (e) => {
                       if (e.key === "Enter") {
-                        e.preventDefault(); 
+                        e.preventDefault();
                         if (
                           selectedSuggestionIndex !== -1 &&
                           jobTitles.length > 0
@@ -654,6 +664,28 @@ const AddDetails = ({ Email, Number }) => {
                             jobTitles: "",
                           }));
                           setJobTitles([]);
+                          try {
+                            const response = await axios.post(
+                              "https://get-hire-ai.vercel.app/job-suggestion",
+                              {
+                                jobTitle: jobData?.jobTitles,
+                                suggestionFor:
+                                  "Skill Required i send array in jobtitles so send skills fir all send all skills in  strings comma seprate",
+                              },
+                              {
+                                headers: {
+                                  "Content-Type": "application/json",
+                                  Accept: "application/json",
+                                },
+                              }
+                            );
+                            const newSkills = response?.data?.res
+                              .split(",")
+                              .map((skill) => skill.trim());
+                            setRecomSkills(newSkills);
+                          } catch (error) {
+                            console.log(error);
+                          }
                           setSelectedSuggestionIndex(-1);
                         } else if (sugInputs.jobTitles.trim() !== "") {
                           const newTitle = sugInputs.jobTitles.trim();
@@ -695,7 +727,7 @@ const AddDetails = ({ Email, Number }) => {
                               ? "bg-gray-200"
                               : ""
                           }`}
-                          onClick={() => {
+                          onClick={async () => {
                             setJobData((prev) => {
                               setSugInputs((prev1) => ({
                                 ...prev1,
@@ -715,6 +747,28 @@ const AddDetails = ({ Email, Number }) => {
                               setJobTitles([]);
                               return prev;
                             });
+                            try {
+                              const response = await axios.post(
+                                "https://get-hire-ai.vercel.app/job-suggestion",
+                                {
+                                  jobTitle: jobData?.jobTitles,
+                                  suggestionFor:
+                                    "Skill Required i send array in jobtitles so send skills fir all send all skills in  strings comma seprate",
+                                },
+                                {
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    Accept: "application/json",
+                                  },
+                                }
+                              );
+                              const newSkills = response?.data?.res
+                                .split(",")
+                                .map((skill) => skill.trim());
+                              setRecomSkills(newSkills);
+                            } catch (error) {
+                              console.log(error);
+                            }
                             setSelectedSuggestionIndex(-1);
                           }}
                         >
@@ -880,6 +934,33 @@ const AddDetails = ({ Email, Number }) => {
                       </span>
                     ))}
                   </div>
+                )}
+                {recomSkills.length !== 0 && (
+                  <>
+                    <div className="text-lg font-semibold text-gray-400 mt-2">
+                      AI Recomended Skill
+                    </div>
+                    <hr />
+                    <div className="flex flex-wrap">
+                      {recomSkills?.map((skill, index) => (
+                        <div
+                          className="text-blue-600 border border-blue-100  rounded-full py-1 px-4 text-sm font- cursor-pointer m-2 hover:bg-blue-100"
+                          onClick={() => {
+                            const updatedSkills = [...jobData.skills, skill];
+                            setJobData((prev) => ({
+                              ...prev,
+                              skills: updatedSkills,
+                            }));
+                            setRecomSkills((prev) =>
+                              prev.filter((s, i) => i !== index)
+                            );
+                          }}
+                        >
+                          {skill}
+                        </div>
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
 
