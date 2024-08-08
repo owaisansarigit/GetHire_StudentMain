@@ -4,8 +4,13 @@ import { FiAlignJustify } from "react-icons/fi";
 import InternshipModal from "../../Pages/Internship/InternshipModal";
 import Logo from "../../assets/Images/Gethire SVG.svg";
 import { Menu, MenuItem, IconButton } from "@mui/material";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { styled, alpha } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { styled } from "@mui/material/styles";
 
 const DropdownLink = styled(Link)(({ theme }) => ({
   display: "flex",
@@ -13,6 +18,48 @@ const DropdownLink = styled(Link)(({ theme }) => ({
   alignItems: "center",
   gap: "6px",
   textDecoration: "none",
+}));
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+  border: "1px solid gray",
+  borderRadius: "20px",
 }));
 
 const Header = () => {
@@ -157,10 +204,10 @@ const Header = () => {
     }
   };
 
-
   // material
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -179,12 +226,14 @@ const Header = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-menu" : undefined;
+  const open2 = Boolean(anchorEl2);
+  const id2 = open ? "simple-menu" : undefined;
 
   return (
     <>
-      <div className="bg-[#fff] h-[100px] w-full flex justify-between items-center p-[37px]">
-        <div className="flex justify-center items-center text-[#2a5caa]">
-          <img src={Logo} className="h-[3rem]" alt="" />
+      <div className="bg-[#fff] h-[70px] w-full flex justify-start items-center p-[10px] pl-20">
+        <div className="flex justify-center items-center text-[#2a5caa] mr-10">
+          <img src={Logo} className="h-[2rem]" alt="" />
         </div>
         <div onClick={toggleNavbar} className="flex md:hidden">
           <FiAlignJustify size={"30px"} />
@@ -192,8 +241,7 @@ const Header = () => {
         <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[43px]  font-[Outfit]">
           <Link to="/">Home</Link>
           <div
-            // onClick={toggleInternshipDropDown}
-            onClick={() => navigate("/blank/Jobs")}
+            onClick={toggleInternshipDropDown}
             className="relative cursor-pointer"
           >
             Internship
@@ -252,16 +300,45 @@ const Header = () => {
               </div>
             </div>
           )}
-          <Link to="/blank/Jobs">Jobs</Link>
-          {/* <Link to="/blank/clubs">Clubs</Link>
-          <div className="flex flex-col lg:flex-row gap-[8px] bg-[#e7f6ff] rounded-[8px] px-[14px] py-[12px]">
-            <p className="text-[18px] font-[400] text-[#4234a2]">Switch Mode</p>
-            <img
-              src="/images/icon-park-outline_switch.svg"
-              className="w-[24px] h-[24px]"
-              alt=""
+
+          <div className="relative">
+            <Link
+              onClick={(event) => setAnchorEl2(event.currentTarget)}
+              sx={{ cursor: "pointer" }}
+            >
+              Jobs
+            </Link>
+            <div className="absolute top-2" style={{ left: "-5rem" }}>
+              <Popover
+                id={id}
+                open={open2}
+                anchorEl={anchorEl2}
+                onClose={() => setAnchorEl2(null)}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+              >
+                <Typography sx={{ p: 2 }}>
+                  The content of the Popover.
+                </Typography>
+                <Link to="/blank/Jobs">Jobs</Link>
+              </Popover>
+            </div>
+          </div>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
             />
-          </div> */}
+          </Search>
+
+          <div className="border flex justify-center items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
+            AI Tools
+          </div>
           <Link to="/blank/bookmarked">
             <img
               src="/images/iconoir_bookmark.svg"
@@ -275,6 +352,9 @@ const Header = () => {
               className="w-[24px] h-[24px]"
               alt=""
             />
+          </Link>
+          <Link to={"/notification"}>
+            <i className="fa-regular fa-bell cursor-pointer"></i>
           </Link>
           <div>
             <DropdownLink onClick={handleClick}>

@@ -396,7 +396,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className="border rounded-2xl p-5 min-h-[70vh] bg-white min-w-[15vw]">
+    <div className="border rounded-2xl p-5 min-h-[60vh] bg-white min-w-[15vw]">
       <div className="profile w-full flex flex-col justify-start items-center">
         <img
           className="h-20"
