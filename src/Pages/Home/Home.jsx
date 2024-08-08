@@ -132,7 +132,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="py-[14px] pl-[16px] pr-[14.56px] font-[Outfit]">
+      <div className="py-[14px] pl-[16px] pr-[14.56px] font-[Outfit] ">
         <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-6  lg:gap-[27px]">
           <div className="bg-white w-full col-start-1 col-end-7 mb-[59px]  px-[29px] py-[42px] flex border-[1px] border-[#efecec] rounded-[30px]">
             <div className="w-full  flex-col lg:flex-row flex gap-[5px]">

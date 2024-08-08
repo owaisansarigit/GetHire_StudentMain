@@ -123,10 +123,9 @@ const JobViewDetails = () => {
         <div>Loading</div>
       ) : (
         <div className="py-[28px] px-[20px] flex flex-col w-full justify-center items-center font-[Outfit]">
-          <p className="text-[32px] font-[400] lg:w-[998px] text-center flex-wrap ">
-            {Jobdetail?.positionName} {Jobdetail?.addlocation} job/internship at{" "}
-            {Jobdetail?.Company?.Name}
-          </p>
+          <div className="border rounded-xl w-[75%]">
+            <h1>{Jobdetail?.positionName}</h1>
+          </div>
           <div className="bg-white rounded-[16px] lg:w-[998px] mt-[27px] border-[1px] border-[#efecec] p-[29px]">
             <div className="border-[1px] rounded-[3px] w-[125px] h-[26px] p-[4px] border-[#d9d9d9] flex items-center gap-[7px]">
               <img
