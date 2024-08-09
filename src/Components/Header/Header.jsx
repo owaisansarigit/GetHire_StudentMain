@@ -655,21 +655,28 @@ const Header = () => {
 
       {
         mode && (
-          <div className="flex flex-col items-center p-2 bg-gray-50 rounded-lg shadow-lg max-w-sm mx-auto">
+          <div className="flex flex-col items-center bg-gray-50 rounded-2xl max-w-xs mx-auto">
               {workItems.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => handleNavigation(item.link)}
-                  className="flex flex-col items-center p-2 mb-2 bg-white rounded-md shadow-sm hover:shadow-md transform hover:scale-105 transition duration-300 cursor-pointer w-full"
+                  className="group flex flex-col p-2 bg-white hover:bg-blue-800 hover:text-white transform transition duration-300 cursor-pointer w-full rounded-md shadow-md"
                 >
-                  <div className="flex items-center gap-1 mb-1">
-                    <p className="text-xs text-blue-500 font-semibold">{item.title}</p>
-                    <p className="text-blue-500 text-lg">{item.icon}</p>
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-semibold">{item.title}</p>
+                      <p className="text-lg">{item.icon}</p>
+                    </div>
+                    <div>
+                      <input type="radio" className="form-radio h-4 w-4 text-blue-500" disabled />
+                    </div>
                   </div>
-                  <p className="text-center text-gray-600 text-xs">{item.description}</p>
+                  <p className="mt-1 text-sm text-gray-600 group-hover:text-white">{item.description}</p>
                 </div>
               ))}
             </div>
+
+        
         )
       }
 

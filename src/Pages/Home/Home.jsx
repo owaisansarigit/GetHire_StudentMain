@@ -486,7 +486,7 @@ const dummyJobs = [
                   onClick={() => {
                     setselectedtab("MyJobs");
                   }}
-                  className={`pb-[12px] px-[30px] ${
+                  className={`pb-[12px] px-[30px] hover:cursor-pointer ${
                     selectedtab === "MyJobs"
                       ? "border-b-[3px] text-[#5356e9]  border-[#5356e9]"
                       : "border-b-[3px] border-[#D9D9D9]"
@@ -498,7 +498,7 @@ const dummyJobs = [
                   onClick={() => {
                     setselectedtab("MyInterview");
                   }}
-                  className={`pb-[12px] pl-[14px] pr-[27px] ${
+                  className={`pb-[12px] pl-[14px] pr-[27px] hover:cursor-pointer ${
                     selectedtab === "MyInterview"
                       ? "border-b-[3px] text-[#5356e9]  border-[#5356e9]"
                       : "border-b-[3px] border-[#D9D9D9]"
@@ -750,6 +750,7 @@ const dummyJobs = [
                               )}
 
                         </div>  */}
+                        {selectedtab === "MyJobs" && 
                            <div className="relative">
                             <div className="flex flex-wrap gap-4">
                               {allappiledjobs.map((job, index) => (
@@ -758,7 +759,7 @@ const dummyJobs = [
                                   onClick={() => handleJobClick(job)}
                                   className="bg-[#fff] p-[16px] rounded-[16px] shadow-xl hover:shadow-2xl cursor-pointer"
                                 >
-                                  <div className="flex justify-between items-center">
+                                  <div className="flex justify-between items-center gap-16">
                                     <p className="text-[20px] font-[600]">{job?.JobId?.positionName}</p>
                                     <img src="/images/material-symbols-light_share.svg" alt="Share" />
                                   </div>
@@ -768,30 +769,70 @@ const dummyJobs = [
                                   </div>
                                   <div className="flex mt-[15px] gap-7 justify-between">
                                     <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.time}</p>
-                                    <p className="text-red-500">{job?.JobId?.result}</p>
+                                    {/* <p className="text-red-500">{job?.JobId?.result}</p> */}
+                                      {job?.JobId?.result === 'Cleared' ? (
+                                          <p className=" text-blue-500"> {job?.JobId?.result}</p> 
+                                        ) : (
+                                            <p className=" text-red-500">X {job?.JobId?.result}</p> 
+                                          )}
                                   </div>
                                 </div>
                               ))}
                             </div>
 
                             {selectedJob && (
-                              <div
-                                className="absolute top-0 right-0 h-96 bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]"
-                                style={{ width: '300px', top: '10px', right: '10px' }}
-                              >
-                                <h2 className="text-[20px] font-[600]">{selectedJob.JobId.positionName}</h2>
-                                <p><strong>Location:</strong> {selectedJob.JobId.location}</p>
-                                <p><strong>Time:</strong> {selectedJob.JobId.time}</p>
-                                <p><strong>Result:</strong> {selectedJob.JobId.result}</p>
-                                <div className="flex items-center mt-4">
-                                  <img src={selectedJob.CompanyId.Image} className="w-[38px] h-[38px] rounded-[50%]" alt="Company" />
-                                  <div className="ml-2">
-                                    <p className="text-[15px] font-[500]">{selectedJob.CompanyId.Name}</p>
-                                  </div>
-                                </div>
-                              </div>
+                             <div
+                             className="absolute top-0 right-0 h-full w-[500px] bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]"
+                             style={{ top: '10px', right: '-430px' }}
+                           >
+                             <div className="flex flex-row  justify-between">
+                               <div>
+                                 <h2 className="text-[20px] font-[600]">{selectedJob.JobId.positionName}</h2>
+                                 <p> {selectedJob.JobId.location}</p>
+                               </div>
+                               <div>
+                                 <button className=" bg-blue-600 p-2 rounded-md shadow-lg text-white hover:bg-blue-900 hover:shadow-2xl "
+                                  onClick={()=> alert("View job button is clicked")} >
+                                  View Jobs</button>
+                               </div>
+                             </div>
+                               <hr className="border-t-2 border-gray-300 my-4" />
+                               <p className=" text-xl ">Application status</p>
+                               <div className=" ml-4">
+                                 <p>Applied</p>
+                                 <div className="flex flex-row gap-10">
+                                        {selectedJob.JobId.result === 'Cleared' ? (
+                                          <p className=" text-blue-500"> {selectedJob.JobId.result}</p> 
+                                        ) : (
+                                            <p className=" text-red-500">X {selectedJob.JobId.result}</p> 
+                                          )}
+                                   <div className="flex flex-col">
+                                       <button className="text-blue-500 hover:text-blue-700">View Feedback</button>
+                                       <hr className="border-t-1 border-blue-300 " />
+                                   </div>
+                                 </div>
+                                   <p className="text-blue-600">On 7 Aug 2024</p>
+                               </div>
+                             {/* <p><strong>Time:</strong> {selectedJob.JobId.time}</p>
+                             <p><strong>Result:</strong> {selectedJob.JobId.result}</p> */}
+                             <div className="flex items-center mt-7">
+                               <div className="">
+                                 <p className="text-base font-extralight ">Our Suggested Product</p>
+                                 <div className=" ml-3 mt-3">
+                                    <p className=" text-red-500 text-xl">Profile Boost</p>
+                                    <p className=" font-extralight ">Your application would be shown on priority list to the recruiter</p>
+                                      <div className="flex flex-row gap-5 mt-4  ">
+                                         <button className="hover:text-blue-500 hover:scale-105 duration-300">Buy Now</button>
+                                         <button className=" text-red-400 hover:scale-105 duration-300">Explore</button>
+                                      </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                           
                             )}
                           </div>
+                           }
 
 
 
