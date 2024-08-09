@@ -1,3 +1,194 @@
+// import React, { useEffect, useState } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import moment from "moment";
+// import "react-circular-progressbar/dist/styles.css";
+// import { GetApi } from "../utilis/Api_Calling";
+
+// const Home = () => {
+//   const navigate = useNavigate();
+  
+//   const dummyJobs = [
+//     {
+//       JobId: {
+//         _id: "job1",
+//         positionName: "Software Engineer",
+//         location: "New York, NY",
+//         minExp: 2,
+//         maxExp: 5,
+//         maxSalary: 120000,
+//         Openings: 3,
+//         time: "2 days ago",
+//         result: "Not shortlisted",
+//       },
+//       CompanyId: {
+//         Image: "/images/company1.png",
+//         Name: "Tech Innovations Inc.",
+//       },
+//     },
+//     {
+//       JobId: {
+//         _id: "job2",
+//         positionName: "Product Manager",
+//         location: "San Francisco, CA",
+//         minExp: 4,
+//         maxExp: 7,
+//         maxSalary: 150000,
+//         Openings: 2,
+//         time: "2 days ago",
+//         result: "Resume Rejected",
+//       },
+//       CompanyId: {
+//         Image: "/images/company2.png",
+//         Name: "Product Solutions LLC",
+//       },
+//     },
+//     {
+//       JobId: {
+//         _id: "job3",
+//         positionName: "UI/UX Designer",
+//         location: "Chicago, IL",
+//         minExp: 1,
+//         maxExp: 3,
+//         maxSalary: 80000,
+//         Openings: 5,
+//         time: "2 days ago",
+//         result: "Cleared",
+//       },
+//       CompanyId: {
+//         Image: "/images/company3.png",
+//         Name: "Creative Studios",
+//       },
+//     },
+//   ];
+
+//   const [selectedtab, setselectedtab] = useState("MyJobs");
+//   const [Loading, setLoading] = useState(true);
+//   const [allappiledjobs, setallappiledjobs] = useState(dummyJobs);
+//   const [selectedJob, setSelectedJob] = useState(dummyJobs[0]); // Initialize with the first job
+
+//   // Handle job card click
+//   const handleJobClick = (job) => {
+//     setSelectedJob(job);
+//   };
+
+//   useEffect(() => {
+//     setLoading(false);
+//   }, []);
+
+//   return (
+//     <div className="py-[14px] pl-[16px] pr-[14.56px] font-[Outfit]">
+//       <div className="w-full border rounded-3xl p-5 min-h-[20vh] my-5 flex justify-start items-start bg-[#13d0a6] text-white flex-col">
+//         <h2 className="text-xl font-bold">Climb the career ladder</h2>
+//         <br />
+//         <p>gethire ai tools and resources to help you take your career to the next level</p>
+//         <br />
+//         <button className="px-3 py-1 bg-blue-500 text-white font-semibold rounded-3xl mt-5">
+//           Get Started
+//         </button>
+//       </div>
+      
+//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//         <div className="bg-white col-span-1 lg:col-span-1 px-6 py-6 rounded-3xl border-2 border-gray-200">
+//           <div className="text-[24px] flex w-full font-[400] justify-center items-center text-[#545454] mb-4">
+//             <div className="flex-col lg:flex-row gap-10 flex">
+//               <div
+//                 onClick={() => {
+//                   setselectedtab("MyJobs");
+//                 }}
+//                 className={`pb-[12px] px-[30px] cursor-pointer ${
+//                   selectedtab === "MyJobs"
+//                     ? "border-b-[3px] text-[#5356e9]  border-[#5356e9]"
+//                     : "border-b-[3px] border-[#D9D9D9]"
+//                 }`}
+//               >
+//                 Applied
+//               </div>
+//               <div
+//                 onClick={() => {
+//                   setselectedtab("MyInterview");
+//                 }}
+//                 className={`pb-[12px] pl-[14px] pr-[27px] cursor-pointer ${
+//                   selectedtab === "MyInterview"
+//                     ? "border-b-[3px] text-[#5356e9]  border-[#5356e9]"
+//                     : "border-b-[3px] border-[#D9D9D9]"
+//                 }`}
+//               >
+//                 Interviews
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="space-y-4 overflow-auto h-[60vh]">
+//             {allappiledjobs.map((job, index) => (
+//               <div
+//                 key={index}
+//                 onClick={() => handleJobClick(job)}
+//                 className={`cursor-pointer bg-white p-4 rounded-xl shadow-sm border ${
+//                   selectedJob.JobId._id === job.JobId._id ? "border-blue-500" : "border-gray-200"
+//                 }`}
+//               >
+//                 <div className="flex items-center justify-between">
+//                   <div>
+//                     <h4 className="text-lg font-semibold">{job.JobId.positionName}</h4>
+//                     <p className="text-sm text-gray-600">{job.JobId.location}</p>
+//                     <p className="text-sm text-gray-500 mt-2">{job.JobId.time}</p>
+//                   </div>
+//                   <img
+//                     src={job.CompanyId.Image}
+//                     alt={job.CompanyId.Name}
+//                     className="w-12 h-12 rounded-full"
+//                   />
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+        
+//         <div className="bg-white col-span-1 lg:col-span-1 p-6 rounded-3xl border-2 border-gray-200 h-[60vh] overflow-auto">
+//           {selectedJob ? (
+//             <div>
+//               <h3 className="text-2xl font-bold mb-4">{selectedJob.JobId.positionName}</h3>
+//               <p className="text-lg font-semibold mb-2">Company: {selectedJob.CompanyId.Name}</p>
+//               <p className="text-gray-700 mb-4">{selectedJob.JobId.location}</p>
+//               <p className="text-gray-600 mb-4">
+//                 Experience Required: {selectedJob.JobId.minExp} - {selectedJob.JobId.maxExp} years
+//               </p>
+//               <p className="text-gray-600 mb-4">Salary: Rs. {selectedJob.JobId.maxSalary}</p>
+//               <p className="text-gray-600 mb-4">Openings: {selectedJob.JobId.Openings}</p>
+//               <p className="text-gray-600 mb-4">Application Status: {selectedJob.JobId.result}</p>
+//             </div>
+//           ) : (
+//             <p>Select a job to see the details.</p>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -190,6 +381,19 @@ const dummyJobs = [
   };
 
 
+
+  // for jobs
+  const [selectedJob, setSelectedJob] = useState(allappiledjobs[0]); // Initialize with the first job
+
+  // Handle job card click
+  const handleJobClick = (job) => {
+    setSelectedJob(job);
+  };
+
+  useEffect(() => {
+    // Optionally, you could fetch or process additional data when a job is selected
+  }, [selectedJob]);
+
   return (
     <>
       <div className="py-[14px] pl-[16px] pr-[14.56px] font-[Outfit] ">
@@ -351,7 +555,8 @@ const dummyJobs = [
                   </p>
                 </div>
               </div> */}
-              {selectedtab === "AllJobs" &&
+
+              {/* {selectedtab === "AllJobs" &&
                 AllJobs?.map((job, index) => {
                   const isJobApplied = appiledjobs.includes(job._id);
                   return (
@@ -415,9 +620,6 @@ const dummyJobs = [
                           </p>
                         </div>
                         <div className="w-[115px] flex justify-center h-[30px] rounded-[8px] items-center border-[1px] border-[#d9d9d9] text-[#4234a2]">
-                          {/* <p className="text-[14px] font-[400]">
-                            Rs. {formatSalary(job?.maxSalary)}
-                          </p> */}
                           <p className="text-[11px] font-[400]">
                             Rs. {job?.minSalary} to {job?.maxSalary}
                           </p>
@@ -460,105 +662,140 @@ const dummyJobs = [
                 <div className="flex justify-center items-center text-2xl">
                   Loading...
                 </div>
-              )}
+              )} */}
 
 
               {/* --------------------------------------------------------------------------------- */}
-              {selectedtab === "MyJobs" &&
+              {/* {selectedtab === "MyJobs" && 
                 allappiledjobs?.map((job, index) => {
                   const jobId = job?.JobId?._id;
                   const takenTest = hasTakenTest(jobId);
                   return (
                     <div
                       key={index}
-                      className="bg-[#fff] p-[16px] rounded-[16px] shadow-sm"
+                      className="bg-[#fff] p-[16px] rounded-[16px] shadow-xl hover:shadow-2xl "
                      >
-                      <div className="flex justify-between items-center">
-                        <p className="text-[20px] font-[600]">
-                          {job?.JobId?.positionName}
-                        </p>
-                        <img
-                          src="/images/material-symbols-light_share.svg"
-                          alt=""
-                        />
-                      </div>
-                      <div className="flex gap-[7px] mt-[15px]">
-                        <img
-                          src="/images/carbon_location.svg"
-                          className="w-[15.13px] h-[19.25px]"
-                          alt=""
-                        />
-                        <p className="text-black text-opacity-[50%] text-[14px] font-[400]">
-                          {job?.JobId?.location}
-                        </p>
-                      </div>
-                      <div>
-                        <p>{job?.JobId?.time}</p>
-                        <p>{job?.JobId?.result}</p>
-                      </div>
-                      {/* <div className="flex flex-col lg:flex-row gap-[16px] mt-[10px]">
-                        <div className="w-[150px] justify-center h-[30px] rounded-[8px] items-center border-[1px] border-[#d9d9d9] text-black text-opacity-[50%] flex gap-[4px]">
-                          <img
-                            src="/images/home.svg"
-                            className="w-[18px] h-[18px]"
-                            alt=""
-                          />
-                          <p className="text-[14px] font-[400]">
-                            Work From Home
-                          </p>
-                        </div>
-                        <div className="w-[95.75px] justify-center h-[30px] rounded-[8px] items-center border-[1px] border-[#d9d9d9] text-black text-opacity-[50%] flex gap-[4px]">
-                          <img src="/images/bytesize_work.svg" alt="" />
-                          <p className="text-[10px] font-[400]">
-                            {job?.JobId?.minExp} to {job?.JobId?.maxExp} Years
-                          </p>
-                        </div>
-                        <div className="w-[65px] flex justify-center h-[30px] rounded-[8px] items-center border-[1px] border-[#d9d9d9] text-[#4234a2]">
-                          <p className="text-[11px] font-[400]">
-                            Rs. {job?.JobId?.maxSalary}
-                          </p>
-                        </div>
-                      </div> */}
-                      {/* <div className="flex flex-col lg:flex-row w-full gap-[20px] justify-between mt-[20px] lg:items-center">
-                        <div className="flex gap-[10px]">
-                          <img
-                            src={job?.CompanyId?.Image}
-                            className="w-[38px] h-[38px] rounded-[50%]"
-                            alt=""
-                          />
-                          <div>
-                            <p className="text-[15px] font-[500]">
-                              {job?.CompanyId?.Name}
+                      
+
+                          <div className="flex justify-between items-center">
+                            <p className="text-[20px] font-[600]">
+                              {job?.JobId?.positionName}
                             </p>
-                            <p className="text-[13px] font-[400] text-black text-opacity-[50%]">
-                              Available Post {job?.JobId?.Openings}
+                            <img
+                              src="/images/material-symbols-light_share.svg"
+                              alt=""
+                            />
+                          </div>
+                          <div className="flex gap-[7px] mt-[15px]">
+                            <img
+                              src="/images/carbon_location.svg"
+                              className="w-[15.13px] h-[19.25px]"
+                              alt=""
+                            />
+                            <p className="text-black text-opacity-[50%] text-[14px] font-[400]">
+                              {job?.JobId?.location}
                             </p>
                           </div>
-                        </div>
-                        <button
-                          disabled
-                          className="w-[70px] text-[14px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
-                        >
-                          Applied
-                        </button>
-                        {!takenTest && (
-                          <button
-                            onClick={() => navigate(`/blank/question/${jobId}`)}
-                            className="w-[70px] text-[14px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
-                          >
-                            Start Test
-                          </button>
-                        )}
-                        <button
-                          onClick={() => navigate(`/blank/start/${jobId}`)}
-                          className="w-[70px] text-[14px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
-                        >
-                          Video Test
-                        </button>
-                      </div> */}
+                          <div className="flex  mt-[15px] gap-7 justify-between  ">
+                                <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.time}</p>
+                                <p className=" text-red-500 ">{job?.JobId?.result}</p>
+                          </div>
+                     
                     </div>
                   );
-                })}
+                })} */}
+
+                
+                     
+                      {/* <div className="relative">
+                          <div className="flex flex-wrap gap-4">
+                            {allappiledjobs.map((job, index) => (
+                              <div
+                                key={index}
+                                onClick={() => handleJobClick(job)}
+                                className="bg-[#fff] p-[16px] rounded-[16px] shadow-xl hover:shadow-2xl cursor-pointer"
+                              >
+                                <div className="flex justify-between items-center">
+                                  <p className="text-[20px] font-[600]">{job?.JobId?.positionName}</p>
+                                  <img src="/images/material-symbols-light_share.svg" alt="Share" />
+                                </div>
+                                <div className="flex gap-[7px] mt-[15px]">
+                                  <img src="/images/carbon_location.svg" className="w-[15.13px] h-[19.25px]" alt="Location" />
+                                  <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.location}</p>
+                                </div>
+                                <div className="flex mt-[15px] gap-7 justify-between">
+                                  <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.time}</p>
+                                  <p className="text-red-500">{job?.JobId?.result}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          {selectedJob && (
+                                <div
+                                  className="absolute top-0 right-0 h-96 bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]"
+                                  style={{ width: '300px', top: '10px', right: '10px' }}
+                                >
+                                  <h2 className="text-[20px] font-[600]">{selectedJob.JobId.positionName}</h2>
+                                  <p><strong>Location:</strong> {selectedJob.JobId.location}</p>
+                                  <p><strong>Time:</strong> {selectedJob.JobId.time}</p>
+                                  <p><strong>Result:</strong> {selectedJob.JobId.result}</p>
+                                  <div className="flex items-center mt-4">
+                                    <img src={selectedJob.CompanyId.Image} className="w-[38px] h-[38px] rounded-[50%]" alt="Company" />
+                                    <div className="ml-2">
+                                      <p className="text-[15px] font-[500]">{selectedJob.CompanyId.Name}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+
+                        </div>  */}
+                           <div className="relative">
+                            <div className="flex flex-wrap gap-4">
+                              {allappiledjobs.map((job, index) => (
+                                <div
+                                  key={index}
+                                  onClick={() => handleJobClick(job)}
+                                  className="bg-[#fff] p-[16px] rounded-[16px] shadow-xl hover:shadow-2xl cursor-pointer"
+                                >
+                                  <div className="flex justify-between items-center">
+                                    <p className="text-[20px] font-[600]">{job?.JobId?.positionName}</p>
+                                    <img src="/images/material-symbols-light_share.svg" alt="Share" />
+                                  </div>
+                                  <div className="flex gap-[7px] mt-[15px]">
+                                    <img src="/images/carbon_location.svg" className="w-[15.13px] h-[19.25px]" alt="Location" />
+                                    <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.location}</p>
+                                  </div>
+                                  <div className="flex mt-[15px] gap-7 justify-between">
+                                    <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.time}</p>
+                                    <p className="text-red-500">{job?.JobId?.result}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            {selectedJob && (
+                              <div
+                                className="absolute top-0 right-0 h-96 bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]"
+                                style={{ width: '300px', top: '10px', right: '10px' }}
+                              >
+                                <h2 className="text-[20px] font-[600]">{selectedJob.JobId.positionName}</h2>
+                                <p><strong>Location:</strong> {selectedJob.JobId.location}</p>
+                                <p><strong>Time:</strong> {selectedJob.JobId.time}</p>
+                                <p><strong>Result:</strong> {selectedJob.JobId.result}</p>
+                                <div className="flex items-center mt-4">
+                                  <img src={selectedJob.CompanyId.Image} className="w-[38px] h-[38px] rounded-[50%]" alt="Company" />
+                                  <div className="ml-2">
+                                    <p className="text-[15px] font-[500]">{selectedJob.CompanyId.Name}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+
+
+
 
 
                 {/* -------------------------------------------------------------- */}
