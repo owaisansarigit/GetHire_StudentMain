@@ -120,7 +120,9 @@ const JobViewDetails = () => {
   return (
     <>
       {Loading ? (
-        <div>Loading</div>
+        <div className="bg-white flex justify-center pt-20 min-w-[100vw] min-h-[100vh] text-2xl">
+          Loading...
+        </div>
       ) : (
         <div className="py-[28px] px-[20px] flex flex-col w-full justify-center items-center font-[Outfit]">
           <div className="border rounded-xl w-[75%]">

@@ -252,7 +252,7 @@ const Jobs = () => {
                           jobDetail(job?._id);
                         }}
                         key={index}
-                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5"
+                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5 cursor-pointer"
                       >
                         <div className="mt-[8px]">
                           <div className="flex justify-between gap-[20px]">
