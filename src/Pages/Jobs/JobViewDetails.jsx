@@ -320,11 +320,11 @@ const JobViewDetails = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white w-1/3 rounded-[8px] mt-5 flex justify-center items-center border-[1px]">
+          <div className="bg-white w-1/3 rounded-3xl mt-5 flex justify-center items-center border-[1px]">
             <div className="flex gap-[10px] flex-col w-full max-h-[100vh] overflow-scroll overflow-x-hidden px-2 bg-[#f8f9fa]">
-              <div className="w-full flex justify-between items-center my-2 px-4">
-                <span className="text-sm text-gray-600">
-                  other Available jobs
+              <div className="w-full flex justify-between items-center my-1 px-4">
+                <span className="text-md text-gray-900">
+                  jobs you might be intrested
                 </span>
               </div>
               {AllJobs?.length > 0 ? (
@@ -340,23 +340,6 @@ const JobViewDetails = () => {
                         <div className="flex justify-between gap-[20px]">
                           <p className="text-xl font-medium lg:w-[476px] flex-wrap">
                             {job.positionName}
-                          </p>
-                          <p>
-                            {isJobApplied ? (
-                              <button className="w-[103px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center">
-                                Applied
-                              </button>
-                            ) : (
-                              <button
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  // jobDetail(job._id);
-                                }}
-                                className="w-[103px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
-                              >
-                                Apply now
-                              </button>
-                            )}
                           </p>
                         </div>
                         <p className="text-gray-600 text-md font-normal">
