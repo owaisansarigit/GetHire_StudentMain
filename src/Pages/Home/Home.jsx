@@ -33,14 +33,73 @@ const Home = () => {
       buttonData: "comming soon !",
     },
   ];
-  const [selectedtab, setselectedtab] = useState("AllJobs");
+
+// this is dummy data for interviews
+const dummyJobs = [
+  {
+    JobId: {
+      _id: 'job1',
+      positionName: 'Software Engineer',
+      location: 'New York, NY',
+      minExp: 2,
+      maxExp: 5,
+      maxSalary: 120000,
+      Openings: 3,
+      time:'2 days ago',
+      result:'Not shortlisted'
+    },
+    CompanyId: {
+      Image: '/images/company1.png',
+      Name: 'Tech Innovations Inc.',
+    },
+  },
+  {
+    JobId: {
+      _id: 'job2',
+      positionName: 'Product Manager',
+      location: 'San Francisco, CA',
+      minExp: 4,
+      maxExp: 7,
+      maxSalary: 150000,
+      Openings: 2,
+       time:'2 days ago',
+      result:'Resume Rejected'
+    },
+    CompanyId: {
+      Image: '/images/company2.png',
+      Name: 'Product Solutions LLC',
+    },
+  },
+  {
+    JobId: {
+      _id: 'job3',
+      positionName: 'UI/UX Designer',
+      location: 'Chicago, IL',
+      minExp: 1,
+      maxExp: 3,
+      maxSalary: 80000,
+      Openings: 5,
+       time:'2 days ago',
+      result:'Cleared'
+    },
+    CompanyId: {
+      Image: '/images/company3.png',
+      Name: 'Creative Studios',
+    },
+  },
+];
+
+  const [selectedtab, setselectedtab] = useState("MyJobs");
   const [AllJobs, setAllJobs] = useState([]);
   const [Loading, setLoading] = useState(true);
   const [appiledjobs, setappiledjobs] = useState([]);
-  const [allappiledjobs, setallappiledjobs] = useState([]);
+  const [allappiledjobs, setallappiledjobs] = useState(dummyJobs);
   const [allinterview, setallinterview] = useState([]);
   const [allTestResults, setAllTestResults] = useState([]);
   const [studentprofile, setstudentprofile] = useState({});
+
+
+
 
   const Getstudentprofile = async () => {
     try {
@@ -113,7 +172,7 @@ const Home = () => {
   useEffect(() => {
     GetAllJobs();
     Getallappiledjobid();
-    Getallappiledjob();
+    // Getallappiledjob();
     Getallinterview();
     GetAllTest();
   }, []);
@@ -129,6 +188,7 @@ const Home = () => {
   const hasTakenTest = (jobId) => {
     return allTestResults.some((test) => test.job === jobId);
   };
+
 
   return (
     <>
@@ -206,7 +266,7 @@ const Home = () => {
           <div className="bg-white mt-[1px] col-start-1 col-end-7 px-[39px] py-[49px] rounded-[30px] border-[1px] border-[#efecec]">
             <div className="text-[24px] flex w-full font-[400] justify-center items-center text-[#545454]">
               <div className=" flex-col lg:flex-row gap-[10px] lg:gap-0  flex">
-                <div
+                {/* <div
                   onClick={() => {
                     setselectedtab("AllJobs");
                   }}
@@ -217,7 +277,7 @@ const Home = () => {
                   } `}
                 >
                   All Jobs
-                </div>
+                </div> */}
                 <div
                   onClick={() => {
                     setselectedtab("MyJobs");
@@ -228,7 +288,7 @@ const Home = () => {
                       : "border-b-[3px] border-[#D9D9D9]"
                   }`}
                 >
-                  My Jobs
+                  Applied
                 </div>
                 <div
                   onClick={() => {
@@ -240,7 +300,7 @@ const Home = () => {
                       : "border-b-[3px] border-[#D9D9D9]"
                   }`}
                 >
-                  My Interview
+                  Interviews
                 </div>
               </div>
             </div>
@@ -258,11 +318,11 @@ const Home = () => {
               <p className="text-[16px] font-[500] text-[#4234a2]">View all</p>
             </div>
             <div className="grid md:grid-cols-2  mt-[46px] gap-[40px]">
-              <div
+              {/* <div
                 className="rounded-[16px] py-[26px] px-[20px] bg-gradient-to-tl from-[#0f87b3] to-[#462da1]"
                 onClick={() => navigate("/premium")}
                 style={{ cursor: "pointer" }}
-              >
+               >
                 <div className="flex gap-[10px]">
                   <img
                     src="/images/Star 1.svg"
@@ -290,7 +350,7 @@ const Home = () => {
                     Go Premium
                   </p>
                 </div>
-              </div>
+              </div> */}
               {selectedtab === "AllJobs" &&
                 AllJobs?.map((job, index) => {
                   const isJobApplied = appiledjobs.includes(job._id);
@@ -401,6 +461,9 @@ const Home = () => {
                   Loading...
                 </div>
               )}
+
+
+              {/* --------------------------------------------------------------------------------- */}
               {selectedtab === "MyJobs" &&
                 allappiledjobs?.map((job, index) => {
                   const jobId = job?.JobId?._id;
@@ -409,7 +472,7 @@ const Home = () => {
                     <div
                       key={index}
                       className="bg-[#fff] p-[16px] rounded-[16px] shadow-sm"
-                    >
+                     >
                       <div className="flex justify-between items-center">
                         <p className="text-[20px] font-[600]">
                           {job?.JobId?.positionName}
@@ -429,7 +492,11 @@ const Home = () => {
                           {job?.JobId?.location}
                         </p>
                       </div>
-                      <div className="flex flex-col lg:flex-row gap-[16px] mt-[10px]">
+                      <div>
+                        <p>{job?.JobId?.time}</p>
+                        <p>{job?.JobId?.result}</p>
+                      </div>
+                      {/* <div className="flex flex-col lg:flex-row gap-[16px] mt-[10px]">
                         <div className="w-[150px] justify-center h-[30px] rounded-[8px] items-center border-[1px] border-[#d9d9d9] text-black text-opacity-[50%] flex gap-[4px]">
                           <img
                             src="/images/home.svg"
@@ -451,8 +518,8 @@ const Home = () => {
                             Rs. {job?.JobId?.maxSalary}
                           </p>
                         </div>
-                      </div>
-                      <div className="flex flex-col lg:flex-row w-full gap-[20px] justify-between mt-[20px] lg:items-center">
+                      </div> */}
+                      {/* <div className="flex flex-col lg:flex-row w-full gap-[20px] justify-between mt-[20px] lg:items-center">
                         <div className="flex gap-[10px]">
                           <img
                             src={job?.CompanyId?.Image}
@@ -474,24 +541,27 @@ const Home = () => {
                         >
                           Applied
                         </button>
-                        {/* {!takenTest && (
+                        {!takenTest && (
                           <button
                             onClick={() => navigate(`/blank/question/${jobId}`)}
                             className="w-[70px] text-[14px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
                           >
                             Start Test
                           </button>
-                        )} */}
-                        {/* <button
+                        )}
+                        <button
                           onClick={() => navigate(`/blank/start/${jobId}`)}
                           className="w-[70px] text-[14px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
                         >
                           Video Test
-                        </button> */}
-                      </div>
+                        </button>
+                      </div> */}
                     </div>
                   );
                 })}
+
+
+                {/* -------------------------------------------------------------- */}
               {selectedtab === "MyInterview" &&
                 allinterview?.map((job, index) => {
                   return (
