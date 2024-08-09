@@ -1,4 +1,5 @@
 import Sidebar from "../Components/Sidebar/Sidebar";
+import Sidebar2 from "../Components/Sidebar/Sidebar2";
 import Header from "../Components/Header/Header";
 import { Outlet } from "react-router-dom/dist";
 
@@ -15,6 +16,9 @@ const Layout = () => {
           </div>
           <div className="flex-1 flex bg-[#fafbff] flex-col overflow-y-auto overflow-x-hidden gap-8 max-w-3/6">
             <Outlet />
+          </div>
+          <div className=" hidden md:block p-3 bg-[#fafbff] w-1/5">
+            <Sidebar2 />
           </div>
         </div>
       </div>

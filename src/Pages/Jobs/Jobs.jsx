@@ -122,29 +122,19 @@ const Jobs = () => {
           Loading...
         </div>
       ) : (
-        <div className="p-[28px] font-[Outfit] flex flex-col justify-center items-center w-full">
-          <div>
+        <div className="p-[15px] font-[Outfit] flex flex-col justify-start items-center w-full bg-[#f8f9fa]">
+          <>
             <div className="w-full flex justify-start items-center">
-              <p className="text-[16px] font-[400] text-[#000] text-opacity-[50%]">
+              <p className="text-[16px] font-[400] text-[#000] text-opacity-[50%] px-[34px]">
                 Home &gt; Jobs
               </p>
             </div>
-            <div className="w-full mt-[49px] flex justify-center items-center">
-              <p className="text-[20px] font-[400]  ">{totaljob} Jobs</p>
-            </div>
-            <div className="flex flex-col md:flex-row gap-[34px] mt-[16px]">
-              <div className="bg-white h-[883px] w-full rounded-[8px] flex flex-col  items-center p-[26px] border-[1px] ">
-                <p className="text-[16px] font-[400] text-[#000] text-opacity-[50%]">
-                  Fillters
-                </p>
-                <div className="flex gap-[8px]">
-                  <input type="checkbox" />
-                  <p className="text-[14px] font-[400] text-[#000] text-opacity-[50%]">
-                    As per my{" "}
-                    <span className="text-[#4234a2]">preferences</span>
-                  </p>
-                </div>
-                <div className="flex flex-col gap-[6px] mt-[26px] w-full">
+            <div className="flex flex-col justify-start items-start w-full md:flex-row gap-[34px] mt-[16px] px-[34px]">
+              <div className="bg-white h-[883px] w-1/5 rounded-[8px]  flex flex-col  items-start p-[26px] border-[1px] ">
+                <p className="text-md font-[400] text-gray-900">All Fillters</p>
+                <br />
+                <hr className="border-b w-full" />
+                <div className="flex flex-col gap-[6px] mt-[6px] w-full">
                   <p className="text-black text-opacity-[50%] text-[16px] font-[400]">
                     Profile
                   </p>
@@ -155,17 +145,22 @@ const Jobs = () => {
                     onChange={(e) => setProfileFilter(e.target.value)}
                   />
                 </div>
-                <div className="flex flex-col gap-[6px] mt-[18px] w-full">
+                <div className="flex flex-col gap-[6px] mt-[8px] w-full">
                   <p className="text-black text-opacity-[50%] text-[16px] font-[400]">
                     Location
                   </p>
                   <input
                     className="border-[1px] h-[42px] border-[#d9d9d9] rounded-[4px]"
                     type="text"
-                    value={locationFilter} // Connect value to the state
+                    value={locationFilter}
                     onChange={(e) => setLocationFilter(e.target.value)}
                   />
                 </div>
+                <p className="text-md font-[400] text-gray-900 mt-[20px]">
+                  Work Mode
+                </p>
+                <br />
+                <hr className="border-b w-full" />
                 <div className="mt-[20px] flex gap-[8px] w-full">
                   <input
                     type="checkbox"
@@ -234,68 +229,30 @@ const Jobs = () => {
                     Clear all
                   </p>
                 </div>
-                <div className="flex gap-[9px] w-full justify-center items-center mt-[46px]">
-                  <div className="border-[1px] h-px border-[#ebe6e6] w-full"></div>
-                  <p className="text-black text-opacity-[50%]">OR</p>
-                  <div className="border-[1px] h-px border-[#ebe6e6] w-full"></div>
-                </div>
-                <div className="flex flex-col gap-[6px] mt-[33px]">
-                  <p className="text-black text-opacity-[50%] text-[16px] text-center font-[400]">
-                    Keyword Search
-                  </p>
-                  <div className="border-[1px] flex  h-[42px] border-[#d9d9d9] rounded-[4px]">
-                    <input className=" h-[38px]" type="text" />
-                    <div className="border-[1px] h-[42px] border-[#4234a2] flex justify-center items-center rounded-[4px] w-[42px] ">
-                      <img
-                        src="/images/search.svg"
-                        className="w-[18px] h-[18px]"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
-              <div className="flex gap-[30px] flex-col">
+              <div className="flex gap-[30px] flex-col w-3/5">
                 {applyFilters(AllJobs)?.length > 0 ? (
                   applyFilters(AllJobs)?.map((job, index) => {
                     const isJobApplied = appiledjobs.includes(job._id);
                     return (
                       <div
                         key={index}
-                        className="bg-white rounded-[16px] border-[1px] border-[#efecec] p-[27px]"
+                        className="bg-white rounded-[16px] border-[1px] border-[#efecec] p-[15px]"
                       >
-                        <div className="border-[1px] rounded-[3px] w-[125px] h-[26px] p-[4px] border-[#d9d9d9] flex items-center gap-[7px]">
-                          <img
-                            src="/images/Vector 4.svg"
-                            className="w-[16px] h-[8px]"
-                            alt=""
-                          />
-                          <p className="text-[14px] font-[400] text-[#000] text-opacity-[50%]">
-                            Actively hiring
-                          </p>
-                        </div>
                         <div className="mt-[8px]">
-                          <div className="flex justify-between gap-[20px] lg:gap-[66px] lg:items-center flex-col lg:flex-row-reverse">
+                          <div className="flex justify-between gap-[20px]">
+                            <p className="text-xl font-bold lg:w-[476px] flex-wrap">
+                              {job?.positionName}
+                            </p>
                             <img
                               src="/images/jobsIcon.svg"
                               className="w-[60px] h-[60px]"
                               alt=""
                             />
-                            <p className="text-[20px] lg:w-[476px] flex-wrap font-[400]">
-                              {job?.Company?.Name}: Job Odyssey In{" "}
-                              {job?.positionName}
-                            </p>
                           </div>
-
-                          <p className="text-black mt-[12px] text-opacity-[50%] text-[14px] font-[400]">
+                          <p className="text-gray-600 mt-[-2rem] text-md font-semibold">
                             {job?.Company?.Name}
                           </p>
-                          <div className="flex gap-[5px] items-center mt-[24px]">
-                            <img src="/images/carbon_location.svg" alt="" />
-                            <p className="text-black text-opacity-[50%] text-[14px] font-[400]">
-                              {job?.addlocation}
-                            </p>
-                          </div>
                           <div className="flex flex-col lg:flex-row text-[14px] font-[400] text-black text-opacity-[50%] mt-[22px] gap-[10px] lg:gap-[54px]">
                             <div className="flex flex-col gap-[8px]">
                               <div className="flex gap-[4px]">
@@ -371,7 +328,7 @@ const Jobs = () => {
                 )}
               </div>
             </div>
-          </div>
+          </>
         </div>
       )}
     </>

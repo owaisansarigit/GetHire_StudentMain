@@ -133,7 +133,7 @@ const Home = () => {
   return (
     <>
       <div className="py-[14px] pl-[16px] pr-[14.56px] font-[Outfit] ">
-        <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-6  lg:gap-[27px]">
+        {/* <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-6  lg:gap-[27px]">
           <div className="bg-white w-full col-start-1 col-end-7 mb-[59px]  px-[29px] py-[42px] flex border-[1px] border-[#efecec] rounded-[30px]">
             <div className="w-full  flex-col lg:flex-row flex gap-[5px]">
               <div className="flex self-center w-[148px] justify-center items-center flex-col">
@@ -160,7 +160,6 @@ const Home = () => {
                   <p className="text-[24px] font-[500]">Step into the future</p>
                 </div>
                 <div className="mt-[30px] flex  flex-row">
-                  {/* <Slider {...settings}> */}
                   <div className="flex overflow-x-scroll w-[600px] gap-[30px]">
                     {skillData.map((d, index) => (
                       <div
@@ -186,11 +185,22 @@ const Home = () => {
                       </div>
                     ))}
                   </div>
-                  {/* </Slider> */}
                 </div>
               </div>
             </div>
           </div>
+        </div> */}
+        <div className="w-full border rounded-3xl p-5 min-h-[20vh] my-5 flex justify-start items-start bg-[#13d0a6] text-white flex-col">
+          <h2 className="text-xl font-bold">Climb the career ladder</h2>
+          <br />
+          <p>
+            gethire ai tools and resorces to help you take your career to the
+            next level
+          </p>
+          <br />
+          <button className="px-3 py-1 bg-blue-500 text-white font-semibold rounded-3xl mt-5">
+            Get Started
+          </button>
         </div>
         <div className="grid lg:grid-cols-6">
           <div className="bg-white mt-[1px] col-start-1 col-end-7 px-[39px] py-[49px] rounded-[30px] border-[1px] border-[#efecec]">
