@@ -81,7 +81,7 @@ const Jobs = () => {
         job.positionName.toLowerCase().includes(profileFilter.toLowerCase());
       const locationMatch =
         !locationFilter ||
-        job.addlocation.toLowerCase().includes(locationFilter.toLowerCase());
+        job.location.toLowerCase().includes(locationFilter.toLowerCase());
       const workFromHomeMatch =
         !workFromHomeFilter ||
         job.contractDetails.toLowerCase() === "work from home";
@@ -92,7 +92,7 @@ const Jobs = () => {
         job.jobPipeline.toLowerCase() === "internship";
       const salaryMatch = job.maxSalary >= salaryFilter * 1000; // assuming salary is in thousands
       const experienceMatch =
-        !experienceFilter || job.Experience === experienceFilter;
+        !experienceFilter || job?.minExp === experienceFilter;
 
       return (
         profileMatch &&
@@ -252,7 +252,7 @@ const Jobs = () => {
                           jobDetail(job?._id);
                         }}
                         key={index}
-                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5"
+                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5 cursor-pointer"
                       >
                         <div className="mt-[8px]">
                           <div className="flex justify-between gap-[20px]">
