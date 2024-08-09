@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetApi, PostApi } from "../utilis/Api_Calling";
+import {
+  Button,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+} from "@mui/material";
 import JobApplyModel from "./JobApplyModel";
+import { toast } from "react-toastify";
+const stepsHead = ["View Job", "Job Apply", "Shortlisted"];
 
 const JobViewDetails = () => {
   const { id } = useParams();
-
+  const [activeStep, setActiveStep] = useState(0);
   const [Jobdetail, setJobdetail] = useState({});
   const [isbookmarked, setisbookmarked] = useState(false);
   const [isappiled, setisappiled] = useState(false);
@@ -38,10 +48,10 @@ const JobViewDetails = () => {
   };
   const Getallappiledjob = async () => {
     try {
-      const Getbookmark = await GetApi(
+      const res = await GetApi(
         `api/StudentRoutes/GetAllAppiledJobidsofaStudent`
       );
-      setappiledjobs(Getbookmark?.data?.data?.appliedJobIds);
+      setappiledjobs(res?.data?.data?.appliedJobIds);
     } catch (error) {
       console.log(error);
     }
@@ -90,9 +100,8 @@ const JobViewDetails = () => {
         jobId: id,
       };
       const responce = await PostApi("api/StudentRoutes/AddToBookmark", obj);
-      // console.log(responce?.data)
       Getallbookmark();
-      alert(responce?.data?.message);
+      toast.success(responce?.data?.message, { autoClose: 1000 });
     } catch (error) {
       console.log(error);
     }
@@ -117,9 +126,8 @@ const JobViewDetails = () => {
         "api/StudentRoutes/RemovefromBookmark",
         obj
       );
-      // console.log(responce?.data)
       Getallbookmark();
-      alert(responce?.data?.message);
+      toast.success(responce?.data?.message, { autoClose: 1000 });
     } catch (error) {
       console.log(error);
     }
@@ -143,6 +151,19 @@ const JobViewDetails = () => {
       ) : (
         <div className="w-full flex justify-center items-start gap-10 font-[poppins] bg-[#f8f9fa]">
           <div className="w-3/6 pt-5 mb-10">
+            <Box sx={{ width: "100%", marginY: "15px" }}>
+              <Stepper activeStep={activeStep}>
+                {stepsHead.map((label, index) => {
+                  const stepProps = {};
+                  const labelProps = {};
+                  return (
+                    <Step key={label} {...stepProps}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                    </Step>
+                  );
+                })}
+              </Stepper>
+            </Box>
             <div className="flex gap-[10px] flex-col  px-2 bg-[#f8f9fa]">
               <div className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5">
                 <div className="mt-[8px]">
