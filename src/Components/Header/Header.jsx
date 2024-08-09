@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiAlignJustify } from "react-icons/fi";
 import InternshipModal from "../../Pages/Internship/InternshipModal";
@@ -11,6 +11,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { styled, alpha } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
+
+
+
+// importing react icons
+import { TbArrowsExchange2 } from "react-icons/tb";
+import { PiNotebookLight } from "react-icons/pi";
 
 const DropdownLink = styled(Link)(({ theme }) => ({
   display: "flex",
@@ -61,6 +68,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   border: "1px solid gray",
   borderRadius: "20px",
 }));
+
+
+// for modes
+
+const workItems = [
+  {
+    title: "Find Work",
+    description: "Global work opportunities to boost your professional growth.",
+    icon: <PiNotebookLight />,
+    link: "/", // Example route
+  },
+  {
+    title: "Hire Talent",
+    description: "Access a global pool of talented professionals.",
+    icon: <PiNotebookLight />,
+    link: "/", // Example route
+  },
+  {
+    title: "College Board",
+    description: "Collaborate with educational institutions worldwide.",
+    icon: <PiNotebookLight />,
+    link: "/", // Example route
+  },
+  {
+    title: "Club",
+    description: "Join a global community to enhance your skills.",
+    icon: <PiNotebookLight />,
+    link: "/", // Example route
+  },
+];
 
 const Header = () => {
   const navigate = useNavigate();
@@ -224,6 +261,18 @@ const Header = () => {
     handleClose();
   };
 
+  // for switch mode
+
+  const [mode , setMode]  = useState(false);
+  const switchModeClicked = () => {
+    setMode(!mode);
+  }
+ 
+  const handleNavigation = (link) => {
+    navigate(link);
+  };
+
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-menu" : undefined;
   const open2 = Boolean(anchorEl2);
@@ -231,7 +280,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-[#fff] h-[70px] w-full flex justify-start items-center p-[10px] pl-20">
+      <div className="bg-[#fff] h-[70px] w-full flex justify-start items-center p-[10px] pl-20 shadow-lg">
         <div className="flex justify-center items-center text-[#2a5caa] mr-10">
           <img src={Logo} className="h-[2rem]" alt="" />
         </div>
@@ -326,6 +375,17 @@ const Header = () => {
               </Popover>
             </div>
           </div>
+
+          <div className=" hover:cursor-pointer bg-blue-100 rounded-md p-1 h-10 flex justify-center items-center "
+            onClick={switchModeClicked}
+           >
+            <div className="flex flex-row justify-center items-center gap-2 p-2 hover:scale-105 duration-300 hover:bg-blue-100 group group-hover:text-blue-700">
+              <p className="text-lg text-blue-500  duration-300">Switch Mode</p>
+                <TbArrowsExchange2 size={23} className="text-blue-500" />
+            </div>
+          </div>
+
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -339,13 +399,13 @@ const Header = () => {
           <div className="border flex justify-center items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
             AI Tools
           </div>
-          <Link to="/blank/bookmarked">
+          {/* <Link to="/blank/bookmarked">
             <img
               src="/images/iconoir_bookmark.svg"
               className="w-[24px] h-[24px]"
               alt=""
             />
-          </Link>
+          </Link> */}
           <Link to={"/chat"}>
             <img
               src="/images/tabler_message-2.svg"
@@ -460,6 +520,7 @@ const Header = () => {
                   Explore More Internships
                 </p>
               </div>
+                 
               {/* <div className="border-[1px] border-[#ebe6e6] h-full w-px "></div> */}
               <div className="py-[36px] px-[18px] overflow-auto w-full">
                 <ul className="flex flex-col gap-[17px] text-[15px] text-black text-opacity-[50%] font-[400]">
@@ -473,13 +534,14 @@ const Header = () => {
           <Link to="/Jobs">Jobs</Link>
           <Link to="/blank/clubs">Clubs</Link>
           <div className="flex gap-[8px] bg-[#e7f6ff] rounded-[8px] px-[14px] py-[12px]">
-            <p className="text-[18px] font-[400] text-[#4234a2]">Switch Mode</p>
+            {/* <p className="text-[18px] font-[400] text-[#4234a2]">Switch Mode</p> */}
             <img
               src="/images/icon-park-outline_switch.svg"
               className="w-[24px] h-[24px]"
               alt=""
             />
           </div>
+
           <div className="flex flex-col gap-[44px]">
             <div className="flex items-center gap-[10px] text-[20px] font-[400] font-[Outfit]">
               <img
@@ -588,7 +650,30 @@ const Header = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> 
+      
+
+      {
+        mode && (
+          <div className="flex flex-col items-center p-2 bg-gray-50 rounded-lg shadow-lg max-w-sm mx-auto">
+              {workItems.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleNavigation(item.link)}
+                  className="flex flex-col items-center p-2 mb-2 bg-white rounded-md shadow-sm hover:shadow-md transform hover:scale-105 transition duration-300 cursor-pointer w-full"
+                >
+                  <div className="flex items-center gap-1 mb-1">
+                    <p className="text-xs text-blue-500 font-semibold">{item.title}</p>
+                    <p className="text-blue-500 text-lg">{item.icon}</p>
+                  </div>
+                  <p className="text-center text-gray-600 text-xs">{item.description}</p>
+                </div>
+              ))}
+            </div>
+        )
+      }
+
+
       {internshipModal && (
         <InternshipModal
           onOpen={toggleInternshipModalOpen}
