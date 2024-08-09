@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GetApi } from "../utilis/Api_Calling";
 
-
 const Jobs = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState(50);
@@ -335,9 +334,7 @@ const Jobs = () => {
                   </div>
                 )}
               </div>
-              <div className="bg-white min-h-[100] w-1/5 rounded-[8px]  flex flex-col  items-start p-[26px] border-[1px] ">
-                
-              </div>
+              <div className="bg-white min-h-[100] w-1/5 rounded-[8px]  flex flex-col  items-start p-[26px] border-[1px] "></div>
             </div>
           </>
         </div>
