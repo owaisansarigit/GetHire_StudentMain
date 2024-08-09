@@ -81,7 +81,7 @@ const Jobs = () => {
         job.positionName.toLowerCase().includes(profileFilter.toLowerCase());
       const locationMatch =
         !locationFilter ||
-        job.addlocation.toLowerCase().includes(locationFilter.toLowerCase());
+        job.location.toLowerCase().includes(locationFilter.toLowerCase());
       const workFromHomeMatch =
         !workFromHomeFilter ||
         job.contractDetails.toLowerCase() === "work from home";
@@ -92,7 +92,7 @@ const Jobs = () => {
         job.jobPipeline.toLowerCase() === "internship";
       const salaryMatch = job.maxSalary >= salaryFilter * 1000; // assuming salary is in thousands
       const experienceMatch =
-        !experienceFilter || job.Experience === experienceFilter;
+        !experienceFilter || job?.minExp === experienceFilter;
 
       return (
         profileMatch &&
