@@ -195,6 +195,10 @@ import moment from "moment";
 import "react-circular-progressbar/dist/styles.css";
 import { GetApi } from "../utilis/Api_Calling";
 
+// import Logo from "../../assets/Images/Gethire SVG.svg";
+import logo from "../../assets/Images/Gethire SVG.svg"
+
+
 const Home = () => {
   const path = useLocation();
   const navigate = useNavigate();
@@ -454,7 +458,8 @@ const dummyJobs = [
             </div>
           </div>
         </div> */}
-        <div className="w-full border rounded-3xl p-5 min-h-[20vh] my-5 flex justify-start items-start bg-[#13d0a6] text-white flex-col">
+
+        {/* <div className="w-full border rounded-3xl p-5 min-h-[20vh] my-5 flex justify-start items-start bg-[#13d0a6] text-white flex-col">
           <h2 className="text-xl font-bold">Climb the career ladder</h2>
           <br />
           <p>
@@ -465,7 +470,73 @@ const dummyJobs = [
           <button className="px-3 py-1 bg-blue-500 text-white font-semibold rounded-3xl mt-5">
             Get Started
           </button>
+        </div> */}
+        
+             <div className="max-w-4xl mb-12 mx-auto p-6 bg-gradient-to-r from-teal-400 via-green-400 to-teal-300 rounded-2xl shadow-xl flex items-center justify-between space-x-8">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full">
+                      Introducing
+                    </span>
+                  </div>
+                  <h2 className="text-4xl font-extrabold text-white leading-tight">
+                    Climb the career ladder
+                  </h2>
+                  <p className="text-lg text-white font-medium">
+                    GetHire tools and resources help you take your career to the next
+                    level
+                  </p>
+                  <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                    Start exploring
+                  </button>
+                </div>
+                <div className="hidden md:block">
+                  <div className="relative flex justify-center items-center bg-white h-full w-48 rounded-full">
+                    <img
+                      src={logo}
+                      alt="GetHire Logo"
+                      className="w-36 transform transition hover:scale-110"
+                    />
+                  </div>
+                </div>
+              </div>
+             {/* <div className="max-w-5xl mx-auto p-6 bg-gradient-to-r from-teal-400 to-green-300 rounded-2xl shadow-xl flex items-center justify-between">
+      <div className="space-y-4 pl-6">
+        <div className="flex items-center space-x-2">
+          <span className="text-xs bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full">
+            Introducing
+          </span>
         </div>
+        <h2 className="text-4xl font-extrabold text-white leading-tight">
+          Climb the career ladder
+        </h2>
+        <p className="text-lg text-white font-medium">
+          Naukri 360's tools and resources help you take your career to the next
+          level
+        </p>
+        <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+          Start exploring
+        </button>
+      </div>
+      <div className="flex justify-center items-center w-1/3 relative">
+        <div className="bg-white rounded-r-2xl flex items-center justify-center w-full h-full">
+          <div className="bg-white rounded-full p-4 shadow-md">
+            <img
+              src={logo}
+              alt="Naukri 360 Logo"
+              className="w-28 md:w-36"
+            />
+          </div>
+        </div>
+      </div>
+             </div>  */}
+         
+
+
+
+
+
+
         <div className="grid lg:grid-cols-6">
           <div className="bg-white mt-[1px] col-start-1 col-end-7 px-[39px] py-[49px] rounded-[30px] border-[1px] border-[#efecec]">
             <div className="text-[24px] flex w-full font-[400] justify-center items-center text-[#545454]">

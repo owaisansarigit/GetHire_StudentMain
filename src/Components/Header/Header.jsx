@@ -18,6 +18,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 // importing react icons
 import { TbArrowsExchange2 } from "react-icons/tb";
 import { PiNotebookLight } from "react-icons/pi";
+import { IoSearchCircleSharp } from "react-icons/io5";
+import { BiMessage } from "react-icons/bi";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { MdOutlineSort } from "react-icons/md";
+import { MdOutlineNotifications } from "react-icons/md";
 
 const DropdownLink = styled(Link)(({ theme }) => ({
   display: "flex",
@@ -262,15 +267,17 @@ const Header = () => {
   };
 
   // for switch mode
-
   const [mode , setMode]  = useState(false);
   const switchModeClicked = () => {
     setMode(!mode);
   }
- 
   const handleNavigation = (link) => {
     navigate(link);
   };
+
+  // for change the icons when noti and mesage clicked
+  const [messClicked , SetMessClicked] = useState(false);
+  const [notiClicked , SetNotiClicked] = useState(false);
 
 
   const open = Boolean(anchorEl);
@@ -287,15 +294,17 @@ const Header = () => {
         <div onClick={toggleNavbar} className="flex md:hidden">
           <FiAlignJustify size={"30px"} />
         </div>
-        <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[43px]  font-[Outfit]">
-          <Link to="/">Home</Link>
+        <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[38px]  font-[Outfit] ">
+          <Link to="/" className="hover:text-blue-700">Home</Link>
           <div
             onClick={toggleInternshipDropDown}
-            className="relative cursor-pointer"
+            className="relative cursor-pointer hover:text-blue-700"
           >
             Internship
           </div>
-          {showInternshipDropDown && (
+
+
+          {/* {showInternshipDropDown && (
             <div className="bg-white  shadow-lg flex top-[100px] absolute w-[485px] h-[431px]">
               <div className="py-[22px] w-[223px] text-[16px] font-[400] pr-[10px]">
                 <p
@@ -348,16 +357,80 @@ const Header = () => {
                 </ul>
               </div>
             </div>
-          )}
+          )} */}
+            
+                  {showInternshipDropDown && (
+                    <div className="bg-white shadow-xl flex top-[100px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl">
+                      <div className="py-5 w-[223px] text-[16px] font-medium pr-2">
+                        <p
+                          onClick={() => handleSelectInternshipOption("location")}
+                          className={`${
+                            selectInternshipOption === "location"
+                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                        >
+                          Top Location
+                        </p>
+                        <p
+                          onClick={() => handleSelectInternshipOption("profile")}
+                          className={`${
+                            selectInternshipOption === "profile"
+                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                        >
+                          Profile
+                        </p>
+                        <p
+                          onClick={() => handleSelectInternshipOption("categories")}
+                          className={`${
+                            selectInternshipOption === "categories"
+                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                        >
+                          Top Categories
+                        </p>
+                        <p
+                          onClick={() => handleSelectInternshipOption("moreInternship")}
+                          className={`${
+                            selectInternshipOption === "moreInternship"
+                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                        >
+                          Explore More Internships
+                        </p>
+                      </div>
+                      <div className="border-l border-gray-200 h-full"></div>
+                      <div className="py-[36px] px-[18px] overflow-auto w-[262px] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-300">
+                        <ul className="flex flex-col gap-4 text-[15px] cursor-pointer text-gray-600 font-medium">
+                          {internshipListItem().map((item, index) => (
+                            <li
+                              key={index}
+                              className="hover:text-[#4234a2] transition-colors duration-200 ease-in-out"
+                            >
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+          
+
 
           <div className="relative">
             <Link
               onClick={(event) => setAnchorEl2(event.currentTarget)}
               sx={{ cursor: "pointer" }}
+              className="hover:text-blue-700 "
             >
               Jobs
             </Link>
-            <div className="absolute top-2" style={{ left: "-5rem" }}>
+            
+            {/* <div className="absolute top-2" style={{ left: "-5rem" }}>
               <Popover
                 id={id}
                 open={open2}
@@ -373,19 +446,72 @@ const Header = () => {
                 </Typography>
                 <Link to="/blank/Jobs">Jobs</Link>
               </Popover>
+            </div> */}
+            <div className="absolute top-2 left-[-5rem]">
+              <Popover
+                id={id}
+                open={open2}
+                anchorEl={anchorEl2}
+                onClose={() => setAnchorEl2(null)}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                classes={{
+                  paper: "rounded-lg shadow-lg bg-white",
+                }}
+                className="transition-transform duration-300 ease-in-out"
+              >
+                <div className="p-4 flex flex-col ">
+                  <Typography className="text-gray-800 text-sm font-medium">
+                    {/* The content of the Popover. */}
+                  </Typography>
+                  <Link
+                    to="/blank/Jobs"
+                    className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
+                   >
+                    All Jobs
+                  </Link>
+                  <Link
+                    to="/blank/Jobs"
+                    className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
+                   >
+                    Recommended Jobs
+                  </Link>
+                  <Link
+                    to="/blank/Jobs"
+                    className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
+                   >
+                   Invites
+                  </Link>
+                  <Link
+                    to="/blank/Jobs"
+                    className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
+                   >
+                    Application Manage
+                  </Link>
+                </div>
+              </Popover>
             </div>
           </div>
 
           <div className=" hover:cursor-pointer bg-blue-100 rounded-md p-1 h-10 flex justify-center items-center "
             onClick={switchModeClicked}
            >
-            <div className="flex flex-row justify-center items-center gap-2 p-2 hover:scale-105 duration-300 hover:bg-blue-100 group group-hover:text-blue-700">
-              <p className="text-lg text-blue-500  duration-300">Switch Mode</p>
-                <TbArrowsExchange2 size={23} className="text-blue-500" />
-            </div>
+            {mode === false ? (
+                  <div className="flex flex-row justify-center items-center gap-2 p-2 group ">
+                     <p className="text-lg text-blue-500  duration-300">Switch Mode</p>
+                    <TbArrowsExchange2 size={23} className="text-blue-500" />
+                  </div>
+              ) : (
+                  <div className="flex flex-row justify-center items-center gap-2 p-2 group bg-blue-500 ">
+                    <p className="text-lg text-white  duration-300">Switch Mode</p>
+                    <TbArrowsExchange2 size={23} className="text-white" />
+                </div>
+            )}
           </div>
 
-
+{/* 
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -394,9 +520,25 @@ const Header = () => {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
+          {/* search baar */}
+            <div
+                className="flex items-center w-[280px] h-[50px] rounded-full border border-gray-300 bg-white shadow-md transition-shadow duration-300 cursor-pointer hover:shadow-lg overflow-hidden"
+              >
+                <input
+                  type="text"
+                  placeholder="Search…"
+                  className="flex-1 border-none ml-3 px-1 h-full text-gray-800 text-base outline-none rounded-full rounded-r-none"
+                />
+                <div
+                  className="w-[50px] h-full flex items-center justify-center  rounded-full rounded-l-none"
+                >
+                  <IoSearchCircleSharp size={45} color="blue" onClick={()=>{alert("search button clicked")}}/>
+                </div>
+              </div>
 
-          <div className="border flex justify-center items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
+
+          <div className="border flex justify-center hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
             AI Tools
           </div>
           {/* <Link to="/blank/bookmarked">
@@ -406,47 +548,74 @@ const Header = () => {
               alt=""
             />
           </Link> */}
-          <Link to={"/chat"}>
-            <img
-              src="/images/tabler_message-2.svg"
-              className="w-[24px] h-[24px]"
-              alt=""
-            />
-          </Link>
-          <Link to={"/notification"}>
-            <i className="fa-regular fa-bell cursor-pointer"></i>
-          </Link>
-          <div>
-            <DropdownLink onClick={handleClick}>
-              <img
-                src="/images/Ellipse2.svg"
-                className="w-[26px] h-[26px] rounded-[50%]"
-                alt="User Avatar"
-              />
-              <img
-                src="/images/bxs_up-arrow.svg"
-                className="w-[12px] h-[9px]"
-                alt="Arrow"
-              />
-            </DropdownLink>
-            <Menu
-              id={id}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": id,
-              }}
-            >
-              <MenuItem onClick={() => navigate("/blank/Portfolio")}>
-                Portfolio
-              </MenuItem>
-              <MenuItem onClick={() => navigate("/SkillManager")}>
-                My Skills
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-          </div>
+         
+           <div className=" flex flex-row gap-6 justify-center items-center ">
+             
+                <Link to={"/chat"}>
+                  <BiMessage size={25} color="#6082B6"/>
+                  {/* <img
+                    src="/images/tabler_message-2.svg"
+                    className="w-[24px] h-[24px]"
+                    alt=""
+                  /> */}
+                </Link>
+                <Link to={"/notification"}>
+                  {/* <i className="fa-regular fa-bell cursor-pointer"></i> */}
+                  <MdOutlineNotifications size={25} color="#6082B6"/>
+                </Link>
+           </div>
+
+
+           <div className="relative inline-block text-left">
+              <DropdownLink
+                onClick={handleClick}
+                className="flex items-center space-x-2 cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
+              >
+                <MdOutlineSort size={25}/>
+                <img
+                  src="/images/Ellipse2.svg"
+                  className="w-8 h-8 rounded-full border border-gray-300"
+                  alt="User Avatar"
+                />
+                {/* <img
+                  src="/images/bxs_up-arrow.svg"
+                  className="w-4 h-3"
+                  alt="Arrow"
+                /> */}
+              </DropdownLink>
+
+              <Menu
+                id={id}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": id,
+                }}
+                className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+              >
+                <MenuItem
+                    onClick={() => navigate("/blank/Portfolio")}
+                    className="hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 px-4 py-2 rounded-lg"
+                  >
+                    Portfolio
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => navigate("/SkillManager")}
+                    className="hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 px-4 py-2 rounded-lg"
+                  >
+                    My Skills
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleLogout}
+                    className="hover:bg-red-100 hover:text-red-700 transition-colors duration-200 px-4 py-2 rounded-lg"
+                  >
+                    Logout
+                  </MenuItem>
+              </Menu>
+            </div>
+
+
         </div>
       </div>
 
@@ -655,12 +824,12 @@ const Header = () => {
 
       {
         mode && (
-          <div className="flex flex-col items-center bg-gray-50 rounded-2xl max-w-xs mx-auto">
+          <div className=" flex flex-col items-center bg-gray-50 rounded-2xl max-w-xs mx-auto">
               {workItems.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => handleNavigation(item.link)}
-                  className="group flex flex-col p-2 bg-white hover:bg-blue-800 hover:text-white transform transition duration-300 cursor-pointer w-full rounded-md shadow-md"
+                  className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-500 cursor-pointer w-full rounded-md shadow-md"
                 >
                   <div className="flex justify-between items-center w-full">
                     <div className="flex items-center gap-2">
