@@ -197,7 +197,7 @@ import { GetApi } from "../utilis/Api_Calling";
 
 // import Logo from "../../assets/Images/Gethire SVG.svg";
 import logo from "../../assets/Images/Gethire SVG.svg"
-
+import { IoIosArrowForward } from "react-icons/io";
 
 const Home = () => {
   const path = useLocation();
@@ -283,6 +283,46 @@ const dummyJobs = [
     },
   },
 ];
+
+// dummy data for companies
+const companies = [
+  {
+    id: 1,
+    name: "Aakash Educational Services",
+    logo: "https://via.placeholder.com/50", // Replace with actual image URLs
+    rating: 3.6,
+    reviews: "2.8K+",
+  },
+  {
+    id: 2,
+    name: "Seclore",
+    logo: "https://via.placeholder.com/50", // Replace with actual image URLs
+    rating: 3.9,
+    reviews: "54",
+  },
+  {
+    id: 3,
+    name: "Morgan Stanley",
+    logo: "https://via.placeholder.com/50", // Replace with actual image URLs
+    rating: 3.7,
+    reviews: "1K+",
+  },
+  {
+    id: 4,
+    name: "Morgan ",
+    logo: "https://via.placeholder.com/50", // Replace with actual image URLs
+    rating: 3.2,
+    reviews: "1.6K+",
+  },
+  {
+    id: 5,
+    name: " Stanley",
+    logo: "https://via.placeholder.com/50", // Replace with actual image URLs
+    rating: 3.1,
+    reviews: "1.5K+",
+  },
+];
+
 
   const [selectedtab, setselectedtab] = useState("MyJobs");
   const [AllJobs, setAllJobs] = useState([]);
@@ -394,6 +434,18 @@ const dummyJobs = [
     setSelectedJob(job);
   };
 
+//  for moving the company images---
+// Determine how many cards to show at a time
+const cardsToShow = 3;
+const totalCards = companies.length;
+const [offset, setOffset] = useState(0);
+
+const handleMove = () => {
+  setOffset((prevOffset) => (prevOffset + 1) % (totalCards - cardsToShow + 1));
+};
+
+
+
   useEffect(() => {
     // Optionally, you could fetch or process additional data when a job is selected
   }, [selectedJob]);
@@ -491,7 +543,7 @@ const dummyJobs = [
                   </button>
                 </div>
                 <div className="hidden md:block">
-                  <div className="relative flex justify-center items-center bg-white h-full w-48 rounded-full">
+                  <div className="relative flex justify-center items-center bg-white  w-48 h-48 rounded-full">
                     <img
                       src={logo}
                       alt="GetHire Logo"
@@ -989,6 +1041,110 @@ const dummyJobs = [
             </div>
           </div>
         </div>
+          
+          
+           <div className="flex items-center justify-between mt-6 p-6 bg-blue-200 rounded-lg shadow-md">
+             <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0 bg-purple-100 p-4 rounded-full">
+                  {/* Replace the SVG below with your own SVG or image */}
+                  <img src={logo} alt="logo" className=" w-16 h-16 text-purple-600" />
+                  {/* <svg
+                    className="w-10 h-10 text-purple-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 12v.01M12 9a3 3 0 110 6 3 3 0 010-6z"
+                    />
+                  </svg> */}
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">Increase your chances in interviews with AI</h2>
+                  <p className="text-sm text-gray-600">
+                    Access AI-powered mock interview and question bank for your desired role
+                  </p>
+                </div>
+              </div>
+              <button className="px-6 py-2 text-white bg-blue-600 rounded-full hover:bg-blue-700">
+                Start preparing
+              </button>
+            </div>
+
+
+            {/* <div className="bg-white p-6 rounded-lg shadow-xl mt-12">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-lg font-semibold text-gray-900">Top companies</h2>
+                <a href="#" className="text-blue-600 hover:underline">
+                  View all
+                </a>
+              </div>
+              <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {companies.map((company) => (
+                  <div key={company.id} className="flex flex-col items-center bg-white rounded-lg shadow-md p-4 border-2 border-y-blue-200 border-x-blue-200 border-b-blue-200">
+                    <img src={company.logo} alt={company.name} className="w-16 h-16 mb-4" />
+                    <h3 className="text-sm font-semibold text-gray-900 text-center truncate">{company.name}</h3>
+                    <div className="flex items-center mt-2">
+                      <span className="text-yellow-500 text-sm">★</span>
+                      <span className="ml-1 text-sm font-medium text-gray-800">{company.rating}</span>
+                      <span className="ml-2 text-xs text-gray-600">| {company.reviews} reviews</span>
+                    </div>
+                    <a href="#" className="mt-4 text-base font-semibold text-blue-600 hover:underline">
+                      View jobs
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div> */}
+
+                  <div className="relative bg-white p-6 rounded-lg shadow-xl mt-12">
+                      <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-lg font-semibold text-gray-900">Top companies</h2>
+                        <a href="#" className="text-blue-600 hover:underline">View all</a>
+                      </div>
+                      <div className="overflow-hidden">
+                        <div
+                          className="flex transition-transform duration-500"
+                          style={{ transform: `translateX(-${offset * (100 / cardsToShow)}%)` }}
+                        >
+                          {companies.map((company) => (
+                            <div
+                              key={company.id}
+                              className="flex-none w-full sm:w-1/3 p-4" // Adjust width to fit three cards
+                              style={{ flex: '0 0 33.333%' }} // Adjust width for three cards
+                            >
+                              <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-4 border-2 border-y-blue-200 border-x-blue-200 border-b-blue-200">
+                                <img src={company.logo} alt={company.name} className="w-16 h-16 mb-4" />
+                                <h3 className="text-sm font-semibold text-gray-900 text-center truncate">{company.name}</h3>
+                                <div className="flex items-center mt-2">
+                                  <span className="text-yellow-500 text-sm">★</span>
+                                  <span className="ml-1 text-sm font-medium text-gray-800">{company.rating}</span>
+                                  <span className="ml-2 text-xs text-gray-600">| {company.reviews} reviews</span>
+                                </div>
+                                <a href="#" className="mt-4 text-base font-semibold text-blue-600 hover:underline">View jobs</a>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleMove}
+                        className="absolute top-1/2 mt-7 right-4 transform -translate-y-1/2 bg-blue-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-700 focus:outline-none"
+                      >
+                      <IoIosArrowForward/>
+                      </button>
+                    </div>
+   
+
+
+
+
+
+
       </div>
     </>
   );
