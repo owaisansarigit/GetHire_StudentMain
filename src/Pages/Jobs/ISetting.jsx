@@ -44,9 +44,6 @@ const ISetting = () => {
               >
                 Start interview <img src="/images/start/item8.svg" alt="" />
               </button>
-              <button className="w-[294px] h-[54px] flex items-center gap-[12px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] justify-center">
-                Start training
-              </button>
             </div>
           </div>
         </div>

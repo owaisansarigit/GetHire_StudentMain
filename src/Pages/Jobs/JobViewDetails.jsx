@@ -65,7 +65,6 @@ const JobViewDetails = () => {
   const GetJobdetails = async () => {
     try {
       const Getjobdata = await GetApi(`api/AdminRoutes/GetAJobs/${id}`);
-      console.log(Getjobdata?.data?.data);
       setJobdetail(Getjobdata?.data?.data);
       setLoading(false);
     } catch (error) {
@@ -141,6 +140,15 @@ const JobViewDetails = () => {
   const jobapplymodelclose = () => {
     setApplymodel(false);
   };
+
+  useEffect(() => {
+    // if (isappiled) {
+    //   setActiveStep(1);
+    // }
+    // if(){
+    //   setActiveStep(2);
+    // }
+  }, []);
 
   return (
     <>
@@ -324,6 +332,22 @@ const JobViewDetails = () => {
                         <p className="text-sm font-[500] text-black">
                           Key Skills :
                         </p>
+                        <p className="text-sm text-gray-600 my-2">
+                          Skills highlighted with "
+                          <i className="fa-regular fa-star"></i>" are prefered
+                          skills
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {Jobdetail?.skillAssessment?.map((skill, index) => (
+                            <p
+                              key={index}
+                              className=" text-sm text-center border rounded-[20px] px-4 text-gray-600 mt-2"
+                            >
+                              <i className="fa-regular fa-star m-1"></i>{" "}
+                              {skill?.type}
+                            </p>
+                          ))}
+                        </div>
                         <div className="flex flex-wrap gap-2">
                           {Jobdetail?.skillsRequired?.map((skill, index) => (
                             <p
