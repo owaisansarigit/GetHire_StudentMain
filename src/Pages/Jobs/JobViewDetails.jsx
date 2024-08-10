@@ -12,12 +12,15 @@ import {
 import JobApplyModel from "./JobApplyModel";
 import JobApplyModelResumeCheck from "./JobApplyModelResumeCheck";
 import { toast } from "react-toastify";
+import JobApplyModelChat from "./JobApplyModelChat";
 const stepsHead = ["View Job", "Job Apply", "Shortlisted"];
 
 const JobViewDetails = () => {
   const { id } = useParams();
   const [activeStep, setActiveStep] = useState(0);
+  const [educationDetails, setEducationDetails] = useState({});
   const [Jobdetail, setJobdetail] = useState({});
+  const [chatModal, setChatModal] = useState(false);
   const [isbookmarked, setisbookmarked] = useState(false);
   const [isappiled, setisappiled] = useState(false);
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
@@ -31,7 +34,6 @@ const JobViewDetails = () => {
   const GetAllJobs = async () => {
     try {
       const Getjobdata = await GetApi(`api/AdminRoutes/GetAllJobs`);
-      console.log(Getjobdata?.data.data[1]);
       setAllJobs(Getjobdata?.data?.data);
       Settotaljob(Getjobdata?.data?.data?.length);
       setLoading(false);
@@ -151,6 +153,7 @@ const JobViewDetails = () => {
     // }
   }, []);
 
+  
   return (
     <>
       {Loading ? (
@@ -257,7 +260,8 @@ const JobViewDetails = () => {
                         <button
                           className="py-2 px-3 bg-[#256aac] text-white text-xs font-semibold rounded-3xl"
                           disabled={isappiled}
-                          onClick={() => setApplymodelResumeCheck(true)}
+                          // onClick={() => setApplymodelResumeCheck(true)}
+                          onClick={() => setChatModal(true)}
                         >
                           {isappiled ? "Already Applied" : "Quick Apply"}
                         </button>
@@ -465,6 +469,19 @@ const JobViewDetails = () => {
             setApplymodelResumeCheck(false);
             setApplymodel(true);
           }}
+          educationDetails={educationDetails}
+        />
+      )}
+      {chatModal && (
+        <JobApplyModelChat
+          onOpen={chatModal}
+          onClose={() => setChatModal(false)}
+          onSubmit={() => {
+            setChatModal(false);
+            setApplymodelResumeCheck(true);
+          }}
+          openModal={() => setApplymodel(true)}
+          setEducationDetails={setEducationDetails}
         />
       )}
     </>
