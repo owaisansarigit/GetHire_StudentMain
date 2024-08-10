@@ -44,19 +44,31 @@ import AllRounds from "./Pages/Jobs/AllRounds";
 import Todo from "./Pages/Todo/Index";
 
 const ProjectRoutes = () => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const companyToken = localStorage.getItem("StudentToken");
-    if (companyToken) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
+    const checkAuthentication = async () => {
+      const companyToken = localStorage.getItem("StudentToken");
+      if (companyToken) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      setLoading(false);
+    };
+
+    checkAuthentication();
   }, []);
 
-  // console.log(isAuthenticated);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (loading) {
+    return <div></div>;
+  }
 
   return (
     <Router>

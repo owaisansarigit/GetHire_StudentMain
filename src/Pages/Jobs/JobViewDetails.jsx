@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetApi, PostApi } from "../utilis/Api_Calling";
+import {
+  Button,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+} from "@mui/material";
 import JobApplyModel from "./JobApplyModel";
+import { toast } from "react-toastify";
+const stepsHead = ["View Job", "Job Apply", "Shortlisted"];
 
 const JobViewDetails = () => {
   const { id } = useParams();
-
+  const [activeStep, setActiveStep] = useState(0);
   const [Jobdetail, setJobdetail] = useState({});
   const [isbookmarked, setisbookmarked] = useState(false);
   const [isappiled, setisappiled] = useState(false);
@@ -38,10 +48,10 @@ const JobViewDetails = () => {
   };
   const Getallappiledjob = async () => {
     try {
-      const Getbookmark = await GetApi(
+      const res = await GetApi(
         `api/StudentRoutes/GetAllAppiledJobidsofaStudent`
       );
-      setappiledjobs(Getbookmark?.data?.data?.appliedJobIds);
+      setappiledjobs(res?.data?.data?.appliedJobIds);
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +65,6 @@ const JobViewDetails = () => {
   const GetJobdetails = async () => {
     try {
       const Getjobdata = await GetApi(`api/AdminRoutes/GetAJobs/${id}`);
-      console.log(Getjobdata?.data?.data);
       setJobdetail(Getjobdata?.data?.data);
       setLoading(false);
     } catch (error) {
@@ -90,9 +99,8 @@ const JobViewDetails = () => {
         jobId: id,
       };
       const responce = await PostApi("api/StudentRoutes/AddToBookmark", obj);
-      // console.log(responce?.data)
       Getallbookmark();
-      alert(responce?.data?.message);
+      toast.success(responce?.data?.message, { autoClose: 1000 });
     } catch (error) {
       console.log(error);
     }
@@ -117,9 +125,8 @@ const JobViewDetails = () => {
         "api/StudentRoutes/RemovefromBookmark",
         obj
       );
-      // console.log(responce?.data)
       Getallbookmark();
-      alert(responce?.data?.message);
+      toast.success(responce?.data?.message, { autoClose: 1000 });
     } catch (error) {
       console.log(error);
     }
@@ -134,6 +141,15 @@ const JobViewDetails = () => {
     setApplymodel(false);
   };
 
+  useEffect(() => {
+    // if (isappiled) {
+    //   setActiveStep(1);
+    // }
+    // if(){
+    //   setActiveStep(2);
+    // }
+  }, []);
+
   return (
     <>
       {Loading ? (
@@ -143,6 +159,19 @@ const JobViewDetails = () => {
       ) : (
         <div className="w-full flex justify-center items-start gap-10 font-[poppins] bg-[#f8f9fa]">
           <div className="w-3/6 pt-5 mb-10">
+            <Box sx={{ width: "100%", marginY: "15px" }}>
+              <Stepper activeStep={activeStep}>
+                {stepsHead.map((label, index) => {
+                  const stepProps = {};
+                  const labelProps = {};
+                  return (
+                    <Step key={label} {...stepProps}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                    </Step>
+                  );
+                })}
+              </Stepper>
+            </Box>
             <div className="flex gap-[10px] flex-col  px-2 bg-[#f8f9fa]">
               <div className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5">
                 <div className="mt-[8px]">
@@ -303,6 +332,22 @@ const JobViewDetails = () => {
                         <p className="text-sm font-[500] text-black">
                           Key Skills :
                         </p>
+                        <p className="text-sm text-gray-600 my-2">
+                          Skills highlighted with "
+                          <i className="fa-regular fa-star"></i>" are prefered
+                          skills
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {Jobdetail?.skillAssessment?.map((skill, index) => (
+                            <p
+                              key={index}
+                              className=" text-sm text-center border rounded-[20px] px-4 text-gray-600 mt-2"
+                            >
+                              <i className="fa-regular fa-star m-1"></i>{" "}
+                              {skill?.type}
+                            </p>
+                          ))}
+                        </div>
                         <div className="flex flex-wrap gap-2">
                           {Jobdetail?.skillsRequired?.map((skill, index) => (
                             <p
@@ -320,11 +365,11 @@ const JobViewDetails = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white w-1/3 rounded-[8px] mt-5 flex justify-center items-center border-[1px]">
+          <div className="bg-white w-1/3 rounded-3xl mt-5 flex justify-center items-center border-[1px]">
             <div className="flex gap-[10px] flex-col w-full max-h-[100vh] overflow-scroll overflow-x-hidden px-2 bg-[#f8f9fa]">
-              <div className="w-full flex justify-between items-center my-2 px-4">
-                <span className="text-sm text-gray-600">
-                  other Available jobs
+              <div className="w-full flex justify-between items-center my-1 px-4">
+                <span className="text-md text-gray-900">
+                  jobs you might be intrested
                 </span>
               </div>
               {AllJobs?.length > 0 ? (
@@ -340,23 +385,6 @@ const JobViewDetails = () => {
                         <div className="flex justify-between gap-[20px]">
                           <p className="text-xl font-medium lg:w-[476px] flex-wrap">
                             {job.positionName}
-                          </p>
-                          <p>
-                            {isJobApplied ? (
-                              <button className="w-[103px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center">
-                                Applied
-                              </button>
-                            ) : (
-                              <button
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  // jobDetail(job._id);
-                                }}
-                                className="w-[103px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
-                              >
-                                Apply now
-                              </button>
-                            )}
                           </p>
                         </div>
                         <p className="text-gray-600 text-md font-normal">

@@ -73,7 +73,8 @@ const Start = () => {
             <div className="flex justify-center mt-[41px] mb-[70px]">
               <button
                 className="w-[412px] h-[55px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
-                onClick={() => navigate(`/blank/continue/${jobId}`)}
+                // onClick={() => navigate(`/blank/continue/${jobId}`)}
+                onClick={() => navigate(`/blank/question/${jobId}`)}
               >
                 Start Assessment
               </button>

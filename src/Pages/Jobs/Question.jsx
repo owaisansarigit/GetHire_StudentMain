@@ -178,35 +178,48 @@ const Question = () => {
 
   return (
     <div className="p-[28px] font-[Outfit] mt-[50px] w-full">
-      <div className="flex w-full sm:flex-row flex-col sm:items-center items-start sm:gap-0 gap-[20px] justify-between">
-        <div className="flex flex-1 items-center gap-[14px]">
-          <img src="/images/start/item11.svg" alt="" />
-          <p className="font-[Poppins] font-[600] text-[18px] leading-[27px] text-[#000000]">
+      <div className="flex w-full gap-4 justify-between items-center">
+        <div className="flex flex-1 items-center gap-3">
+          <img
+            src="/images/start/item11.svg"
+            alt="Job Position Icon"
+            className="w-6 h-6"
+          />
+          <p className="font-poppins font-semibold text-lg leading-7 text-black">
             {job?.positionName}
           </p>
         </div>
-        <div className="flex flex-1 items-center gap-[10px]">
-          <img src="/images/start/item12.svg" alt="" />
-          <div>
-            <p className="font-[600] text-[14px] leading-[17.64px] text-[#545454]">
-              {formatTimeElapsed(elapsedTime)}
-            </p>
+
+        <div className="flex flex-1 items-center gap-2">
+          <img
+            src="/images/start/item12.svg"
+            alt="Elapsed Time Icon"
+            className="w-6 h-6"
+          />
+          <p className="font-semibold text-sm leading-6 text-gray-600">
+            {formatTimeElapsed(elapsedTime)}
+          </p>
+        </div>
+
+        <div className="flex flex-col items-center flex-1">
+          <p className="font-medium text-sm text-gray-600 mb-1">
+            {currentQuestionIndex + 1}/{questions.length}
+          </p>
+          <div className="w-full max-w-xs h-2 bg-gray-300 rounded-full">
+            <div
+              className="h-full rounded-full bg-gradient-to-tl from-blue-500 to-indigo-600"
+              style={{
+                width: `${
+                  ((currentQuestionIndex + 1) / questions.length) * 100
+                }%`,
+              }}
+            ></div>
           </div>
         </div>
-        <div className="flex flex-1 flex-col w-full max-w-[226px]">
-          <div className="flex justify-between">
-            <p className="font-[400] text-[14px] leading-[17.64px] text-[#545454]">
-              Attempted
-            </p>
-            <p className="font-[500] text-[14px] leading-[17.64px] text-[#545454]">
-              {Object.keys(selectedAnswers).length}/{questions.length}
-            </p>
-          </div>
-          <div className="max-w-[226px] w-full h-[9px] rounded-[4px] bg-gradient-to-tl from-[#0f87b3] to-[#462da1]"></div>
-        </div>
+
         <button
           onClick={handleFinishTest}
-          className="w-[164px] flex-1 h-[45px] flex items-center text-[18px] leading-[22.68px] font-[400] text-white bg-[#4234A2] rounded-[5px] justify-center"
+          className="h-12 px-6 text-lg font-medium text-white bg-blue-800 rounded-lg hover:bg-blue-700 transition"
         >
           Finish Test
         </button>
@@ -216,7 +229,7 @@ const Question = () => {
         <div className="mt-[30px] flex sm:flex-row flex-col gap-[22px]">
           <div className="sm:w-[70%] w-full bg-[#FFFFFF] border border-[#E1E4E9] rounded-[10px]">
             <div className="flex flex-col justify-between border-b border-[#E3E6EA] pl-[20px] pr-[12px] items-center w-full">
-              <div className="flex justify-end pt-[22px] pb-[20px] pr-[35px] gap-[16px]">
+              <div className="flex gap-2 mt-2">
                 <button
                   className="border border-[#E1E4E9] rounded-[5px] py-[6px] px-[37px] font-[400] text-[18px] leading-[22.68px] text-[#97969D]"
                   onClick={handlePreviousQuestion}
@@ -232,22 +245,22 @@ const Question = () => {
                 </button>
               </div>
               <div className="flex justify-between border-b border-[#E3E6EA] pl-[20px] pr-[12px] items-center w-full">
-                <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#000000] pt-[21px] pb-[15px]">
+                <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#000000] pt-2 pb-2">
                   Question {currentQuestionIndex + 1}/{questions.length}
                 </h6>
-                <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#204F53] pt-[21px] pb-[15px]">
+                <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#204F53] pt-2 pb-2">
                   MCU
                 </h6>
               </div>
             </div>
-            <p className="text-[#545454] border-b border-[#E3E6EA] font-[400] text-[16px] leading-[28px] py-[27px] pl-[31px] pr-[46px]">
+            <p className="text-[#545454] border-b border-[#E3E6EA] font-[400] text-[16px] leading-[28px] py-2 pl-5 pr-5">
               {currentQuestion.questionText}
             </p>
             <div className="sm:pl-[31px] pl-[14px]">
-              <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#000000] pt-[21px] pb-[30px]">
+              <h6 className="font-[Poppins] font-[600] text-[16px] leading-[24px] text-[#000000] pt-2 pb-2">
                 Options
               </h6>
-              <div className="flex flex-col border-b border-[#E3E6EA] sm:pb-[202px] pb-[30px] sm:pr-[123px] pr-[14px] sm:gap-[26px] gap-[14px]">
+              <div className="flex flex-col border-b border-[#E3E6EA] sm:pb-[202px] pb-[30px] sm:pr-[123px] pr-[14px] sm:gap-[26px] gap-2">
                 {currentQuestion.options.map((option, index) => (
                   <div key={index} className="flex items-center gap-[25px]">
                     <div className="bg-[#FEEFC6] h-[30px] w-[30px] rounded-full"></div>
