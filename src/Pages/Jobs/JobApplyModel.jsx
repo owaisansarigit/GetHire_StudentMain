@@ -50,7 +50,7 @@ const JobApplyModel = ({ onOpen, onClose, Jobdetail }) => {
       navigate(`/blank/start/${JobApply.JobId}`);
       onClose();
     } catch (error) {
-      console.error(error);
+      console.log(error.response);
       toast.error(error?.response?.data?.message, { autoClose: 1000 });
     }
   };

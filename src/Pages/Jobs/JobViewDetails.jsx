@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import JobApplyModel from "./JobApplyModel";
+import JobApplyModelResumeCheck from "./JobApplyModelResumeCheck";
 import { toast } from "react-toastify";
 const stepsHead = ["View Job", "Job Apply", "Shortlisted"];
 
@@ -24,6 +25,8 @@ const JobViewDetails = () => {
   const [Loading, setLoading] = useState(true);
   const [appiledjobs, setappiledjobs] = useState([]);
   const [totaljob, Settotaljob] = useState("");
+  const [Applymodel, setApplymodel] = useState(false);
+  const [ApplymodelResumeCheck, setApplymodelResumeCheck] = useState(false);
 
   const GetAllJobs = async () => {
     try {
@@ -132,8 +135,6 @@ const JobViewDetails = () => {
     }
   };
 
-  const [Applymodel, setApplymodel] = useState(false);
-
   const jobapplymodelopen = () => {
     setApplymodel(true);
   };
@@ -142,9 +143,9 @@ const JobViewDetails = () => {
   };
 
   useEffect(() => {
-    // if (isappiled) {
-    //   setActiveStep(1);
-    // }
+    if (isappiled) {
+      setActiveStep(1);
+    }
     // if(){
     //   setActiveStep(2);
     // }
@@ -256,7 +257,7 @@ const JobViewDetails = () => {
                         <button
                           className="py-2 px-3 bg-[#256aac] text-white text-xs font-semibold rounded-3xl"
                           disabled={isappiled}
-                          onClick={jobapplymodelopen}
+                          onClick={() => setApplymodelResumeCheck(true)}
                         >
                           {isappiled ? "Already Applied" : "Quick Apply"}
                         </button>
@@ -448,11 +449,22 @@ const JobViewDetails = () => {
           </div>
         </div>
       )}
+
       {Applymodel && (
         <JobApplyModel
           onOpen={jobapplymodelopen}
           onClose={jobapplymodelclose}
           Jobdetail={Jobdetail}
+        />
+      )}
+      {JobApplyModelResumeCheck && (
+        <JobApplyModelResumeCheck
+          onOpen={ApplymodelResumeCheck}
+          onClose={() => setApplymodelResumeCheck(false)}
+          openModal={() => {
+            setApplymodelResumeCheck(false);
+            setApplymodel(true);
+          }}
         />
       )}
     </>

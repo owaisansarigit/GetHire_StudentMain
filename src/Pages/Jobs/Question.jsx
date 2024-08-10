@@ -149,6 +149,7 @@ const Question = () => {
     };
     try {
       const res = await PostApi("api/testRoutes/result", data);
+      console.log(res)
       if (res.status === 200) {
         navigate(`/blank/report/${res.data.data._id}`);
       }

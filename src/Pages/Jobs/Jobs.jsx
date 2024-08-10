@@ -18,7 +18,6 @@ const Jobs = () => {
   const GetAllJobs = async () => {
     try {
       const Getjobdata = await GetApi(`api/AdminRoutes/GetAllJobs`);
-      console.log(Getjobdata?.data.data[1]);
       setAllJobs(Getjobdata?.data?.data);
       Settotaljob(Getjobdata?.data?.data?.length);
       setLoading(false);
