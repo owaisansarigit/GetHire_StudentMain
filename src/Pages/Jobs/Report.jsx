@@ -287,7 +287,9 @@ const Report = () => {
       )}
       <MyModal
         open={modal}
-        handleNavigate={navigate(`/blank/successful/${result?.job._id}`)}
+        handleNavigate={() =>
+          navigate(`/blank/successful/${result?.job?._id}`)
+        }
         handleClose={() => setModal(false)}
       />
     </>
