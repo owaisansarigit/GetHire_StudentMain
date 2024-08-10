@@ -142,12 +142,12 @@ const Report = () => {
             </div>
             <div className="flex flex-1 flex-col w-full max-w-[226px]">
               <div className="flex justify-between">
-                <p className="font-[400] text-[14px] leading-[17.64px] text-[#545454]">
+                {/* <p className="font-[400] text-[14px] leading-[17.64px] text-[#545454]">
                   Attempted
                 </p>
                 <p className="font-[500] text-[14px] leading-[17.64px] text-[#545454]">
-                  {result?.answers.length}
-                </p>
+                  {result?.answers.length}/{result?.question?.length}
+                </p> */}
               </div>
               <div className="max-w-[226px] w-full h-[9px] rounded-[4px] bg-gradient-to-tl from-[#0f87b3] to-[#462da1]"></div>
             </div>
@@ -287,9 +287,7 @@ const Report = () => {
       )}
       <MyModal
         open={modal}
-        handleNavigate={() =>
-          navigate(`/blank/successful/${result?.job?._id}`)
-        }
+        handleNavigate={() => navigate(`/blank/successful/${result?.job?._id}`)}
         handleClose={() => setModal(false)}
       />
     </>

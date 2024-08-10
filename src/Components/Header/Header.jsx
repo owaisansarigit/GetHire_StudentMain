@@ -485,7 +485,7 @@ const Header = () => {
                    Invites
                   </Link>
                   <Link
-                    to="/blank/Jobs"
+                    to="/ApplicationManager"
                     className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
                    >
                     Application Manage
