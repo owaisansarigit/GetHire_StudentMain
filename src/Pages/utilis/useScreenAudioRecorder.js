@@ -9,6 +9,7 @@ const useScreenAudioRecorder = () => {
   const screenVideoRef = useRef(null);
   const webcamVideoRef = useRef(null);
   const recorderRef = useRef(null);
+  const audioRecorderRef = useRef(null);
   const streamsRef = useRef({
     displayStream: null,
     audioStream: null,
@@ -83,13 +84,21 @@ const useScreenAudioRecorder = () => {
       console.log("All permissions granted. Starting recording.");
       setStatus("recording");
 
+      // Start recording video
       recorderRef.current = new RecordRTC(combinedStream, {
         type: "video",
         mimeType: "video/webm",
         bitsPerSecond: 300000,
       });
-
       recorderRef.current.startRecording();
+
+      // Start recording audio separately
+      audioRecorderRef.current = new RecordRTC(audioStream, {
+        type: "audio",
+        mimeType: "audio/webm",
+      });
+      audioRecorderRef.current.startRecording();
+
       screenVideoRef.current.srcObject = combinedStream;
       screenVideoRef.current.play();
       webcamVideoRef.current.srcObject = webcamStream;
@@ -106,26 +115,34 @@ const useScreenAudioRecorder = () => {
   const stopRecording = () => {
     setStatus("stopped");
 
+    // Stop video recording
     recorderRef.current.stopRecording(() => {
       const blob = recorderRef.current.getBlob();
       const url = URL.createObjectURL(blob);
       setMediaBlobUrl(url);
-
-      // Stop and clear all tracks
-      const { displayStream, audioStream, webcamStream } = streamsRef.current;
-      if (displayStream) {
-        displayStream.getTracks().forEach((track) => track.stop());
-      }
-      if (audioStream) {
-        audioStream.getTracks().forEach((track) => track.stop());
-      }
-      if (webcamStream) {
-        webcamStream.getTracks().forEach((track) => track.stop());
-      }
-
-      screenVideoRef.current.srcObject = null;
-      webcamVideoRef.current.srcObject = null;
     });
+
+    // Stop audio recording
+    audioRecorderRef.current.stopRecording(() => {
+      const blob = audioRecorderRef.current.getBlob();
+      const url = URL.createObjectURL(blob);
+      setAudioBlobUrl(url);
+    });
+
+    // Stop and clear all streams
+    const { displayStream, audioStream, webcamStream } = streamsRef.current;
+    if (displayStream) {
+      displayStream.getTracks().forEach((track) => track.stop());
+    }
+    if (audioStream) {
+      audioStream.getTracks().forEach((track) => track.stop());
+    }
+    if (webcamStream) {
+      webcamStream.getTracks().forEach((track) => track.stop());
+    }
+
+    screenVideoRef.current.srcObject = null;
+    webcamVideoRef.current.srcObject = null;
   };
 
   const downloadVideo = () => {
@@ -155,6 +172,7 @@ const useScreenAudioRecorder = () => {
     startRecording,
     stopRecording,
     mediaBlobUrl,
+    audioBlobUrl,
     screenVideoRef,
     webcamVideoRef,
     downloadVideo,
