@@ -153,7 +153,6 @@ const JobViewDetails = () => {
     // }
   }, []);
 
-  
   return (
     <>
       {Loading ? (
@@ -273,30 +272,36 @@ const JobViewDetails = () => {
                         Job Description
                       </p>
                       <p className="text-[16px] font-[500] text-[#000] text-opacity-[50%]">
-                        {Jobdetail?.Description}
                         <span className="text-xs">
-                          {" "}
-                          Developing software solutions by writing code,
-                          testing, and debugging programs according to
-                          specifications. Responsible for maintaining and
-                          improving existing internal tools or software. Works
-                          collaboratively with other engineers and team members
-                          to design, develop and deliver quality software on
-                          time according to the project requirements. 1. Write
-                          code for applications and programs according to
-                          technical specifications 2. Test software to ensure it
-                          performs as expected and is free of bugs 3. Debug
-                          issues and provide fixes to resolve software problems
-                          4. Collaborate with other engineers, designers and
-                          team members 5. Maintain and improve existing internal
-                          tools and applications 6. Design software
-                          architectures and provide technical solutions 7.
-                          Analyze requirements and design specifications to
-                          estimate timelines 8. Ensure software is properly
-                          documented and meets quality standards 9. Continuously
-                          learn and upgrade skills to stay updated with new
-                          technologies 10. Provide technical support and help to
-                          other teams using internal tools
+                          {Jobdetail?.description ? (
+                            <>{Jobdetail?.description}</>
+                          ) : (
+                            <>
+                              Developing software solutions by writing code,
+                              testing, and debugging programs according to
+                              specifications. Responsible for maintaining and
+                              improving existing internal tools or software.
+                              Works collaboratively with other engineers and
+                              team members to design, develop and deliver
+                              quality software on time according to the project
+                              requirements. 1. Write code for applications and
+                              programs according to technical specifications 2.
+                              Test software to ensure it performs as expected
+                              and is free of bugs 3. Debug issues and provide
+                              fixes to resolve software problems 4. Collaborate
+                              with other engineers, designers and team members
+                              5. Maintain and improve existing internal tools
+                              and applications 6. Design software architectures
+                              and provide technical solutions 7. Analyze
+                              requirements and design specifications to estimate
+                              timelines 8. Ensure software is properly
+                              documented and meets quality standards 9.
+                              Continuously learn and upgrade skills to stay
+                              updated with new technologies 10. Provide
+                              technical support and help to other teams using
+                              internal tools
+                            </>
+                          )}
                         </span>
                       </p>
                       <br />
