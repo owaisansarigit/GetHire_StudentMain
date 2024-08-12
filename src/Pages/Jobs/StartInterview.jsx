@@ -74,8 +74,11 @@ const StartInterview = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      stopRecording();
-      handleSubmitVideo();
+      if (status === "recording") {
+        stopRecording();
+      } else {
+        handleSubmitVideo();
+      }
     }
   };
 
@@ -87,7 +90,6 @@ const StartInterview = () => {
       const formData = new FormData();
       formData.append("audio", audioBlob);
       try {
-        console.log("call");
         const aitext = await getTextFromAudio(formData);
         const points = await getResult(aitext);
         await submitResult(points, aitext);
@@ -114,6 +116,7 @@ const StartInterview = () => {
     );
     console.log(response);
     const jsonData = await response.json();
+    console.log(jsonData);
     return jsonData;
   };
 
