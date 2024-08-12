@@ -117,16 +117,17 @@ const Jobs = () => {
   return (
     <>
       {Loading ? (
-        <div className="bg-white flex justify-center pt-20 min-w-[100vw] min-h-[100vh] text-2xl">
+        <div className="bg-white flex justify-center pt-20 min-w-[100vw] text-2xl">
           Loading...
         </div>
       ) : (
         <div
-          className="flex flex-col justify-start items-center w-full bg-[#f8f9fa]"
+          className="flex flex-col justify-start min-h-screen  items-center w-full bg-[#f8f9fa] "
           style={{ fontFamily: "poppins" }}
         >
+          {/* <p>kjsdbfk</p> */}
           <>
-            <div className="w-full flex justify-start items-center bg-[#f8f9fa] py-2">
+            <div className="w-full flex justify-start  items-center bg-[#f8f9fa] py-2">
               <p className="text-[16px] font-[400] text-[#000] text-opacity-[50%] px-[34px] cursor-pointer">
                 Home &gt; Jobs
               </p>

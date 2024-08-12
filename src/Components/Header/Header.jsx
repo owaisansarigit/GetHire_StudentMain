@@ -100,7 +100,7 @@ const workItems = [
     title: "Club",
     description: "Join a global community to enhance your skills.",
     icon: <PiNotebookLight />,
-    link: "/", // Example route
+    link: "/blank/clubs", // Example route
   },
 ];
 
@@ -287,18 +287,22 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-[#fff] h-[70px] w-full flex justify-start items-center p-[10px] pl-20 shadow-lg">
+      <div className="bg-[#fff] h-[70px] w-full flex justify-start items-center p-[10px] pl-20 shadow-md ">
         <div className="flex justify-center items-center text-[#2a5caa] mr-10">
-          <img src={Logo} className="h-[2rem]" alt="" />
+          <Link to='/'>
+            <img src={Logo} className="h-[2rem]" alt="" />
+          </Link>
         </div>
         <div onClick={toggleNavbar} className="flex md:hidden">
           <FiAlignJustify size={"30px"} />
         </div>
         <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[38px] max-2xl:gap-[33px] max-xl:gap[30px]  font-[Outfit] ">
-          <Link to="/" className="hover:text-blue-700">Home</Link>
+          {/* <Link to="/" className="hover:text-blue-700">Home</Link> */}
           <div
-            onClick={toggleInternshipDropDown}
-            className="relative cursor-pointer hover:text-blue-700"
+            // onClick={toggleInternshipDropDown}
+            onMouseEnter={ () => {setShowInternshipDropDown(!showInternshipDropDown) ; setAnchorEl2(null)}}
+            // onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
+            className="relative cursor-pointer hover:text-blue-700 hover:border-b-2 hover:border-blue-500  duration-100"
           >
             Internship
           </div>
@@ -360,7 +364,10 @@ const Header = () => {
           )} */}
             
                   {showInternshipDropDown && (
-                    <div className="bg-white shadow-xl flex top-[100px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl">
+                    <div className="bg-white shadow-xl -ml-[470px] flex top-[55px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl"
+                    // onMouseEnter={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
+                       onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
+                    >
                       <div className="py-5 w-[223px] text-[16px] font-medium pr-2">
                         <p
                           onClick={() => handleSelectInternshipOption("location")}
@@ -423,9 +430,10 @@ const Header = () => {
 
           <div className="relative">
             <Link
-              onClick={(event) => setAnchorEl2(event.currentTarget)}
-              sx={{ cursor: "pointer" }}
-              className="hover:text-blue-700 "
+              // onClick={(event) => setAnchorEl2(event.currentTarget)}
+              onMouseEnter={(event) => {setAnchorEl2(event.currentTarget); setShowInternshipDropDown(false);}}
+              // sx={{ cursor: "pointer" }}
+              className="hover:text-blue-700 hover:cursor-pointer "
             >
               Jobs
             </Link>
@@ -447,12 +455,13 @@ const Header = () => {
                 <Link to="/blank/Jobs">Jobs</Link>
               </Popover>
             </div> */}
-            <div className="absolute top-2 left-[-5rem]">
+            <div className="absolute top-3 left-[-5rem]" >
               <Popover
                 id={id}
                 open={open2}
                 anchorEl={anchorEl2}
                 onClose={() => setAnchorEl2(null)}
+                // onMouseLeave={() => setAnchorEl2(null)}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "right",
@@ -462,7 +471,7 @@ const Header = () => {
                 }}
                 className="transition-transform duration-300 ease-in-out"
               >
-                <div className="p-4 flex flex-col ">
+                <div className="p-4 flex flex-col " onMouseLeave={()=> setAnchorEl2(null)}>
                   <Typography className="text-gray-800 text-sm font-medium">
                     {/* The content of the Popover. */}
                   </Typography>
@@ -496,7 +505,8 @@ const Header = () => {
           </div>
 
           <div className=" hover:cursor-pointer bg-blue-100 rounded-md p-1 h-10 flex justify-center items-center "
-            onClick={switchModeClicked}
+            // onClick={switchModeClicked}
+            onMouseEnter={()=>setMode(!mode)}
            >
             {mode === false ? (
                   <div className="flex flex-row justify-center items-center gap-2 p-2 group max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
@@ -560,8 +570,7 @@ const Header = () => {
                   /> */}
                 </Link>
                 <Link to={"/notification"}>
-                  {/* <i className="fa-regular fa-bell cursor-pointer"></i> */}
-                  <MdOutlineNotifications size={25} color="#6082B6"/>
+                  <MdOutlineNotifications size={25} color="#6082B6"  />
                 </Link>
            </div>
 
@@ -645,6 +654,7 @@ const Header = () => {
           >
             Internship
           </div>
+          
           {showInternshipDropDown && (
             <div className="bg-white shadow-lg flex flex-col top-[250px] absolute h-full">
               <div className="py-[22px] w-[223px] text-[16px] font-[400] pr-[10px]">
@@ -700,6 +710,8 @@ const Header = () => {
               </div>
             </div>
           )}
+
+
           <Link to="/Jobs">Jobs</Link>
           <Link to="/blank/clubs">Clubs</Link>
           <div className="flex gap-[8px] bg-[#e7f6ff] rounded-[8px] px-[14px] py-[12px]">
@@ -824,12 +836,12 @@ const Header = () => {
 
       {
         mode && (
-          <div className=" flex flex-col items-center bg-gray-50 rounded-2xl max-w-xs mx-auto">
+          <div className=" flex flex-col items-center bg-gray-50 rounded-2xl max-w-xs mx-auto" onMouseLeave={()=>setMode(false)}>
               {workItems.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => handleNavigation(item.link)}
-                  className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-200 cursor-pointer w-full rounded-md shadow-md"
+                  className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-100 cursor-pointer w-full rounded-md shadow-md"
                 >
 
                   <div className="flex justify-between items-center w-full">

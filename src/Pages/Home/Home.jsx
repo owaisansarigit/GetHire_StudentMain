@@ -198,6 +198,7 @@ import { GetApi } from "../utilis/Api_Calling";
 // import Logo from "../../assets/Images/Gethire SVG.svg";
 import logo from "../../assets/Images/Gethire SVG.svg"
 import { IoIosArrowForward } from "react-icons/io";
+import { Construction } from "@mui/icons-material";
 
 const Home = () => {
   const path = useLocation();
@@ -288,7 +289,7 @@ const dummyJobs = [
 const companies = [
   {
     id: 1,
-    name: "Aakash Educational Services",
+    name: "SkillGenic",
     logo: "https://via.placeholder.com/50", // Replace with actual image URLs
     rating: 3.6,
     reviews: "2.8K+",
@@ -444,6 +445,13 @@ const handleMove = () => {
   setOffset((prevOffset) => (prevOffset + 1) % (totalCards - cardsToShow + 1));
 };
 
+// for generate the random number
+const [random , setRandom] = useState(2);
+
+useEffect(() => {
+  setRandom(Math.floor(Math.random() * 2) + 1);  
+  console.log("random number is " , random);
+}, []);
 
 
   useEffect(() => {
@@ -639,7 +647,7 @@ const handleMove = () => {
 
 
     <>
-      <div className="py-[13px] pl-[16px] pr-[14.56px] font-[Outfit] max-2xl:-mt-3   ">
+      <div className="py-[13px] pl-[16px] pr-[14.56px] font-[Outfit] w-[68%] items-center mt-3   ">
         {/* <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-6  lg:gap-[27px]">
           <div className="bg-white w-full col-start-1 col-end-7 mb-[59px]  px-[29px] py-[42px] flex border-[1px] border-[#efecec] rounded-[30px]">
             <div className="w-full  flex-col lg:flex-row flex gap-[5px]">
@@ -711,32 +719,34 @@ const handleMove = () => {
           </button>
         </div> */}
         
-        <div className="max-w-4xl h-56 mb-12 max-2xl:h-52 mx-auto p-6 bg-gradient-to-r from-teal-400 via-green-400 to-teal-300 rounded-2xl shadow-xl flex items-center justify-between space-x-8">
+        <div className="  h-48 mb-12 max-2xl:h-[180px]  mx-auto p-6 bg-gradient-to-r from-teal-400 via-green-400 to-teal-300 rounded-2xl shadow-xl flex items-center justify-between space-x-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <span className="text-xs bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full">
+                <span className="text-xs  bg-green-100 text-green-800 font-semibold px-3   py-1 rounded-full">
                   Introducing
                 </span>
               </div>
               <div>
-                  <h2 className="text-4xl max-lg:text-2xl max-xl:text-2xl font-extrabold text-white leading-tight">
+                  <h2 className="text-3xl max-lg:text-2xl max-xl:text-2xl max-2xl:text-[25px] font-extrabold text-white leading-tight">
                     Climb the career ladder
                   </h2>
-                  <p className="text-lg  max-lg:text-base max-xl:text-base text-white font-medium">
+                  <p className="text-sm  max-lg:text-base max-xl:text-base text-white font-medium">
                     GetHire tools and resources help you take your career to the next
                     level
                   </p>
               </div>
-              <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+              <button className="mt-4 bg-blue-600 max-2xl:text-[13px] max-2xl:font-normal max-2xl:w-[150px] text-sm hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105"
+               onClick={()=>{navigate('/blank/Jobs')}}
+              >
                 Start exploring
               </button>
             </div>
             <div className="hidden md:block">
-            <div className="relative flex justify-center items-center bg-white w-32 h-32 max-lg:w-20 max-lg:h-20   rounded-full">
+            <div className="relative flex justify-center items-center bg-white w-24 h-24 max-2xl:w-20 max-2xl:h-20   rounded-full">
               <img
                 src={logo}
                 alt="GetHire Logo"
-                className="w-24 max-lg:w-16  transform transition hover:scale-110"
+                className="w-20 max-lg:w-16 max-2xl:w-16 transform transition hover:scale-110"
               />
             </div>
             </div>
@@ -780,9 +790,9 @@ const handleMove = () => {
 
 
 
-        <div className="grid lg:grid-cols-6 -mt-5">
+        <div className="grid lg:grid-cols-6 -mt-7">
           <div className="bg-white mt-[1px] col-start-1 col-end-7 px-[39px] py-[49px] rounded-[30px] border-[1px] border-[#efecec] ">
-            <div className="text-[24px] flex w-full font-[400] justify-center items-center text-[#545454] -mt-8">
+            <div className="text-[24px] flex w-ful  font-[400] justify-center items-center text-[#545454] -mt-8">
               <div className=" flex flex-row  gap-0 ">
                 {/* <div
                   onClick={() => {
@@ -800,7 +810,7 @@ const handleMove = () => {
                   onClick={() => {
                     setselectedtab("MyJobs");
                   }}
-                  className={`pb-[12px] px-[30px] hover:cursor-pointer ${
+                  className={`pb-[12px] text-lg px-[30px] hover:cursor-pointer ${
                     selectedtab === "MyJobs"
                       ? "border-b-[3px] text-[#5356e9]  border-[#5356e9] "
                       : "border-b-[3px] border-[#D9D9D9]"
@@ -812,7 +822,7 @@ const handleMove = () => {
                   onClick={() => {
                     setselectedtab("MyInterview");
                   }}
-                  className={`pb-[12px] pl-[14px] pr-[27px] hover:cursor-pointer ${
+                  className={`pb-[12px] pl-[14px] text-lg pr-[27px] hover:cursor-pointer ${
                     selectedtab === "MyInterview"
                       ? "border-b-[3px] text-[#5356e9]  border-[#5356e9]"
                       : "border-b-[3px] border-[#D9D9D9]"
@@ -822,7 +832,7 @@ const handleMove = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#d9d9d9] mt-3 bg-opacity-[20%] max-lg:justify-between rounded-[16px] flex items-center justify-center gap-[14px] p-[16px]">
+            <div className="bg-[#d9d9d9] max-2xl:ml-7 ml-16 mt-2 bg-opacity-[20%] w-96 max-lg:justify-between rounded-[16px] flex items-center justify-center gap-[14px] p-[10px]">
               <img
                 src="/images/search.svg"
                 className="w-[17px] h-[17px]"
@@ -830,10 +840,10 @@ const handleMove = () => {
               />
               <input
                 type="text"
-                className="w-[80%] bg-[#d9d9d9] bg-opacity-[1%] outline-none"
+                className="w-[60%] bg-[#d9d9d9] bg-opacity-[1%] outline-none"
                 placeholder="Search Skills"
               />
-              <p className="text-[16px] max-lg:text-[13px] font-[500] text-[#4234a2]">View all</p>
+              <p className="text-[16px] max-lg:text-[13px] font-[500] hover:cursor-pointer text-[#4234a2]">View all</p>
             </div>
             <div className="grid md:grid-cols-2  mt-[46px] gap-[40px] ">
               {/* <div
@@ -1099,30 +1109,30 @@ const handleMove = () => {
                       
 
 
-<div className="flex flex-row gap-8  max-lg:pr-7 max-2xl:-mt-6 ">
-     <div className=" max-lg:w-14 max-lg:-pl-5 ">
+<div className="flex flex-row gap-8  max-lg:pr-7 max-2xl:-mt-6 -mt-6 ">
+     <div className=" max-lg:w-14 max-lg:-pl-5  ">
             {selectedtab === "MyJobs" && (
-              <div className="flex flex-col flex-1 gap-6 max-sm:gap-4  ">
+              <div className="flex flex-col flex-1 gap-3 max-sm:gap-4  ">
                 {dummyJobs.map((job, index) => (
                   <div
                     key={index}
                     onClick={() => handleJobClick(job)}
-                    className="bg-[#fff] p-[14px] w-72 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
+                    className="bg-[#fff] p-[14px] -ml-5  max-2xl:h-36 w-44 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
                   >
-                    <div className="flex justify-between items-center gap-4 max-lg:gap-2 max-sm:gap-1">
-                      <p className="text-[24px] max-lg:text-[20px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
+                    <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-2 max-sm:gap-1">
+                      <p className="text-[18px] max-2xl:text-[16px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
                       <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[24px] h-[24px] max-lg:w-[20px] max-lg:h-[20px]" />
                     </div>
-                    <div className="flex gap-[10px] mt-[20px] max-lg:gap-[6px]">
-                      <img src="/images/carbon_location.svg" className="w-[20px] h-[25px] max-lg:w-[18px] max-lg:h-[20px]" alt="Location" />
-                      <p className="text-black text-opacity-[60%] text-[16px] max-lg:text-[13px] max-sm:text-[11px] font-[500]">{job.JobId.location}</p>
+                    <div className="flex gap-[5px] max-2xl:-mb-3 -mb-3 mt-[20px] max-lg:gap-[6px]">
+                      <img src="/images/carbon_location.svg" className="w-[18px] h-[22px] max-lg:w-[18px] max-lg:h-[20px]" alt="Location" />
+                      <p className="text-black text-opacity-[60%] text-[14px] max-lg:text-[13px] max-sm:text-[11px] font-[500]">{job.JobId.location}</p>
                     </div>
                     <div className="flex mt-[20px] gap-8 max-sm:gap-2 justify-between">
-                      <p className="text-black text-opacity-[60%] text-[16px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
+                      <p className="text-black text-opacity-[60%] text-[12px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
                       {job.JobId.result === 'Cleared' ? (
-                        <p className="text-blue-500 max-lg:text-[13px]">{job.JobId.result}</p>
+                        <p className="text-blue-500 text-[12px] max-lg:text-[13px]">{job.JobId.result}</p>
                       ) : (
-                        <p className="text-red-500 max-lg:text-[13px]">X {job.JobId.result}</p>
+                        <p className="text-red-500 max-lg:text-[13px] text-[12px] ">X {job.JobId.result}</p>
                       )}
                     </div>
                   </div>
@@ -1130,27 +1140,27 @@ const handleMove = () => {
               </div>
             )}
      </div>
-        <div className=" max-lg:ml-[120px]  ">
+        <div className=" w-72 ">
             {selectedJob && (
               <div
-                className="w-[500px] max-2xl:w-[400px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
+                className="w-[320px] -ml-4 max-2xl:w-[290px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
               >
                 <div className="flex flex-row justify-between">
                   <div>
-                    <h2 className="text-[24px] font-[700] max-lg:text-[18px]">{selectedJob.JobId.positionName}</h2>
-                    <p>{selectedJob.JobId.location}</p>
+                    <h2 className="text-[21px] font-[700] max-lg:text-[18px]">{selectedJob.JobId.positionName}</h2>
+                    <p className="text-[14px]">{selectedJob.JobId.location}</p>
                   </div>
                   <div>
                     <button
-                      className="bg-blue-600 p-3 rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                      className="bg-blue-600 p-3 text-[12px] h-9 flex items-center rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
                       onClick={() => alert("View job button is clicked")}
                     >
                       View Jobs
                     </button>
                   </div>
                 </div>
-                <hr className="border-t-2 border-gray-300 my-4" />
-                <p className="text-xl">Application status</p>
+                <hr className="border-t-2 border-gray-300 my-2" />
+                <p className="text-[18px]">Application status</p>
                 <div className="ml-4">
                   <p>Applied</p>
                   <div className="flex flex-row gap-12">
@@ -1395,37 +1405,59 @@ const handleMove = () => {
         </div>
           
           
-           <div className="flex items-center justify-between mt-6 p-6 bg-blue-200 rounded-lg shadow-md">
-             <div className="flex items-center space-x-4">
-                <div className="flex-shrink-0 bg-purple-100 p-4 rounded-full">
-                  {/* Replace the SVG below with your own SVG or image */}
-                  <img src={logo} alt="logo" className=" w-16 h-16 text-purple-600" />
-                  {/* <svg
-                    className="w-10 h-10 text-purple-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 12v.01M12 9a3 3 0 110 6 3 3 0 010-6z"
-                    />
-                  </svg> */}
+ 
+        {random === 1 && (
+              <div className="flex flex-col md:flex-row items-center justify-between mt-6 p-6 bg-gradient-to-r from-blue-200 to-blue-300 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <div className="flex items-center space-x-6">
+                <div className="flex-shrink-0 bg-gradient-to-r from-purple-400 hover:-rotate-180 to-purple-600 p-1 rounded-full transform -translate-x-4 hover:scale-105 transition-transform duration-300">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdQ4_SojBval7Ne73wYjEscH0OpO5BIqWmzw&s"
+                    alt="logo"
+                    className="w-20 h-20 rounded-full"
+                  />
                 </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Increase your chances in interviews with AI</h2>
-                  <p className="text-sm text-gray-600">
-                    Access AI-powered mock interview and question bank for your desired role
+                <div className="text-center md:text-left">
+                  <h2 className="text-lg font-bold text-gray-900">
+                    Increase your chances in interviews with AI
+                  </h2>
+                  <p className="text-sm text-gray-700 mt-1">
+                    Access AI-powered mock interviews and question banks for your desired role.
                   </p>
                 </div>
               </div>
-              <button className="px-6 py-2 text-white bg-blue-600 rounded-full hover:bg-blue-700">
+              <button className="mt-4 md:mt-0 px-8 py-3 text-sm font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300">
                 Start preparing
               </button>
             </div>
+            
+        )}
+                       {/* src="https://static.jobscan.co/blog/uploads/How-to-write-a-resume.jpg" */}
+        {random === 2 && (
+                 <div className="flex h-32 flex-col md:flex-row items-center justify-between mt-6 p-6 bg-gradient-to-r from-blue-200 to-blue-300 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div className="flex items-center space-x-6">
+                      <div className="flex-shrink-0 bg-white p-1 rounded-lg transform transition-transform duration-300 hover:-rotate-12">
+                        <img
+                          src="https://static.jobscan.co/blog/uploads/How-to-write-a-resume.jpg"
+                          alt="Resume Update"
+                          className="w-28 h-28 rounded-lg object-cover"
+                        />
+                      </div>
+                      <div className="text-center md:text-left">
+                        <h2 className="text-lg font-bold text-gray-900">
+                          Update your resume Now!
+                        </h2>
+                        <p className="text-sm text-gray-700 mt-1">
+                          Update your resume to increase your chances of selection.
+                        </p>
+                      </div>
+                    </div>
+                    <button className="mt-4 md:mt-0 px-8 py-3 text-sm font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300">
+                      Update Now
+                    </button>
+                  </div>      
+               
+        )}
+
 
 
             {/* <div className="bg-white p-6 rounded-lg shadow-xl mt-12">
@@ -1472,7 +1504,7 @@ const handleMove = () => {
                               <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-4 border-2 border-y-blue-200 border-x-blue-200 border-b-blue-200">
                                 <img src={company.logo} alt={company.name} className="w-16 h-16 mb-4" />
                                 <h3 className="text-sm font-semibold text-gray-900 text-center truncate">{company.name}</h3>
-                                <div className="flex items-center mt-2">
+                                <div className="flex items-center mt-2 -mb-2">
                                   <span className="text-yellow-500 text-sm">★</span>
                                   <span className="ml-1 text-sm font-medium text-gray-800">{company.rating}</span>
                                   <span className="ml-2 text-xs text-gray-600">| {company.reviews} reviews</span>

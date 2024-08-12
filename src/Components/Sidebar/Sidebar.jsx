@@ -444,8 +444,10 @@ import { FiBookOpen } from "react-icons/fi";
 
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { Navigate, useNavigate } from "react-router";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
    
   const progress = 75;
   // const radius = 45; // Radius of the circle
@@ -476,7 +478,7 @@ const Sidebar = () => {
   const dotPosition = circumference - dashoffset; // Calculate position for the dot
 
   return (
-    <div className="border rounded-2xl p-5 min-h-[60vh] bg-white min-w-[15vw] shadow-lg max-2xl:-mt-3">
+    <div className="border rounded-2xl p-5 min-h-[60vh] bg-white min-w-[15vw] shadow-lg mt-3 ">
         <div className="profile w-full flex flex-col justify-start items-center">
              {/* old bar */}
               {/* <div className="relative flex items-center justify-center">
@@ -532,7 +534,9 @@ const Sidebar = () => {
           <p className="text-xs text-gray-500 mt-1">
             Last updated 7m ago
           </p>
-          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-full mt-5 hover:bg-blue-700 transition duration-300">
+          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-full mt-5 hover:bg-blue-700 transition duration-300"
+           onClick={()=>{navigate('/blank/portfolio')}}
+          >
             Complete Profile
           </button>
         </div>

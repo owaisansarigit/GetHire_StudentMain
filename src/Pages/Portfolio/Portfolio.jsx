@@ -43,7 +43,7 @@ const Portfolio = () => {
 
       <div className="lg:w-3/4 w-full lg:ml-8">
         {/* Navigation Bar - Now Aligned to the Top Left */}
-        <nav className="flex flex-wrap space-x-6 p-4 rounded justify-start">
+        <nav className="flex flex-wrap space-x-6 p-4 rounded justify-start gap-[3.5%]">
           {['about', 'skills', 'experience', 'education', 'projects', 'certifications&Awards', 'social_links'].map((tab) => (
             <button
               key={tab}
@@ -55,7 +55,7 @@ const Portfolio = () => {
           ))}
         </nav>
 
-        <hr className="border-1 w-4/6 border-gray-300" />
+          <hr className="border-1 w-[84%] border-gray-300" />
 
         {/* Content Section */}
         <div className="mt-6">

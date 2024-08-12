@@ -5,14 +5,14 @@ const Sidebar = () => {
   const questions = [
     "Actively Looking for jobs",
     "Open to offers",
-    "Not looking, but open to interesting opportunities",
+    "Not looking, but open to ",
     "Not looking at all",
-    "Considering a career change",
-    "Looking to start a new project",
-    "Want to improve my current job situation",
-    "Networking with industry professionals",
-    "Updating my resume and LinkedIn",
-    "Exploring job market trends",
+    "Considering a career",
+    "Looking to start project",
+    "Want to improve current job ",
+    "Networkingindustry professionals",
+    "Updating my resume ",
+    "Exploring job market ",
   ];
 
   // Select 4 random questions
@@ -24,23 +24,25 @@ const Sidebar = () => {
   const randomQuestions = getRandomQuestions();
 
   return (
-    <div className="border-2 border-gray-300 rounded-2xl p-6 max-2xl:-mt-2  min-h-[60vh] bg-white min-w-[15vw] shadow-lg hover:shadow-xl transition-shadow duration-300">
-  <div className="profile w-full flex flex-col justify-start items-start">
-    <h2 className="text-lg font-bold text-gray-900 mb-4">
-      Where are you in your job search journey?
-    </h2>
-    <div className="flex flex-col mt-3 gap-3">
-      {questions.slice(0, 4).map((question, index) => (
-        <h6
-          key={index}
-          className="text-sm font-semibold text-gray-900 border-2 border-gray-300 rounded-3xl py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
-        >
-          {question}
-        </h6>
-      ))}
+    <div className=" border-2  border-gray-300 rounded-2xl p-6 mt-3 max-2xl:h-[25%]   h-[20%] bg-white w-[80%] shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div className="profile w-full flex flex-col justify-start items-start">
+        <h2 className="text-[14px] font-medium text-gray-900 mb-1">
+          Where are you in your job search journey?
+        </h2>
+        <div className="flex flex-col mt-2 -ml-3 gap-2">
+          {questions.slice(0, 4).map((question, index) => (
+            <h6
+              key={index}
+              className="text-[12px] font-sans text-gray-900 border-2 border-gray-300 rounded-3xl py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
+            >
+              {question}
+            </h6>
+          ))}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+ 
+
 
   );
 };

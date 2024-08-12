@@ -39,7 +39,7 @@ import EndInterview from "./Pages/Jobs/EndInterview";
 import Question from "./Pages/Jobs/Question";
 import Report from "./Pages/Jobs/Report";
 import Premium from "./Pages/Premium";
-import Chat from "./Pages/Chat/Chat";
+import Chat from "./Pages/Chat/Chat.jsx";
 import AllRounds from "./Pages/Jobs/AllRounds";
 import Todo from "./Pages/Todo/Index";
 
@@ -86,7 +86,7 @@ const ProjectRoutes = () => {
           element={isAuthenticated ? <Layout /> : <Navigate to="/login" />}
         >
           <Route index element={<Home />} />
-          <Route path="/Notification" element={<Notification />} />
+          <Route path="/notification" element={<Notification />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/ApplicationManager" element={<ApplicationManager />} />
           <Route

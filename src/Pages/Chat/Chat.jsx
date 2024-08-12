@@ -30,6 +30,7 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
 }));
 
 const ChatComponent = () => {
+  console.log( "chat component clicked")
   const studentId = localStorage.getItem("Studentid");
   const messagesEndRef = useRef(null);
 
