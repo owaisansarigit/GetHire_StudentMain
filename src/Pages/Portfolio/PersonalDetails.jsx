@@ -70,9 +70,9 @@ const PersonalDetails = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 max-w-4xl mx-auto mt-6 -ml-0">
-          <h2 className="text-xl font-bold mb-4">About</h2>
-            <div className="bg-white p-4 rounded  ">
-              <p>Your resume</p>
+          <h2 className="text-xl font-semibold mb-4 -ml-4">About</h2>
+            <div className="bg-white p-2 -ml-1 rounded flex flex-col ">
+              <p className=" -mb-2">Your resume</p>
                 <div className='flex felx-row justify-between items-center'>
                   <div className='flex flex-row gap-2'>
                     <p>Resume1.pdf</p>
@@ -104,7 +104,7 @@ const PersonalDetails = () => {
                 </div>  
               </div>
             </div>
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-4 mt-2">
                 <h2 className="text-xl -ml-4 font-semibold">Your personal details</h2>
                 <button
                 className="text-blue-600 hover:text-blue-800 focus:outline-none"
@@ -128,7 +128,7 @@ const PersonalDetails = () => {
                 </button>
             </div>
 
-            <div className="space-y-4 mt-9">
+            <div className="space-y-4 mt-6">
                 <div className="flex flex-row justify-between">
                 <div className="flex flex-col items-start justify-center">
                     <label className="text-sm font-medium">Name</label>
@@ -194,7 +194,7 @@ const PersonalDetails = () => {
                             // className="border border-gray-300 rounded-lg p-2 w-full"
                             />
                         ) : (
-                            <p className="text-stone-600 from-neutral-500">{details.dob}</p>
+                            <p className="text-stone-600 text-[14px] from-neutral-500">{details.dob}</p>
                         )}
                     </div>
 
@@ -408,9 +408,9 @@ const PersonalDetails = () => {
             </div> */}
             
             <div className="p-4 space-y-4 mt-8">
-                <p className="text-lg -ml-4 font-semibold">Your professional details</p>
+                <p className="text-lg -ml-9 font-semibold">Your professional details</p>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center -ml-3 ">
                     <div className="flex flex-col">
                         <p className="text-sm font-medium">Location</p>
                         {isEditingField === 'location' ? (
@@ -450,7 +450,7 @@ const PersonalDetails = () => {
                     )}
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center -ml-3">
                     <div className="flex flex-col">
                         <p className="text-sm font-medium">Job Title</p>
                         {isEditingField === 'jobTitle' ? (
@@ -489,7 +489,7 @@ const PersonalDetails = () => {
                     )}
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center -ml-3">
                     <div className="flex flex-col">
                         <p className="text-sm font-medium">Work Experience</p>
                         {isEditingField === 'workExperience' ? (
@@ -528,7 +528,7 @@ const PersonalDetails = () => {
                     )}
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center -ml-3">
                     <div className="flex flex-col">
                         <p className="text-sm font-medium">Annual Compensation</p>
                         {isEditingField === 'annualCompensation' ? (

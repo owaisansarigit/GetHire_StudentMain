@@ -44,7 +44,7 @@ function ProjectForm() {
 
   return (
     <div className="p-4 mx-auto">
-        <h2 className="text-xl font-bold mb-4">Projects</h2>
+        <h2 className="text-xl font-semibold mb-4">Projects</h2>
       <div className="mb-6">
         <button
           onClick={() => setFormVisible(true)}

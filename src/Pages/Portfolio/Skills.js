@@ -81,7 +81,7 @@ function Skills() {
 
   return (
     <div className="container mx-auto p-5 shadow-lg h-screen">
-      <h2 className="text-xl font-bold mb-6 text-gray-800">Your Skills</h2>
+      <h2 className="text-xl font-semibold mb-6 text-gray-800">Your Skills</h2>
 
       {/* Technical Skills Section */}
       <div className="mb-8 p-6 bg-white border border-gray-200 rounded-lg shadow-md">

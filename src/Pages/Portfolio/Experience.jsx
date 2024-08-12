@@ -64,7 +64,7 @@ function Experience() {
 
   return (
     <div className="container mx-auto p-4 shadow-md h-screen">
-      <h2 className="text-xl font-bold mb-4">Experience</h2>
+      <h2 className="text-xl font-semibold mb-4">Experience</h2>
 
       <button
         className="px-4 py-2 text-sm  text-blue-500 hover:text-blue-700 rounded-md mb-4"

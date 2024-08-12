@@ -43,19 +43,24 @@ const Portfolio = () => {
 
       <div className="lg:w-3/4 w-full lg:ml-8">
         {/* Navigation Bar - Now Aligned to the Top Left */}
-        <nav className="flex flex-wrap space-x-6 p-4 rounded justify-start gap-[3.5%]">
+        <nav className="flex flex-wrap space-x-6 p-4 rounded justify-start gap-[3.5%] ">
           {['about', 'skills', 'experience', 'education', 'projects', 'certifications&Awards', 'social_links'].map((tab) => (
             <button
               key={tab}
-              className={`hover:text-blue-500 hover:underline ${activeTab === tab ? 'text-blue-500' : 'text-gray-600'}`}
+              className={`hover:text-blue-500  group relative ${activeTab === tab ? 'text-blue-500' : 'text-gray-600'}`}
               onClick={() => setActiveTab(tab)}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1).replace('&', ' & ')}
+                  {/* <p class="text-lg m-6 group relative w-max"> */}
+                     {/* <span>Hover over me</span> */}
+                     <span class="absolute -bottom-1 left-1/2 w-0 duration-300  transition-all h-1 bg-indigo-500 group-hover:w-3/6 "></span>
+                     <span class="absolute -bottom-1 right-1/2 w-0 duration-300 transition-all h-1 bg-indigo-500 group-hover:w-3/6 "></span>
+                   {/* </p> */}
             </button>
           ))}
         </nav>
-
-          <hr className="border-1 w-[84%] border-gray-300" />
+          
+          <hr className="border-1 -mt-3 w-[84%] border-gray-300" />
 
         {/* Content Section */}
         <div className="mt-6">

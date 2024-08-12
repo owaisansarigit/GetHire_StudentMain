@@ -228,7 +228,7 @@ const Jobs = () => {
                   onClick={clearAllFilters}
                   className="mt-[44px] w-full flex justify-end"
                 >
-                  <p className="text-[16px] font-[500] text-[#4234a2]">
+                  <p className="text-[16px] font-[500] text-[#4234a2] hover:cursor-pointer hover:underline hover:text-blue-900">
                     Clear all
                   </p>
                 </div>
@@ -238,7 +238,7 @@ const Jobs = () => {
                   <span className="text-sm text-gray-600">
                     {totaljob} Jobs Available
                   </span>
-                  <span className="text-sm text-blue-600 cursor-pointer font-semibold">
+                  <span className="text-sm text-blue-600 hover:underline duration-200 cursor-pointer font-semibold">
                     send me more jobs like these
                   </span>
                 </div>
@@ -268,7 +268,7 @@ const Jobs = () => {
                                   onClick={() => {
                                     jobDetail(job?._id);
                                   }}
-                                  className="w-[103px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center"
+                                  className="w-[103px] h-[32px] text-white  hover:scale-105  bg-violet-500 hover:bg-blue-900 duration-200  rounded-[5px] flex justify-center items-center"
                                 >
                                   Apply now
                                 </button>

@@ -257,7 +257,7 @@ const JobViewDetails = () => {
                           )}
                         </div>
                         <button
-                          className="py-2 px-3 bg-[#256aac] text-white text-xs font-semibold rounded-3xl"
+                          className="py-2 px-3 bg-[#256aac] text-white text-xs font-semibold rounded-3xl hover:bg-blue-900 "
                           disabled={isappiled}
                           // onClick={() => setApplymodelResumeCheck(true)}
                           onClick={() => setChatModal(true)}

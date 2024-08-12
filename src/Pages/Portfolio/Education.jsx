@@ -70,7 +70,7 @@ function EducationForm() {
 
   return (
     <div className="p-4 mx-auto">
-      <h2 className="text-xl font-bold mb-4">Education</h2>
+      <h2 className="text-xl font-semibold mb-4">Education</h2>
       <div className="mb-6">
         <button
           onClick={() => setFormVisible(true)}

@@ -110,8 +110,8 @@ function CertificationSection() {
   };
 
   return (
-    <div className="space-y-6 ml-3">
-       <h2 className="text-xl font-bold mb-4">Certifications</h2>
+    <div className="space-y-6 ml-3 ">
+       <h2 className="text-xl font-semibold mt-10 mb-4">Certifications</h2>
       <div className="mb-6 ">
         <button
           onClick={() => setFormVisible(true)}

@@ -251,9 +251,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClick = (event) => {setAnchorEl(event.currentTarget);};
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -301,7 +299,7 @@ const Header = () => {
           <div
             // onClick={toggleInternshipDropDown}
             onMouseEnter={ () => {setShowInternshipDropDown(!showInternshipDropDown) ; setAnchorEl2(null)}}
-            // onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
+            onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
             className="relative cursor-pointer hover:text-blue-700 hover:border-b-2 hover:border-blue-500  duration-100"
           >
             Internship
@@ -364,9 +362,9 @@ const Header = () => {
           )} */}
             
                   {showInternshipDropDown && (
-                    <div className="bg-white shadow-xl -ml-[470px] flex top-[55px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl"
-                    // onMouseEnter={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
-                       onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
+                    <div className="bg-white shadow-xl -ml-[470px] flex top-[50px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl"
+                    onMouseEnter={ () => {setShowInternshipDropDown(true)}}
+                       onMouseLeave={ () => {setShowInternshipDropDown(false)}}
                     >
                       <div className="py-5 w-[223px] text-[16px] font-medium pr-2">
                         <p
@@ -428,15 +426,17 @@ const Header = () => {
           
 
 
-          <div className="relative">
-            <Link
+          <div className="">
+            <p
               // onClick={(event) => setAnchorEl2(event.currentTarget)}
-              onMouseEnter={(event) => {setAnchorEl2(event.currentTarget); setShowInternshipDropDown(false);}}
+              onMouseEnter={(event) => {setAnchorEl2(event.currentTarget); setShowInternshipDropDown(false);setMode(false);}}
+              // onMouseLeave={()=> setAnchorEl2(null)}
+              // onMouseLeave={() => {setAnchorEl2(null)}}
               // sx={{ cursor: "pointer" }}
               className="hover:text-blue-700 hover:cursor-pointer "
             >
               Jobs
-            </Link>
+            </p>
             
             {/* <div className="absolute top-2" style={{ left: "-5rem" }}>
               <Popover
@@ -455,7 +455,7 @@ const Header = () => {
                 <Link to="/blank/Jobs">Jobs</Link>
               </Popover>
             </div> */}
-            <div className="absolute top-3 left-[-5rem]" >
+            <div className=" top-3 left-[-5rem]" >
               <Popover
                 id={id}
                 open={open2}
@@ -506,7 +506,8 @@ const Header = () => {
 
           <div className=" hover:cursor-pointer bg-blue-100 rounded-md p-1 h-10 flex justify-center items-center "
             // onClick={switchModeClicked}
-            onMouseEnter={()=>setMode(!mode)}
+            onMouseEnter={()=>setMode(true)}
+            onMouseLeave={()=>setMode(false)}
            >
             {mode === false ? (
                   <div className="flex flex-row justify-center items-center gap-2 p-2 group max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
@@ -559,25 +560,29 @@ const Header = () => {
             />
           </Link> */}
          
-           <div className=" flex flex-row gap-6 justify-center items-center ">
+         <div className=" flex flex-row gap-6 justify-center items-center ">
              
-                <Link to={"/chat"}>
-                  <BiMessage size={25} color="#6082B6"/>
-                  {/* <img
-                    src="/images/tabler_message-2.svg"
-                    className="w-[24px] h-[24px]"
-                    alt=""
-                  /> */}
-                </Link>
-                <Link to={'/notification'}>
-                  <MdOutlineNotifications size={25} color="#6082B6"  />
-                </Link>
-           </div>
+             <Link to={"/chat"}>
+               <BiMessage size={25} color="#6082B6"/>
+               {/* <img
+                 src="/images/tabler_message-2.svg"
+                 className="w-[24px] h-[24px]"
+                 alt=""
+               /> */}
+             </Link>
+             <Link to={"/notification"}>
+               {/* <i className="fa-regular fa-bell cursor-pointer"></i> */}
+               <MdOutlineNotifications size={25} color="#6082B6"/>
+             </Link>
+        </div>
 
 
-           <div className="relative inline-block text-left">
+           <div className=" inline-block text-left cursor-pointer"
+              onMouseEnter = {(event) =>setAnchorEl(event.currentTarget)}
+                onMouseLeave = {() =>setAnchorEl(null)}
+            >
               <DropdownLink
-                onClick={handleClick}
+                // onClick={handleClick}
                 className="flex items-center space-x-2 cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
               >
                 <MdOutlineSort size={25}/>
@@ -601,7 +606,7 @@ const Header = () => {
                 MenuListProps={{
                   "aria-labelledby": id,
                 }}
-                className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                className=" right-0"
               >
                 <MenuItem
                     onClick={() => navigate("/blank/Portfolio")}
@@ -623,6 +628,11 @@ const Header = () => {
                   </MenuItem>
               </Menu>
             </div>
+
+
+
+
+
 
 
         </div>
@@ -836,7 +846,9 @@ const Header = () => {
 
       {
         mode && (
-          <div className=" flex flex-col items-center bg-gray-50 rounded-2xl max-w-xs mx-auto" onMouseLeave={()=>setMode(false)}>
+          <div className=" flex flex-col items-center bg-gray-50 rounded-2xl -mt-4 ml-96  max-w-xs mx-auto" onMouseLeave={()=>setMode(false)}
+            onMouseEnter={()=>setMode(true)}
+           >
               {workItems.map((item, index) => (
                 <div
                   key={index}
