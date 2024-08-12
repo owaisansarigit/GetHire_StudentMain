@@ -242,9 +242,9 @@ const StartInterview = () => {
             </div>
           </div>
         ) : (
-          <>
-            <div className="flex  w-[100vw] justify-between px-2 gap-4 mb-4">
-              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-gray-100 flex justify-center items-center">
+          <div className="min-h-[100vh] bg-black p-2">
+            <div className="flex bg-black w-[100vw] justify-between px-5 gap-4 mb-4">
+              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-black flex justify-center items-center">
                 <video
                   ref={webcamVideoRef}
                   autoPlay
@@ -253,7 +253,7 @@ const StartInterview = () => {
                   // style={{objectFit:"fill"}}
                 />
               </div>
-              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-gray-100 flex justify-center items-center">
+              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-black flex justify-center items-center">
                 <video
                   ref={screenVideoRef}
                   autoPlay
@@ -262,18 +262,26 @@ const StartInterview = () => {
                 />
               </div>
             </div>
-            <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3">
-              <span className="text-md">{questions[currentQuestionIndex]}</span>
-              <button
-                onClick={handleNextQuestion}
-                className="mr-auto p-1 px-3 bg-blue-600 text-white border-none rounded cursor-pointer mt-2.5"
-              >
-                {currentQuestionIndex < questions.length - 1
-                  ? "Next Question"
-                  : "Finish"}
-              </button>
+            <div className="px-5">
+              <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3 text-gray-300">
+                {status === "recording" && (
+                  <>
+                    <span className="text-md">
+                      {questions[currentQuestionIndex]}
+                    </span>
+                    <button
+                      onClick={handleNextQuestion}
+                      className="mr-auto p-1 px-3 bg-blue-600 text-white border-none rounded cursor-pointer mt-2.5"
+                    >
+                      {currentQuestionIndex < questions.length - 1
+                        ? "Next Question"
+                        : "Finish"}
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
