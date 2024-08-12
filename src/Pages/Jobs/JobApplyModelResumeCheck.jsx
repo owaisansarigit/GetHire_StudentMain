@@ -25,7 +25,13 @@ const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.divider}`,
 }));
 
-const JobApplyModelResumeCheck = ({ onOpen, onClose, openModal }) => {
+const JobApplyModelResumeCheck = ({
+  onOpen,
+  onClose,
+  openModal,
+  educationDetails,
+}) => {
+  
   return (
     <StyledDialog
       onClose={onClose}

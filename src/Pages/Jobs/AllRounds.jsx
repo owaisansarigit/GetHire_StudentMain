@@ -8,6 +8,7 @@ const AllRounds = () => {
   const [job, setJob] = useState({});
   const [loading, setLoading] = useState(true);
   const [allTestResults, setAllTestResults] = useState([]);
+  const [allAiTest, setAllAiTest] = useState(null);
 
   const GetAllJobs = async () => {
     try {
@@ -30,10 +31,28 @@ const AllRounds = () => {
     }
   };
 
+  const GetAllAiTest = async (id) => {
+    let studentId = localStorage.getItem("Studentid");
+    try {
+      const res = await GetApi(
+        `api/testRoutes/result/aitestresult/bystudentid/${studentId}/${id}`
+      );
+      setAllAiTest(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     GetAllJobs();
     GetAllTest();
   }, []);
+
+  useEffect(() => {
+    if (job) {
+      GetAllAiTest(id);
+    }
+  }, [job]);
 
   const hasTakenTest = (jobId) => {
     return allTestResults.some((test) => test.job === jobId);
@@ -138,12 +157,17 @@ const AllRounds = () => {
                       )}
                       {round.Assessment === "AI Based Video" && (
                         <button
+                          disabled={allAiTest !== null}
                           onClick={() => {
                             navigate(`/blank/successful/${job._id}`);
                           }}
-                          className="px-4 py-2 text-white rounded-md bg-gradient-to-tl from-blue-600 to-purple-600"
+                          className={`px-4 py-2 text-white rounded-md ${
+                            allAiTest !== null
+                              ? "bg-gray-400 cursor-not-allowed"
+                              : "bg-gradient-to-tl from-blue-600 to-purple-600"
+                          }`}
                         >
-                          Apply Now
+                          {allAiTest !== null ? "Applied" : "Apply Now"}
                         </button>
                       )}
                     </div>

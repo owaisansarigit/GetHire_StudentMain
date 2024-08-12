@@ -5,34 +5,6 @@ import { GetApi } from "../utilis/Api_Calling";
 
 const ApplicationManager = () => {
   const navigate = useNavigate();
-  const ApplicationManagertable = [
-    {
-      company: "Xboom Utilities Private Limited",
-      profile: "Social Media Marketing Internship",
-      profileSend: "images/sendvector.svg",
-      appliedOn: "18 Nov 23",
-      noOfApplicants: "224",
-      applicationStatusA: "Applied",
-      applicationStatusB: "Round",
-      applicationStatusC: "2",
-      reviewA: "images/basil_document-outline.svg",
-      reviewB: "Missing skill",
-      reviewC: <IoIosInformationCircleOutline size={"16px"} color="#4234a2" />,
-    },
-    {
-      company: "Xboom Utilities Private Limited",
-      profile: "Social Media Marketing Internship",
-      profileSend: "images/sendvector.svg",
-      appliedOn: "18 Nov 23",
-      noOfApplicants: "224",
-      applicationStatusA: "Applied",
-      applicationStatusB: "Final Round Left",
-      applicationStatusC: "",
-      reviewA: "images/basil_document-outline.svg",
-      reviewB: "Missing skill",
-      reviewC: <IoIosInformationCircleOutline size={"16px"} color="#4234a2" />,
-    },
-  ];
 
   const [allappiledjobs, setallappiledjobs] = useState([]);
   const [Loading, setLoading] = useState(true);
