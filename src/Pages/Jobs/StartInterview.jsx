@@ -22,6 +22,7 @@ const StartInterview = () => {
 
   const { jobId } = useParams();
   const [loading, setLoading] = useState(false);
+  const [inLoading, setInLoading] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [submissionStatus, setSubmissionStatus] = useState("idle");
   const [job, setJob] = useState("");
@@ -83,6 +84,7 @@ const StartInterview = () => {
   };
 
   const handleSubmitVideo = async () => {
+    setInLoading(true);
     if (mediaBlobUrl) {
       setSubmissionStatus("submitting");
       const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
@@ -101,6 +103,8 @@ const StartInterview = () => {
           autoClose: 1000,
         });
         setSubmissionStatus("idle");
+      } finally {
+        setInLoading(false);
       }
     }
   };
