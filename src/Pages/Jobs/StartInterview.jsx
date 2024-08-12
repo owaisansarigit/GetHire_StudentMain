@@ -77,6 +77,7 @@ const StartInterview = () => {
     } else {
       if (status === "recording") {
         stopRecording();
+        handleSubmitVideo();
       } else {
         handleSubmitVideo();
       }
