@@ -294,7 +294,7 @@ const Header = () => {
         <div onClick={toggleNavbar} className="flex md:hidden">
           <FiAlignJustify size={"30px"} />
         </div>
-        <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[38px]  font-[Outfit] ">
+        <div className=" hidden text-[18px] justify-center items-center font-[400] md:flex gap-[38px] max-2xl:gap-[33px] max-xl:gap[30px]  font-[Outfit] ">
           <Link to="/" className="hover:text-blue-700">Home</Link>
           <div
             onClick={toggleInternshipDropDown}
@@ -499,14 +499,14 @@ const Header = () => {
             onClick={switchModeClicked}
            >
             {mode === false ? (
-                  <div className="flex flex-row justify-center items-center gap-2 p-2 group ">
-                     <p className="text-lg text-blue-500  duration-300">Switch Mode</p>
-                    <TbArrowsExchange2 size={23} className="text-blue-500" />
+                  <div className="flex flex-row justify-center items-center gap-2 p-2 group max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
+                     <p className="text-lg text-blue-500   max-2xl:text-base max-xl:text-xs">Switch Mode</p>
+                    <TbArrowsExchange2 size={23} className="text-blue-500 max-2xl:w-5 max-xl:w-4 " />
                   </div>
               ) : (
-                  <div className="flex flex-row justify-center items-center gap-2 p-2 group bg-blue-500 ">
-                    <p className="text-lg text-white  duration-300">Switch Mode</p>
-                    <TbArrowsExchange2 size={23} className="text-white" />
+                  <div className="flex flex-row justify-center items-center gap-2 p-2 group  max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
+                    <p className="text-lg max-2xl:text-base group-hover:text-blue-700 max-xl:text-sm">Switch Mode</p>
+                    <TbArrowsExchange2 size={23} className=" group-hover:text-blue-700 max-2xl:w-5 max-xl:w-4" />
                 </div>
             )}
           </div>
@@ -523,7 +523,7 @@ const Header = () => {
           </Search> */}
           {/* search baar */}
             <div
-                className="flex items-center w-[280px] h-[50px] rounded-full border border-gray-300 bg-white shadow-md transition-shadow duration-300 cursor-pointer hover:shadow-lg overflow-hidden"
+                className="flex items-center w-[280px] h-[50px] max-xl:h-[40px] max-xl:-mr-4 max-xl:-ml-5 max-xl:w-[220px] rounded-full border border-gray-300 bg-white shadow-md transition-shadow duration-300 cursor-pointer hover:shadow-lg overflow-hidden"
               >
                 <input
                   type="text"
@@ -531,14 +531,14 @@ const Header = () => {
                   className="flex-1 border-none ml-3 px-1 h-full text-gray-800 text-base outline-none rounded-full rounded-r-none"
                 />
                 <div
-                  className="w-[50px] h-full flex items-center justify-center  rounded-full rounded-l-none"
+                  className="w-[50px] max-xl:w-[40px] max-xl:-ml-24 max-xl:h-3/4 h-full flex items-center justify-center  rounded-full rounded-l-none"
                 >
                   <IoSearchCircleSharp size={45} color="blue" onClick={()=>{alert("search button clicked")}}/>
                 </div>
               </div>
 
 
-          <div className="border flex justify-center hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
+          <div className="border flex justify-center max-xl:text-[10px] hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
             AI Tools
           </div>
           {/* <Link to="/blank/bookmarked">
@@ -829,8 +829,9 @@ const Header = () => {
                 <div
                   key={index}
                   onClick={() => handleNavigation(item.link)}
-                  className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-500 cursor-pointer w-full rounded-md shadow-md"
+                  className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-200 cursor-pointer w-full rounded-md shadow-md"
                 >
+
                   <div className="flex justify-between items-center w-full">
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-semibold">{item.title}</p>

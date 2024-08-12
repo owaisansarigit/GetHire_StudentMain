@@ -451,8 +451,195 @@ const handleMove = () => {
   }, [selectedJob]);
 
   return (
+    
+  //   <>
+  //   <div className="py-4 pl-4 pr-4 font-[Outfit] sm:py-[14px] sm:pl-[16px] sm:pr-[14.56px]">
+  //     <div className="max-w-full sm:max-w-4xl mb-8 sm:mb-12 mx-auto p-4 sm:p-6 bg-gradient-to-r from-teal-400 via-green-400 to-teal-300 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-8">
+  //       <div className="space-y-4 text-center sm:text-left">
+  //         <div className="flex items-center justify-center sm:justify-start space-x-2">
+  //           <span className="text-xs bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full">
+  //             Introducing
+  //           </span>
+  //         </div>
+  //         <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+  //           Climb the career ladder
+  //         </h2>
+  //         <p className="text-base sm:text-lg text-white font-medium">
+  //           GetHire tools and resources help you take your career to the next level
+  //         </p>
+  //         <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg transform transition hover:scale-105">
+  //           Start exploring
+  //         </button>
+  //       </div>
+  //       <div className="hidden md:block">
+  //         <div className="relative flex justify-center items-center bg-white w-32 sm:w-48 h-32 sm:h-48 rounded-full">
+  //           <img
+  //             src={logo}
+  //             alt="GetHire Logo"
+  //             className="w-24 sm:w-36 transform transition hover:scale-110"
+  //           />
+  //         </div>
+  //       </div>
+  //     </div>
+  
+  //     <div className="grid lg:grid-cols-6">
+  //       <div className="bg-white mt-1 col-start-1 col-end-7 px-4 py-6 sm:px-[39px] sm:py-[49px] rounded-[20px] sm:rounded-[30px] border-[1px] border-[#efecec]">
+  //         <div className="text-lg sm:text-[24px] flex w-full font-[400] justify-center items-center text-[#545454]">
+  //           <div className="flex flex-col sm:flex-row gap-2 sm:gap-[10px] lg:gap-0">
+  //             <div
+  //               onClick={() => {
+  //                 setselectedtab("MyJobs");
+  //               }}
+  //               className={`pb-2 sm:pb-[12px] px-4 sm:px-[30px] hover:cursor-pointer ${
+  //                 selectedtab === "MyJobs"
+  //                   ? "border-b-2 sm:border-b-[3px] text-[#5356e9]  border-[#5356e9]"
+  //                   : "border-b-2 sm:border-b-[3px] border-[#D9D9D9]"
+  //               }`}
+  //             >
+  //               Applied
+  //             </div>
+  //             <div
+  //               onClick={() => {
+  //                 setselectedtab("MyInterview");
+  //               }}
+  //               className={`pb-2 sm:pb-[12px] pl-2 sm:pl-[14px] pr-4 sm:pr-[27px] hover:cursor-pointer ${
+  //                 selectedtab === "MyInterview"
+  //                   ? "border-b-2 sm:border-b-[3px] text-[#5356e9]  border-[#5356e9]"
+  //                   : "border-b-2 sm:border-b-[3px] border-[#D9D9D9]"
+  //               }`}
+  //             >
+  //               Interviews
+  //             </div>
+  //           </div>
+  //         </div>
+  //         <div className="bg-[#d9d9d9] mt-4 sm:mt-[31px] bg-opacity-[20%] rounded-[10px] sm:rounded-[16px] flex items-center justify-center gap-2 sm:gap-[14px] p-4 sm:p-[16px]">
+  //           <img
+  //             src="/images/search.svg"
+  //             className="w-4 sm:w-[17px] h-4 sm:h-[17px]"
+  //             alt=""
+  //           />
+  //           <input
+  //             type="text"
+  //             className="w-[80%] bg-[#d9d9d9] bg-opacity-[1%] outline-none"
+  //             placeholder="Search Skills"
+  //           />
+  //           <p className="text-sm sm:text-[16px] font-[500] text-[#4234a2]">View all</p>
+  //         </div>
+  //         <div className="grid md:grid-cols-2 mt-8 sm:mt-[46px] gap-6 sm:gap-[40px]">
+  //           {selectedtab === "MyJobs" && (
+  //             <div className="relative">
+  //               <div className="flex flex-wrap gap-4">
+  //                 {allappiledjobs.map((job, index) => (
+  //                   <div
+  //                     key={index}
+  //                     onClick={() => handleJobClick(job)}
+  //                     className="bg-[#fff] p-4 sm:p-[16px] rounded-[16px] shadow-lg sm:shadow-xl hover:shadow-2xl cursor-pointer"
+  //                   >
+  //                     <div className="flex justify-between items-center gap-4 sm:gap-16">
+  //                       <p className="text-lg sm:text-[20px] font-[600]">
+  //                         {job?.JobId?.positionName}
+  //                       </p>
+  //                       <img src="/images/material-symbols-light_share.svg" alt="Share" />
+  //                     </div>
+  //                     <div className="flex gap-2 sm:gap-[7px] mt-4 sm:mt-[15px]">
+  //                       <img
+  //                         src="/images/carbon_location.svg"
+  //                         className="w-4 sm:w-[15.13px] h-4 sm:h-[19.25px]"
+  //                         alt="Location"
+  //                       />
+  //                       <p className="text-black text-opacity-[50%] text-sm sm:text-[14px] font-[400]">
+  //                         {job?.JobId?.location}
+  //                       </p>
+  //                     </div>
+  //                     <div className="flex mt-4 sm:mt-[15px] gap-4 sm:gap-7 justify-between">
+  //                       <p className="text-black text-opacity-[50%] text-sm sm:text-[14px] font-[400]">
+  //                         {job?.JobId?.time}
+  //                       </p>
+  //                       {job?.JobId?.result === "Cleared" ? (
+  //                         <p className="text-blue-500">{job?.JobId?.result}</p>
+  //                       ) : (
+  //                         <p className="text-red-500">X {job?.JobId?.result}</p>
+  //                       )}
+  //                     </div>
+  //                   </div>
+  //                 ))}
+  //               </div>
+  
+  //               {selectedJob && (
+  //                 <div
+  //                   className="absolute top-0 right-0 h-full w-[320px] sm:w-[500px] bg-[#fff] p-4 sm:p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]"
+  //                   style={{ top: "10px", right: "-300px" }}
+  //                 >
+  //                   <div className="flex flex-row justify-between">
+  //                     <div>
+  //                       <h2 className="text-lg sm:text-[20px] font-[600]">
+  //                         {selectedJob.JobId.positionName}
+  //                       </h2>
+  //                       <p>{selectedJob.JobId.location}</p>
+  //                     </div>
+  //                     <div>
+  //                       <button
+  //                         className="bg-blue-600 p-2 rounded-md shadow-lg text-white hover:bg-blue-900 hover:shadow-2xl"
+  //                         onClick={() => alert("View job button is clicked")}
+  //                       >
+  //                         View Jobs
+  //                       </button>
+  //                     </div>
+  //                   </div>
+  //                   <hr className="border-t-2 border-gray-300 my-4" />
+  //                   <p className="text-lg sm:text-xl">Application status</p>
+  //                   <div className="ml-4">
+  //                     <p>Applied</p>
+  //                     <div className="flex flex-row gap-4 sm:gap-10">
+  //                       {selectedJob.JobId.result === "Cleared" ? (
+  //                         <p className="text-blue-500">{selectedJob.JobId.result}</p>
+  //                       ) : (
+  //                         <p className="text-red-500">X {selectedJob.JobId.result}</p>
+  //                       )}
+  //                       <div className="flex flex-col">
+  //                         <button className="text-blue-500 hover:text-blue-700">
+  //                           View Feedback
+  //                         </button>
+  //                         <hr className="border-t-1 border-blue-300" />
+  //                       </div>
+  //                     </div>
+  //                     <p className="text-blue-600">On 7 Aug 2024</p>
+  //                   </div>
+  //                   <div className="flex items-center mt-4 sm:mt-7">
+  //                     <div>
+  //                       <p className="text-base font-extralight">
+  //                         Our Suggested Product
+  //                       </p>
+  //                       <div className="ml-2 sm:ml-3 mt-2 sm:mt-3">
+  //                         <p className="text-red-500 text-lg sm:text-xl">Profile Boost</p>
+  //                         <p className="font-extralight mt-1 sm:mt-3">
+  //                           Increase your chances of selection by using Profile Boost service.
+  //                         </p>
+  //                       </div>
+  //                     </div>
+  //                   </div>
+  //                   <div className="mt-4 sm:mt-8 flex flex-col items-center">
+  //                     <button
+  //                       className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transform transition hover:scale-105"
+  //                       onClick={() => alert("Boost your profile")}
+  //                     >
+  //                       Boost your Profile
+  //                     </button>
+  //                   </div>
+  //                 </div>
+  //               )}
+  //             </div>
+  //           )}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // </>
+  
+
+
     <>
-      <div className="py-[14px] pl-[16px] pr-[14.56px] font-[Outfit] ">
+      <div className="py-[13px] pl-[16px] pr-[14.56px] font-[Outfit] max-2xl:-mt-3   ">
         {/* <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-6  lg:gap-[27px]">
           <div className="bg-white w-full col-start-1 col-end-7 mb-[59px]  px-[29px] py-[42px] flex border-[1px] border-[#efecec] rounded-[30px]">
             <div className="w-full  flex-col lg:flex-row flex gap-[5px]">
@@ -524,34 +711,38 @@ const handleMove = () => {
           </button>
         </div> */}
         
-             <div className="max-w-4xl mb-12 mx-auto p-6 bg-gradient-to-r from-teal-400 via-green-400 to-teal-300 rounded-2xl shadow-xl flex items-center justify-between space-x-8">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full">
-                      Introducing
-                    </span>
-                  </div>
-                  <h2 className="text-4xl font-extrabold text-white leading-tight">
+        <div className="max-w-4xl h-56 mb-12 max-2xl:h-52 mx-auto p-6 bg-gradient-to-r from-teal-400 via-green-400 to-teal-300 rounded-2xl shadow-xl flex items-center justify-between space-x-8">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <span className="text-xs bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full">
+                  Introducing
+                </span>
+              </div>
+              <div>
+                  <h2 className="text-4xl max-lg:text-2xl max-xl:text-2xl font-extrabold text-white leading-tight">
                     Climb the career ladder
                   </h2>
-                  <p className="text-lg text-white font-medium">
+                  <p className="text-lg  max-lg:text-base max-xl:text-base text-white font-medium">
                     GetHire tools and resources help you take your career to the next
                     level
                   </p>
-                  <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-                    Start exploring
-                  </button>
-                </div>
-                <div className="hidden md:block">
-                  <div className="relative flex justify-center items-center bg-white  w-48 h-48 rounded-full">
-                    <img
-                      src={logo}
-                      alt="GetHire Logo"
-                      className="w-36 transform transition hover:scale-110"
-                    />
-                  </div>
-                </div>
               </div>
+              <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                Start exploring
+              </button>
+            </div>
+            <div className="hidden md:block">
+            <div className="relative flex justify-center items-center bg-white w-32 h-32 max-lg:w-20 max-lg:h-20   rounded-full">
+              <img
+                src={logo}
+                alt="GetHire Logo"
+                className="w-24 max-lg:w-16  transform transition hover:scale-110"
+              />
+            </div>
+            </div>
+          </div>
+
+
              {/* <div className="max-w-5xl mx-auto p-6 bg-gradient-to-r from-teal-400 to-green-300 rounded-2xl shadow-xl flex items-center justify-between">
       <div className="space-y-4 pl-6">
         <div className="flex items-center space-x-2">
@@ -589,10 +780,10 @@ const handleMove = () => {
 
 
 
-        <div className="grid lg:grid-cols-6">
-          <div className="bg-white mt-[1px] col-start-1 col-end-7 px-[39px] py-[49px] rounded-[30px] border-[1px] border-[#efecec]">
-            <div className="text-[24px] flex w-full font-[400] justify-center items-center text-[#545454]">
-              <div className=" flex-col lg:flex-row gap-[10px] lg:gap-0  flex">
+        <div className="grid lg:grid-cols-6 -mt-5">
+          <div className="bg-white mt-[1px] col-start-1 col-end-7 px-[39px] py-[49px] rounded-[30px] border-[1px] border-[#efecec] ">
+            <div className="text-[24px] flex w-full font-[400] justify-center items-center text-[#545454] -mt-8">
+              <div className=" flex flex-row  gap-0 ">
                 {/* <div
                   onClick={() => {
                     setselectedtab("AllJobs");
@@ -611,7 +802,7 @@ const handleMove = () => {
                   }}
                   className={`pb-[12px] px-[30px] hover:cursor-pointer ${
                     selectedtab === "MyJobs"
-                      ? "border-b-[3px] text-[#5356e9]  border-[#5356e9]"
+                      ? "border-b-[3px] text-[#5356e9]  border-[#5356e9] "
                       : "border-b-[3px] border-[#D9D9D9]"
                   }`}
                 >
@@ -631,7 +822,7 @@ const handleMove = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#d9d9d9] mt-[31px] bg-opacity-[20%] rounded-[16px] flex items-center justify-center gap-[14px] p-[16px]">
+            <div className="bg-[#d9d9d9] mt-3 bg-opacity-[20%] max-lg:justify-between rounded-[16px] flex items-center justify-center gap-[14px] p-[16px]">
               <img
                 src="/images/search.svg"
                 className="w-[17px] h-[17px]"
@@ -642,9 +833,9 @@ const handleMove = () => {
                 className="w-[80%] bg-[#d9d9d9] bg-opacity-[1%] outline-none"
                 placeholder="Search Skills"
               />
-              <p className="text-[16px] font-[500] text-[#4234a2]">View all</p>
+              <p className="text-[16px] max-lg:text-[13px] font-[500] text-[#4234a2]">View all</p>
             </div>
-            <div className="grid md:grid-cols-2  mt-[46px] gap-[40px]">
+            <div className="grid md:grid-cols-2  mt-[46px] gap-[40px] ">
               {/* <div
                 className="rounded-[16px] py-[26px] px-[20px] bg-gradient-to-tl from-[#0f87b3] to-[#462da1]"
                 onClick={() => navigate("/premium")}
@@ -873,9 +1064,10 @@ const handleMove = () => {
                               )}
 
                         </div>  */}
-                        {selectedtab === "MyJobs" && 
+                        
+                        {/* {selectedtab === "MyJobs" && 
                            <div className="relative">
-                            <div className="flex flex-wrap gap-4">
+                            <div className="flex flex-wrap gap-4 max-2xl:gap-3 max-2xl:w-60">
                               {allappiledjobs.map((job, index) => (
                                 <div
                                   key={index}
@@ -892,7 +1084,6 @@ const handleMove = () => {
                                   </div>
                                   <div className="flex mt-[15px] gap-7 justify-between">
                                     <p className="text-black text-opacity-[50%] text-[14px] font-[400]">{job?.JobId?.time}</p>
-                                    {/* <p className="text-red-500">{job?.JobId?.result}</p> */}
                                       {job?.JobId?.result === 'Cleared' ? (
                                           <p className=" text-blue-500"> {job?.JobId?.result}</p> 
                                         ) : (
@@ -902,10 +1093,105 @@ const handleMove = () => {
                                 </div>
                               ))}
                             </div>
+                            </div>
+                        } */}
+                         
+                      
 
-                            {selectedJob && (
+
+<div className="flex flex-row gap-8  max-lg:pr-7 max-2xl:-mt-6 ">
+     <div className=" max-lg:w-14 max-lg:-pl-5 ">
+            {selectedtab === "MyJobs" && (
+              <div className="flex flex-col flex-1 gap-6 max-sm:gap-4  ">
+                {dummyJobs.map((job, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleJobClick(job)}
+                    className="bg-[#fff] p-[14px] w-72 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
+                  >
+                    <div className="flex justify-between items-center gap-4 max-lg:gap-2 max-sm:gap-1">
+                      <p className="text-[24px] max-lg:text-[20px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
+                      <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[24px] h-[24px] max-lg:w-[20px] max-lg:h-[20px]" />
+                    </div>
+                    <div className="flex gap-[10px] mt-[20px] max-lg:gap-[6px]">
+                      <img src="/images/carbon_location.svg" className="w-[20px] h-[25px] max-lg:w-[18px] max-lg:h-[20px]" alt="Location" />
+                      <p className="text-black text-opacity-[60%] text-[16px] max-lg:text-[13px] max-sm:text-[11px] font-[500]">{job.JobId.location}</p>
+                    </div>
+                    <div className="flex mt-[20px] gap-8 max-sm:gap-2 justify-between">
+                      <p className="text-black text-opacity-[60%] text-[16px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
+                      {job.JobId.result === 'Cleared' ? (
+                        <p className="text-blue-500 max-lg:text-[13px]">{job.JobId.result}</p>
+                      ) : (
+                        <p className="text-red-500 max-lg:text-[13px]">X {job.JobId.result}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+     </div>
+        <div className=" max-lg:ml-[120px]  ">
+            {selectedJob && (
+              <div
+                className="w-[500px] max-2xl:w-[400px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
+              >
+                <div className="flex flex-row justify-between">
+                  <div>
+                    <h2 className="text-[24px] font-[700] max-lg:text-[18px]">{selectedJob.JobId.positionName}</h2>
+                    <p>{selectedJob.JobId.location}</p>
+                  </div>
+                  <div>
+                    <button
+                      className="bg-blue-600 p-3 rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                      onClick={() => alert("View job button is clicked")}
+                    >
+                      View Jobs
+                    </button>
+                  </div>
+                </div>
+                <hr className="border-t-2 border-gray-300 my-4" />
+                <p className="text-xl">Application status</p>
+                <div className="ml-4">
+                  <p>Applied</p>
+                  <div className="flex flex-row gap-12">
+                    {selectedJob.JobId.result === 'Cleared' ? (
+                      <p className="text-blue-500">{selectedJob.JobId.result}</p>
+                    ) : (
+                      <p className="text-red-500">X {selectedJob.JobId.result}</p>
+                    )}
+                    <div className="flex flex-col">
+                      <button className="text-blue-500 hover:text-blue-700">View Feedback</button>
+                      <hr className="border-t-1 border-blue-300" />
+                    </div>
+                  </div>
+                  <p className="text-blue-600">On 7 Aug 2024</p>
+                </div>
+                <div className="flex items-center mt-8">
+                  <div>
+                    <p className="text-base font-extralight">Our Suggested Product</p>
+                    <div className="ml-4 mt-4">
+                      <p className="text-red-500 text-xl">Profile Boost</p>
+                      <p className="font-extralight">Your application would be shown on the priority list to the recruiter</p>
+                      <div className="flex flex-row gap-6 mt-4">
+                        <button className="hover:text-blue-500 hover:scale-105 duration-300">Buy Now</button>
+                        <button className="text-red-400 hover:scale-105 duration-300">Explore</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+      </div>
+</div>
+
+
+                        
+
+
+
+                            {/* {selectedJob && (
                              <div
-                             className="absolute top-0 right-0 h-full w-[500px] bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]"
+                             className="absolute top-0 right-0 h-full w-[500px] bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9] max-2xl:w-[400px] "
                              style={{ top: '10px', right: '-430px' }}
                            >
                              <div className="flex flex-row  justify-between">
@@ -936,8 +1222,6 @@ const handleMove = () => {
                                  </div>
                                    <p className="text-blue-600">On 7 Aug 2024</p>
                                </div>
-                             {/* <p><strong>Time:</strong> {selectedJob.JobId.time}</p>
-                             <p><strong>Result:</strong> {selectedJob.JobId.result}</p> */}
                              <div className="flex items-center mt-7">
                                <div className="">
                                  <p className="text-base font-extralight ">Our Suggested Product</p>
@@ -953,9 +1237,77 @@ const handleMove = () => {
                              </div>
                            </div>
                            
-                            )}
+                            )} */}
+                    {/* {selectedJob && (
+                      <div
+                        className={`absolute top-0 h-full w-[500px] bg-[#fff] p-[16px] rounded-[16px] shadow-xl border border-[#d9d9d9]
+                          max-2xl:w-[400px] 
+                          max-xl:w-[350px] 
+                        max-lg:w-[300px] 
+                          `}
+                        style={{ top: '10px', 
+                          right: (() => {
+                            if (window.innerWidth <= 1024) return '-300px'; // max-lg
+                            if (window.innerWidth <= 1280) return '-350px'; // max-xl
+                            if (window.innerWidth <= 1536) return '-380px'; // max-2xl
+                            return '-430px'; // Default
+                          })(),
+                        }}
+                      >
+                        <div className="flex flex-row justify-between">
+                          <div>
+                            <h2 className="text-[20px] font-[600]">{selectedJob.JobId.positionName}</h2>
+                            <p>{selectedJob.JobId.location}</p>
                           </div>
-                           }
+                          <div>
+                            <button
+                              className="bg-blue-600 p-2 rounded-md shadow-lg text-white hover:bg-blue-900 hover:shadow-2xl"
+                              onClick={() => alert("View job button is clicked")}
+                            >
+                              View Jobs
+                            </button>
+                          </div>
+                        </div>
+                        <hr className="border-t-2 border-gray-300 my-4" />
+                        <p className="text-xl">Application status</p>
+                        <div className="ml-4">
+                          <p>Applied</p>
+                          <div className="flex flex-row gap-10">
+                            {selectedJob.JobId.result === 'Cleared' ? (
+                              <p className="text-blue-500">{selectedJob.JobId.result}</p>
+                            ) : (
+                              <p className="text-red-500">X {selectedJob.JobId.result}</p>
+                            )}
+                            <div className="flex flex-col">
+                              <button className="text-blue-500 hover:text-blue-700">View Feedback</button>
+                              <hr className="border-t-1 border-blue-300" />
+                            </div>
+                          </div>
+                          <p className="text-blue-600">On 7 Aug 2024</p>
+                        </div>
+                        <div className="flex items-center mt-7">
+                          <div>
+                            <p className="text-base font-extralight">Our Suggested Product</p>
+                            <div className="ml-3 mt-3">
+                              <p className="text-red-500 text-xl">Profile Boost</p>
+                              <p className="font-extralight">Your application would be shown on priority list to the recruiter</p>
+                              <div className="flex flex-row gap-5 mt-4">
+                                <button className="hover:text-blue-500 hover:scale-105 duration-300">Buy Now</button>
+                                <button className="text-red-400 hover:scale-105 duration-300">Explore</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )} */}
+
+
+
+
+
+                            
+                          {/* </div>
+                           } */}
 
 
 
@@ -963,7 +1315,7 @@ const handleMove = () => {
 
 
                 {/* -------------------------------------------------------------- */}
-              {selectedtab === "MyInterview" &&
+                {selectedtab === "MyInterview" &&
                 allinterview?.map((job, index) => {
                   return (
                     <div
@@ -1151,3 +1503,5 @@ const handleMove = () => {
 };
 
 export default Home;
+
+

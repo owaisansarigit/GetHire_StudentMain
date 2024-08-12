@@ -24,7 +24,7 @@ const Sidebar = () => {
   const randomQuestions = getRandomQuestions();
 
   return (
-    <div className="border-2 border-gray-300 rounded-2xl p-6 min-h-[60vh] bg-white min-w-[15vw] shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="border-2 border-gray-300 rounded-2xl p-6 max-2xl:-mt-2  min-h-[60vh] bg-white min-w-[15vw] shadow-lg hover:shadow-xl transition-shadow duration-300">
   <div className="profile w-full flex flex-col justify-start items-start">
     <h2 className="text-lg font-bold text-gray-900 mb-4">
       Where are you in your job search journey?
