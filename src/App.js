@@ -86,7 +86,7 @@ const ProjectRoutes = () => {
           element={isAuthenticated ? <Layout /> : <Navigate to="/login" />}
         >
           <Route index element={<Home />} />
-          <Route path="/notification" element={<Notification />} />
+          <Route path="/Notification" element={<Notification />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/ApplicationManager" element={<ApplicationManager />} />
           <Route

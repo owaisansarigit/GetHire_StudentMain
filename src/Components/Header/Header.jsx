@@ -569,7 +569,7 @@ const Header = () => {
                     alt=""
                   /> */}
                 </Link>
-                <Link to={"/notification"}>
+                <Link to={'/notification'}>
                   <MdOutlineNotifications size={25} color="#6082B6"  />
                 </Link>
            </div>
