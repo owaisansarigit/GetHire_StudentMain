@@ -12,9 +12,6 @@ import Button from "@mui/material/Button";
 import { styled, alpha } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-
-
-
 // importing react icons
 import { TbArrowsExchange2 } from "react-icons/tb";
 import { PiNotebookLight } from "react-icons/pi";
@@ -23,6 +20,7 @@ import { BiMessage } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineSort } from "react-icons/md";
 import { MdOutlineNotifications } from "react-icons/md";
+import AIToolsModal from "../../Pages/AI Tools/AIToolsModal";
 
 const DropdownLink = styled(Link)(({ theme }) => ({
   display: "flex",
@@ -74,7 +72,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   borderRadius: "20px",
 }));
 
-
 // for modes
 
 const workItems = [
@@ -106,6 +103,7 @@ const workItems = [
 
 const Header = () => {
   const navigate = useNavigate();
+  const [aiModal, setAiModal] = useState(false);
   const [showFullNavbar, setShowFullNavbar] = useState(false);
   const [showInternshipDropDown, setShowInternshipDropDown] = useState(false);
   const [selectInternshipOption, setSelectInternshipOption] =
@@ -251,7 +249,9 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
 
-  const handleClick = (event) => {setAnchorEl(event.currentTarget);};
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -265,18 +265,17 @@ const Header = () => {
   };
 
   // for switch mode
-  const [mode , setMode]  = useState(false);
+  const [mode, setMode] = useState(false);
   const switchModeClicked = () => {
     setMode(!mode);
-  }
+  };
   const handleNavigation = (link) => {
     navigate(link);
   };
 
   // for change the icons when noti and mesage clicked
-  const [messClicked , SetMessClicked] = useState(false);
-  const [notiClicked , SetNotiClicked] = useState(false);
-
+  const [messClicked, SetMessClicked] = useState(false);
+  const [notiClicked, SetNotiClicked] = useState(false);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-menu" : undefined;
@@ -287,7 +286,7 @@ const Header = () => {
     <>
       <div className="bg-[#fff] h-[70px] w-full flex justify-start items-center p-[10px] pl-20 shadow-md ">
         <div className="flex justify-center items-center text-[#2a5caa] mr-10">
-          <Link to='/'>
+          <Link to="/">
             <img src={Logo} className="h-[2rem]" alt="" />
           </Link>
         </div>
@@ -298,13 +297,17 @@ const Header = () => {
           {/* <Link to="/" className="hover:text-blue-700">Home</Link> */}
           <div
             // onClick={toggleInternshipDropDown}
-            onMouseEnter={ () => {setShowInternshipDropDown(!showInternshipDropDown) ; setAnchorEl2(null)}}
-            onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
+            onMouseEnter={() => {
+              setShowInternshipDropDown(!showInternshipDropDown);
+              setAnchorEl2(null);
+            }}
+            onMouseLeave={() => {
+              setShowInternshipDropDown(!showInternshipDropDown);
+            }}
             className="relative cursor-pointer hover:text-blue-700 hover:border-b-2 hover:border-blue-500  duration-100"
           >
             Internship
           </div>
-
 
           {/* {showInternshipDropDown && (
             <div className="bg-white  shadow-lg flex top-[100px] absolute w-[485px] h-[431px]">
@@ -360,76 +363,83 @@ const Header = () => {
               </div>
             </div>
           )} */}
-            
-                  {showInternshipDropDown && (
-                    <div className="bg-white shadow-xl -ml-[470px] flex top-[50px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl"
-                    onMouseEnter={ () => {setShowInternshipDropDown(true)}}
-                       onMouseLeave={ () => {setShowInternshipDropDown(false)}}
-                    >
-                      <div className="py-5 w-[223px] text-[16px] font-medium pr-2">
-                        <p
-                          onClick={() => handleSelectInternshipOption("location")}
-                          className={`${
-                            selectInternshipOption === "location"
-                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
-                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
-                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
-                        >
-                          Top Location
-                        </p>
-                        <p
-                          onClick={() => handleSelectInternshipOption("profile")}
-                          className={`${
-                            selectInternshipOption === "profile"
-                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
-                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
-                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
-                        >
-                          Profile
-                        </p>
-                        <p
-                          onClick={() => handleSelectInternshipOption("categories")}
-                          className={`${
-                            selectInternshipOption === "categories"
-                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
-                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
-                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
-                        >
-                          Top Categories
-                        </p>
-                        <p
-                          onClick={() => handleSelectInternshipOption("moreInternship")}
-                          className={`${
-                            selectInternshipOption === "moreInternship"
-                              ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
-                              : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
-                          } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
-                        >
-                          Explore More Internships
-                        </p>
-                      </div>
-                      <div className="border-l border-gray-200 h-full"></div>
-                      <div className="py-[36px] px-[18px] overflow-auto w-[262px] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-300">
-                        <ul className="flex flex-col gap-4 text-[15px] cursor-pointer text-gray-600 font-medium">
-                          {internshipListItem().map((item, index) => (
-                            <li
-                              key={index}
-                              className="hover:text-[#4234a2] transition-colors duration-200 ease-in-out"
-                            >
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-          
 
+          {showInternshipDropDown && (
+            <div
+              className="bg-white shadow-xl -ml-[470px] flex top-[50px] absolute w-[485px] h-[431px] rounded-xl overflow-hidden transform transition-transform duration-300 ease-in-out hover:shadow-2xl"
+              onMouseEnter={() => {
+                setShowInternshipDropDown(true);
+              }}
+              onMouseLeave={() => {
+                setShowInternshipDropDown(false);
+              }}
+            >
+              <div className="py-5 w-[223px] text-[16px] font-medium pr-2">
+                <p
+                  onClick={() => handleSelectInternshipOption("location")}
+                  className={`${
+                    selectInternshipOption === "location"
+                      ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                      : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                  } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                >
+                  Top Location
+                </p>
+                <p
+                  onClick={() => handleSelectInternshipOption("profile")}
+                  className={`${
+                    selectInternshipOption === "profile"
+                      ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                      : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                  } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                >
+                  Profile
+                </p>
+                <p
+                  onClick={() => handleSelectInternshipOption("categories")}
+                  className={`${
+                    selectInternshipOption === "categories"
+                      ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                      : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                  } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                >
+                  Top Categories
+                </p>
+                <p
+                  onClick={() => handleSelectInternshipOption("moreInternship")}
+                  className={`${
+                    selectInternshipOption === "moreInternship"
+                      ? "bg-[#4234a2] bg-opacity-20 rounded-tr-[39px] rounded-br-[39px] w-full flex items-center text-[#4234a2] font-semibold"
+                      : "hover:bg-gray-100 hover:rounded-tr-[39px] hover:rounded-br-[39px] text-gray-700"
+                  } px-4 py-3 cursor-pointer transition-all duration-200 ease-in-out`}
+                >
+                  Explore More Internships
+                </p>
+              </div>
+              <div className="border-l border-gray-200 h-full"></div>
+              <div className="py-[36px] px-[18px] overflow-auto w-[262px] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-300">
+                <ul className="flex flex-col gap-4 text-[15px] cursor-pointer text-gray-600 font-medium">
+                  {internshipListItem().map((item, index) => (
+                    <li
+                      key={index}
+                      className="hover:text-[#4234a2] transition-colors duration-200 ease-in-out"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
 
           <div className="">
             <p
               // onClick={(event) => setAnchorEl2(event.currentTarget)}
-              onMouseEnter={(event) => {setAnchorEl2(event.currentTarget); setShowInternshipDropDown(false);setMode(false);}}
+              onMouseEnter={(event) => {
+                setAnchorEl2(event.currentTarget);
+                setShowInternshipDropDown(false);
+                setMode(false);
+              }}
               // onMouseLeave={()=> setAnchorEl2(null)}
               // onMouseLeave={() => {setAnchorEl2(null)}}
               // sx={{ cursor: "pointer" }}
@@ -437,7 +447,7 @@ const Header = () => {
             >
               Jobs
             </p>
-            
+
             {/* <div className="absolute top-2" style={{ left: "-5rem" }}>
               <Popover
                 id={id}
@@ -455,7 +465,7 @@ const Header = () => {
                 <Link to="/blank/Jobs">Jobs</Link>
               </Popover>
             </div> */}
-            <div className=" top-3 left-[-5rem]" >
+            <div className=" top-3 left-[-5rem]">
               <Popover
                 id={id}
                 open={open2}
@@ -471,32 +481,35 @@ const Header = () => {
                 }}
                 className="transition-transform duration-300 ease-in-out"
               >
-                <div className="p-4 flex flex-col " onMouseLeave={()=> setAnchorEl2(null)}>
+                <div
+                  className="p-4 flex flex-col "
+                  onMouseLeave={() => setAnchorEl2(null)}
+                >
                   <Typography className="text-gray-800 text-sm font-medium">
                     {/* The content of the Popover. */}
                   </Typography>
                   <Link
                     to="/blank/Jobs"
                     className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
-                   >
+                  >
                     All Jobs
                   </Link>
                   <Link
                     to="/blank/Jobs"
                     className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
-                   >
+                  >
                     Recommended Jobs
                   </Link>
                   <Link
                     to="/blank/Jobs"
                     className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
-                   >
-                   Invites
+                  >
+                    Invites
                   </Link>
                   <Link
                     to="/ApplicationManager"
                     className="mt-2 inline-block text-blue-600 hover:underline text-base font-semibold transition-all duration-200"
-                   >
+                  >
                     Application Manage
                   </Link>
                 </div>
@@ -504,25 +517,36 @@ const Header = () => {
             </div>
           </div>
 
-          <div className=" hover:cursor-pointer bg-blue-100 rounded-md p-1 h-10 flex justify-center items-center "
+          <div
+            className=" hover:cursor-pointer bg-blue-100 rounded-md p-1 h-10 flex justify-center items-center "
             // onClick={switchModeClicked}
-            onMouseEnter={()=>setMode(true)}
-            onMouseLeave={()=>setMode(false)}
-           >
+            onMouseEnter={() => setMode(true)}
+            onMouseLeave={() => setMode(false)}
+          >
             {mode === false ? (
-                  <div className="flex flex-row justify-center items-center gap-2 p-2 group max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
-                     <p className="text-lg text-blue-500   max-2xl:text-base max-xl:text-xs">Switch Mode</p>
-                    <TbArrowsExchange2 size={23} className="text-blue-500 max-2xl:w-5 max-xl:w-4 " />
-                  </div>
-              ) : (
-                  <div className="flex flex-row justify-center items-center gap-2 p-2 group  max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
-                    <p className="text-lg max-2xl:text-base group-hover:text-blue-700 max-xl:text-sm">Switch Mode</p>
-                    <TbArrowsExchange2 size={23} className=" group-hover:text-blue-700 max-2xl:w-5 max-xl:w-4" />
-                </div>
+              <div className="flex flex-row justify-center items-center gap-2 p-2 group max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
+                <p className="text-lg text-blue-500   max-2xl:text-base max-xl:text-xs">
+                  Switch Mode
+                </p>
+                <TbArrowsExchange2
+                  size={23}
+                  className="text-blue-500 max-2xl:w-5 max-xl:w-4 "
+                />
+              </div>
+            ) : (
+              <div className="flex flex-row justify-center items-center gap-2 p-2 group  max-2xl:gap-1 max-xl:gap-1 max-xl:w-28">
+                <p className="text-lg max-2xl:text-base group-hover:text-blue-700 max-xl:text-sm">
+                  Switch Mode
+                </p>
+                <TbArrowsExchange2
+                  size={23}
+                  className=" group-hover:text-blue-700 max-2xl:w-5 max-xl:w-4"
+                />
+              </div>
             )}
           </div>
 
-{/* 
+          {/* 
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -533,23 +557,27 @@ const Header = () => {
             />
           </Search> */}
           {/* search baar */}
-            <div
-                className="flex items-center w-[280px] h-[50px] max-xl:h-[40px] max-xl:-mr-4 max-xl:-ml-5 max-xl:w-[220px] rounded-full border border-gray-300 bg-white shadow-md transition-shadow duration-300 cursor-pointer hover:shadow-lg overflow-hidden"
-              >
-                <input
-                  type="text"
-                  placeholder="Search…"
-                  className="flex-1 border-none ml-3 px-1 h-full text-gray-800 text-base outline-none rounded-full rounded-r-none"
-                />
-                <div
-                  className="w-[50px] max-xl:w-[40px] max-xl:-ml-24 max-xl:h-3/4 h-full flex items-center justify-center  rounded-full rounded-l-none"
-                >
-                  <IoSearchCircleSharp size={45} color="blue" onClick={()=>{alert("search button clicked")}}/>
-                </div>
-              </div>
+          <div className="flex items-center w-[280px] h-[50px] max-xl:h-[40px] max-xl:-mr-4 max-xl:-ml-5 max-xl:w-[220px] rounded-full border border-gray-300 bg-white shadow-md transition-shadow duration-300 cursor-pointer hover:shadow-lg overflow-hidden">
+            <input
+              type="text"
+              placeholder="Search…"
+              className="flex-1 border-none ml-3 px-1 h-full text-gray-800 text-base outline-none rounded-full rounded-r-none"
+            />
+            <div className="w-[50px] max-xl:w-[40px] max-xl:-ml-24 max-xl:h-3/4 h-full flex items-center justify-center  rounded-full rounded-l-none">
+              <IoSearchCircleSharp
+                size={45}
+                color="blue"
+                onClick={() => {
+                  alert("search button clicked");
+                }}
+              />
+            </div>
+          </div>
 
-
-          <div className="border flex justify-center max-xl:text-[10px] hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
+          <div
+            className="border flex justify-center max-xl:text-[10px] hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer"
+            onClick={() => setAiModal(true)}
+          >
             AI Tools
           </div>
           {/* <Link to="/blank/bookmarked">
@@ -559,82 +587,74 @@ const Header = () => {
               alt=""
             />
           </Link> */}
-         
-         <div className=" flex flex-row gap-6 justify-center items-center ">
-             
-             <Link to={"/chat"}>
-               <BiMessage size={25} color="#6082B6"/>
-               {/* <img
+
+          <div className=" flex flex-row gap-6 justify-center items-center ">
+            <Link to={"/chat"}>
+              <BiMessage size={25} color="#6082B6" />
+              {/* <img
                  src="/images/tabler_message-2.svg"
                  className="w-[24px] h-[24px]"
                  alt=""
                /> */}
-             </Link>
-             <Link to={"/notification"}>
-               {/* <i className="fa-regular fa-bell cursor-pointer"></i> */}
-               <MdOutlineNotifications size={25} color="#6082B6"/>
-             </Link>
-        </div>
+            </Link>
+            <Link to={"/notification"}>
+              {/* <i className="fa-regular fa-bell cursor-pointer"></i> */}
+              <MdOutlineNotifications size={25} color="#6082B6" />
+            </Link>
+          </div>
 
-
-           <div className=" inline-block text-left cursor-pointer"
-              onMouseEnter = {(event) =>setAnchorEl(event.currentTarget)}
-                onMouseLeave = {() =>setAnchorEl(null)}
+          <div
+            className=" inline-block text-left cursor-pointer"
+            onMouseEnter={(event) => setAnchorEl(event.currentTarget)}
+            onMouseLeave={() => setAnchorEl(null)}
+          >
+            <DropdownLink
+              // onClick={handleClick}
+              className="flex items-center space-x-2 cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
             >
-              <DropdownLink
-                // onClick={handleClick}
-                className="flex items-center space-x-2 cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
-              >
-                <MdOutlineSort size={25}/>
-                <img
-                  src="/images/Ellipse2.svg"
-                  className="w-8 h-8 rounded-full border border-gray-300"
-                  alt="User Avatar"
-                />
-                {/* <img
+              <MdOutlineSort size={25} />
+              <img
+                src="/images/Ellipse2.svg"
+                className="w-8 h-8 rounded-full border border-gray-300"
+                alt="User Avatar"
+              />
+              {/* <img
                   src="/images/bxs_up-arrow.svg"
                   className="w-4 h-3"
                   alt="Arrow"
                 /> */}
-              </DropdownLink>
+            </DropdownLink>
 
-              <Menu
-                id={id}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": id,
-                }}
-                className=" right-0"
+            <Menu
+              id={id}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": id,
+              }}
+              className=" right-0"
+            >
+              <MenuItem
+                onClick={() => navigate("/blank/Portfolio")}
+                className="hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 px-4 py-2 rounded-lg"
               >
-                <MenuItem
-                    onClick={() => navigate("/blank/Portfolio")}
-                    className="hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 px-4 py-2 rounded-lg"
-                  >
-                    Portfolio
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => navigate("/SkillManager")}
-                    className="hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 px-4 py-2 rounded-lg"
-                  >
-                    My Skills
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleLogout}
-                    className="hover:bg-red-100 hover:text-red-700 transition-colors duration-200 px-4 py-2 rounded-lg"
-                  >
-                    Logout
-                  </MenuItem>
-              </Menu>
-            </div>
-
-
-
-
-
-
-
+                Portfolio
+              </MenuItem>
+              <MenuItem
+                onClick={() => navigate("/SkillManager")}
+                className="hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 px-4 py-2 rounded-lg"
+              >
+                My Skills
+              </MenuItem>
+              <MenuItem
+                onClick={handleLogout}
+                className="hover:bg-red-100 hover:text-red-700 transition-colors duration-200 px-4 py-2 rounded-lg"
+              >
+                Logout
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
       </div>
 
@@ -664,7 +684,7 @@ const Header = () => {
           >
             Internship
           </div>
-          
+
           {showInternshipDropDown && (
             <div className="bg-white shadow-lg flex flex-col top-[250px] absolute h-full">
               <div className="py-[22px] w-[223px] text-[16px] font-[400] pr-[10px]">
@@ -709,7 +729,7 @@ const Header = () => {
                   Explore More Internships
                 </p>
               </div>
-                 
+
               {/* <div className="border-[1px] border-[#ebe6e6] h-full w-px "></div> */}
               <div className="py-[36px] px-[18px] overflow-auto w-full">
                 <ul className="flex flex-col gap-[17px] text-[15px] text-black text-opacity-[50%] font-[400]">
@@ -720,7 +740,6 @@ const Header = () => {
               </div>
             </div>
           )}
-
 
           <Link to="/Jobs">Jobs</Link>
           <Link to="/blank/clubs">Clubs</Link>
@@ -841,45 +860,49 @@ const Header = () => {
             </Link>
           </div>
         </div>
-      </div> 
-      
+      </div>
 
-      {
-        mode && (
-          <div className=" flex flex-col items-center bg-gray-50 rounded-2xl -mt-4 ml-96  max-w-xs mx-auto" onMouseLeave={()=>setMode(false)}
-            onMouseEnter={()=>setMode(true)}
-           >
-              {workItems.map((item, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleNavigation(item.link)}
-                  className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-100 cursor-pointer w-full rounded-md shadow-md"
-                >
-
-                  <div className="flex justify-between items-center w-full">
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold">{item.title}</p>
-                      <p className="text-lg">{item.icon}</p>
-                    </div>
-                    <div>
-                      <input type="radio" className="form-radio h-4 w-4 text-blue-500" disabled />
-                    </div>
-                  </div>
-                  <p className="mt-1 text-sm text-gray-600 group-hover:text-white">{item.description}</p>
+      {mode && (
+        <div
+          className=" flex flex-col items-center bg-gray-50 rounded-2xl -mt-4 ml-96  max-w-xs mx-auto"
+          onMouseLeave={() => setMode(false)}
+          onMouseEnter={() => setMode(true)}
+        >
+          {workItems.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => handleNavigation(item.link)}
+              className="group flex flex-col p-2 bg-white hover:bg-purple-600 hover:text-white transform transition duration-100 cursor-pointer w-full rounded-md shadow-md"
+            >
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold">{item.title}</p>
+                  <p className="text-lg">{item.icon}</p>
                 </div>
-              ))}
+                <div>
+                  <input
+                    type="radio"
+                    className="form-radio h-4 w-4 text-blue-500"
+                    disabled
+                  />
+                </div>
+              </div>
+              <p className="mt-1 text-sm text-gray-600 group-hover:text-white">
+                {item.description}
+              </p>
             </div>
-
-        
-        )
-      }
-
+          ))}
+        </div>
+      )}
 
       {internshipModal && (
         <InternshipModal
           onOpen={toggleInternshipModalOpen}
           onClose={toggleInternshipModalClose}
         />
+      )}
+      {aiModal && (
+        <AIToolsModal open={aiModal} onClose={() => setAiModal(false)} />
       )}
     </>
   );
