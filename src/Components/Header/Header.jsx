@@ -23,6 +23,8 @@ import { BiMessage } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineSort } from "react-icons/md";
 import { MdOutlineNotifications } from "react-icons/md";
+import { FaRegStar } from "react-icons/fa";
+
 
 const DropdownLink = styled(Link)(({ theme }) => ({
   display: "flex",
@@ -300,7 +302,7 @@ const Header = () => {
             // onClick={toggleInternshipDropDown}
             onMouseEnter={ () => {setShowInternshipDropDown(!showInternshipDropDown) ; setAnchorEl2(null)}}
             onMouseLeave={ () => {setShowInternshipDropDown(!showInternshipDropDown)}}
-            className="relative cursor-pointer hover:text-blue-700 hover:border-b-2 hover:border-blue-500  duration-100"
+            className="relative cursor-pointer "
           >
             Internship
           </div>
@@ -433,7 +435,7 @@ const Header = () => {
               // onMouseLeave={()=> setAnchorEl2(null)}
               // onMouseLeave={() => {setAnchorEl2(null)}}
               // sx={{ cursor: "pointer" }}
-              className="hover:text-blue-700 hover:cursor-pointer "
+              className="hover:text-blue-700 hover:cursor-pointer cursor-pointer "
             >
               Jobs
             </p>
@@ -549,7 +551,9 @@ const Header = () => {
               </div>
 
 
-          <div className="border flex justify-center max-xl:text-[10px] hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer">
+          <div className="border flex justify-center max-xl:text-[10px] hover:bg-blue-700 hover:text-white duration-300 items-center border-blue-500 rounded-2xl text-sm py-1 px-2 font-semibold text-blue-500 cursor-pointer"
+            onClick={()=>{navigate('/blank/aitools')}}
+          >
             AI Tools
           </div>
           {/* <Link to="/blank/bookmarked">
@@ -570,6 +574,7 @@ const Header = () => {
                  alt=""
                /> */}
              </Link>
+               {/* <MdOutlineNotifications size={25} color="#6082B6" onClick={()=>{navigate('/Notification')}} />  */}
              <Link to={"/notification"}>
                {/* <i className="fa-regular fa-bell cursor-pointer"></i> */}
                <MdOutlineNotifications size={25} color="#6082B6"/>

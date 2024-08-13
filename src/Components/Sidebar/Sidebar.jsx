@@ -579,7 +579,7 @@ const Sidebar = () => {
           </span>
           <span className="-mb-1 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200">
              <p><FiBookOpen/></p>
-            <p>Blogs</p>
+            <p>Training Centre</p>
           </span>
         </div>
       </div>

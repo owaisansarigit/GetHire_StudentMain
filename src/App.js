@@ -43,6 +43,21 @@ import Chat from "./Pages/Chat/Chat.jsx";
 import AllRounds from "./Pages/Jobs/AllRounds";
 import Todo from "./Pages/Todo/Index";
 
+
+import AITools from "./Pages/AiTools/AiTools.js";
+
+// imporint all the pages of carrer blogs
+import CareerMain from "./Pages/CarearBlogs/CareerMain.jsx";
+import ArticlePage from "./Pages/CarearBlogs/ArticalPage.jsx";
+import CareerAdvise from "./Pages/CarearBlogs/CareerBarNavigate/CareerAdvise.jsx";
+import HiringPlatefrom from "./Pages/CarearBlogs/CareerBarNavigate/HiringPlateform.jsx";
+import HrInsight from "./Pages/CarearBlogs/CareerBarNavigate/HrInsight.jsx";
+import InterviewAdvice from "./Pages/CarearBlogs/CareerBarNavigate/InterviewAdvice.jsx";
+import News from "./Pages/CarearBlogs/CareerBarNavigate/News.jsx";
+
+
+
+
 const ProjectRoutes = () => {
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -113,6 +128,20 @@ const ProjectRoutes = () => {
           <Route path="/blank/interview/:jobId" element={<Interview />} />
           <Route path="/blank/successful/:id" element={<Successful />} />
           <Route path="/blank/interview-setting/:id" element={<ISetting />} />
+
+          <Route path="/blank/aitools" element={<AITools />} />
+          <Route path="/blank/career" element={<CareerMain />} />
+        <Route path="/blank/article/:id" element={<ArticlePage />} />
+          
+          {/* all career page nac routes */}
+           <Route path="/blank/careerAdvise" element={<CareerAdvise/>}/>;
+           <Route path="/blank/hiringPlteform" element={<HiringPlatefrom/>}/>;
+           <Route path="/blank/hrInsight" element={<HrInsight/>}/>;
+           <Route path="/blank/interviewAdvice" element={<InterviewAdvice/>}/>;
+           <Route path="/blank/news" element={<News/>}/>;
+
+
+
           <Route
             path="/blank/start-interview/:jobId"
             element={<StartInterview />}
