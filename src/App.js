@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, } from "react-router-dom";
 import Layout from "./Layouts/Layout";
 import Home from "./Pages/Home/Home";
 import Notification from "./Pages/Notification/Notification";
@@ -42,6 +37,9 @@ import Premium from "./Pages/Premium";
 import Chat from "./Pages/Chat/Chat.jsx";
 import AllRounds from "./Pages/Jobs/AllRounds";
 import Todo from "./Pages/Todo/Index";
+import ResumeAnalyser from "./Pages/AI Tools/ResumeAnalyser.jsx";
+import ResumeBuilder from './Pages/AI Tools/ResumeBuilder.jsx'
+import MockInterview from './Pages/AI Tools/MockInterview.jsx'
 
 
 import AITools from "./Pages/AiTools/AiTools.js";
@@ -122,6 +120,9 @@ const ProjectRoutes = () => {
         <Route path="/blank" element={<HeaderLayout />}>
           <Route path="/blank/Portfolio" element={<Portfolio />} />
           <Route path="/blank/Jobs" element={<Jobs />} />
+          <Route path="/blank/ai-tools/resume-analyser" element={<ResumeAnalyser />} />
+          <Route path="/blank/ai-tools/resume-builder" element={<ResumeBuilder />} />
+          <Route path="/blank/ai-tools/mockinterview" element={<MockInterview />} />
           <Route path="/blank/allrounds/:id" element={<AllRounds />} />
           <Route path="/blank/start/:jobId" element={<Start />} />
           <Route path="/blank/continue/:jobId" element={<Continue />} />

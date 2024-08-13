@@ -169,7 +169,7 @@ const StartInterview = () => {
   return (
     <div className="flex flex-col items-center p-4">
       <div className="mb-2">
-        {status === "idle" ? (
+        {status === "idle" || "requesting_permissions" ? (
           <div className="w-full flex justify-around px-5">
             <div className="w-3/5 flex flex-col justify-start items-center border rounded-3xl p-2 m-2 bg-[#f1f1f1]">
               <div className="w-full my-4">
