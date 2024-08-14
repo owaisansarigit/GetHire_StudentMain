@@ -446,7 +446,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Navigate, useNavigate } from "react-router";
 
-const Sidebar = () => {
+const Sidebar = ({ activeSection,scrollToSection  }) => {
   const navigate = useNavigate();
    
   const progress = 75;
@@ -477,8 +477,18 @@ const Sidebar = () => {
   const dashoffset = circumference - (currentProgress / 100) * circumference;
   const dotPosition = circumference - dashoffset; // Calculate position for the dot
 
+
+// this is for our scrollable section ------------
+const getSectionClassName = (sectionId) =>
+  activeSection === sectionId ? 'bg-blue-200' : '';
+
+const handleClick = (sectionId) => {
+  scrollToSection(sectionId);
+};
+
+
   return (
-    <div className="border rounded-2xl p-5 min-h-[60vh] bg-white min-w-[15vw] shadow-lg mt-3 ">
+    <div className="border sticky z-0 top-24 rounded-2xl p-5 min-h-[60vh] bg-white min-w-[15vw] shadow-lg mt-3 ">
         <div className="profile w-full flex flex-col justify-start items-center">
              {/* old bar */}
               {/* <div className="relative flex items-center justify-center">
@@ -564,20 +574,24 @@ const Sidebar = () => {
         </div>
 
 
-        <div className="mt-4 flex flex-col">
-          <span className="-mb-1 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200">
+        <div className="mt-2 flex flex-col">
+          <span className={`cursor-pointer p-2 ${getSectionClassName('section1')} -mb-2 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200"`}
+             onClick={() => handleClick('section1')}>
             <p><CiHome/></p>
             <p>My Home</p>
           </span>
-          <span className="-mb-1 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200">
+          <span className={` cursor-pointer p-2 ${getSectionClassName('section2')} -mb-2 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200`}
+             onClick={() => handleClick('section2')}>
             <p><BsFillSuitcaseLgFill/></p>
             <p>Jobs</p>
           </span>
-          <span className="-mb-1 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200">
+          <span className={`cursor-pointer p-2 ${getSectionClassName('section3')} -mb-2 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200`}
+             onClick={() => handleClick('section3')}>
             <p><FaRegBuilding/></p>
             <p>Companies</p>
           </span>
-          <span className="-mb-1 flex flex-row justify-normal items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg transition duration-200">
+          <span className={` -mb-2 flex flex-row justify-normal hover:text-blue-700 items-center gap-1 text-md text-gray-600 font-semibold px-4 py-2  cursor-pointer rounded-lg transition duration-200`}
+             onClick={() =>navigate('/blank/career')}>
              <p><FiBookOpen/></p>
             <p>Training Centre</p>
           </span>
