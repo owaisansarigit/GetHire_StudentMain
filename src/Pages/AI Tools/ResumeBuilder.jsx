@@ -3,7 +3,6 @@ import ResumeModal from "./ResumeModal";
 
 const ResumeBuilder = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentSkill, setCurrentSkill] = useState("");
   const [resumeData, setResumeData] = useState({
     name: "",
     email: "",
@@ -14,6 +13,9 @@ const ResumeBuilder = () => {
     isExperienced: false,
   });
 
+  const [currentEducation, setCurrentEducation] = useState("");
+  const [currentWorkExperience, setCurrentWorkExperience] = useState("");
+  const [currentSkill, setCurrentSkill] = useState("");
   const [hasResumeData, setHasResumeData] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -39,13 +41,13 @@ const ResumeBuilder = () => {
     }));
   };
 
-  const handleArrayChange = (e, arrayName) => {
-    const newArray = [...resumeData[arrayName], e.target.value];
-    setResumeData((prevData) => ({
-      ...prevData,
-      [arrayName]: newArray,
-    }));
-    e.target.value = "";
+  const handleAddToArray = (arrayName, value) => {
+    if (value.trim()) {
+      setResumeData((prevData) => ({
+        ...prevData,
+        [arrayName]: [...prevData[arrayName], value],
+      }));
+    }
   };
 
   const handleExperienceChange = (e) => {
@@ -72,9 +74,7 @@ const ResumeBuilder = () => {
         <div className="w-full min-h-screen flex gap-10">
           {/* Left side: Input fields for editing */}
           <div className="w-1/2 bg-white p-4 rounded shadow">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
-              Edit Resume
-            </h1>
+            <h1 className="text-xl text-gray-800 mb-4">Edit Resume</h1>
 
             <input
               type="text"
@@ -100,29 +100,46 @@ const ResumeBuilder = () => {
               onChange={handleInputChange}
               className="mb-4 p-2 border border-gray-300 rounded w-full"
             />
+
             <input
               type="text"
-              placeholder="Enter work experience"
-              onBlur={(e) => handleArrayChange(e, "workExperience")}
+              value={currentWorkExperience}
+              onChange={(e) => setCurrentWorkExperience(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && currentWorkExperience.trim()) {
+                  handleAddToArray("workExperience", currentWorkExperience);
+                  setCurrentWorkExperience("");
+                }
+              }}
+              placeholder="Enter work experience and press Enter"
               className="mb-4 p-2 border border-gray-300 rounded w-full"
             />
+
             <input
               type="text"
               value={currentSkill}
               onChange={(e) => setCurrentSkill(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && currentSkill.trim()) {
-                  handleArrayChange(e, "skills");
+                  handleAddToArray("skills", currentSkill);
                   setCurrentSkill("");
                 }
               }}
               placeholder="Enter a skill and press Enter"
               className="mb-4 p-2 border border-gray-300 rounded w-full"
             />
+
             <input
               type="text"
-              placeholder="Enter educational details"
-              onBlur={(e) => handleArrayChange(e, "education")}
+              value={currentEducation}
+              onChange={(e) => setCurrentEducation(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && currentEducation.trim()) {
+                  handleAddToArray("education", currentEducation);
+                  setCurrentEducation("");
+                }
+              }}
+              placeholder="Enter educational details and press Enter"
               className="mb-4 p-2 border border-gray-300 rounded w-full"
             />
 
@@ -136,16 +153,17 @@ const ResumeBuilder = () => {
 
           {/* Right side: Resume template preview */}
           <div className="w-1/2 bg-white p-4 rounded shadow">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Resume Preview
+            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4 pb-2 border-b">
+              Resume
             </h2>
-
-            <div className="text-lg font-semibold">{resumeData.name}</div>
-            <div className="text-sm text-gray-600">{resumeData.email}</div>
-            <div className="text-sm text-gray-600">{resumeData.phone}</div>
+            <div className="text-lg">{resumeData.name}</div>
+            <div className="text-md text-gray-600">{resumeData.email}</div>
+            <div className="text-md text-gray-600 border-b">
+              {resumeData.phone}
+            </div>
 
             <div className="mt-4">
-              <h3 className="text-md font-bold">Skills</h3>
+              <h3 className="text-md font-semibold border-b">Skills</h3>
               <ul className="list-disc ml-5">
                 {resumeData.skills.map((skill, index) => (
                   <li key={index}>{skill}</li>
@@ -154,7 +172,9 @@ const ResumeBuilder = () => {
             </div>
 
             <div className="mt-4">
-              <h3 className="text-md font-bold">Work Experience</h3>
+              <h3 className="text-md font-semibold border-b">
+                Work Experience
+              </h3>
               <ul className="list-disc ml-5">
                 {resumeData.workExperience.map((exp, index) => (
                   <li key={index}>{exp}</li>
@@ -163,7 +183,7 @@ const ResumeBuilder = () => {
             </div>
 
             <div className="mt-4">
-              <h3 className="text-md font-bold">Education</h3>
+              <h3 className="text-md font-semibold border-b">Education</h3>
               <ul className="list-disc ml-5">
                 {resumeData.education.map((edu, index) => (
                   <li key={index}>{edu}</li>
