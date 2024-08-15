@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ArticleCard from "../ArticleCard";
-import articles from "../ArticalsData";
+
+import { GetApi } from "../../utilis/Api_Calling";
 
 function CareerAdvise() {
-  // Filter to get only the "Career Advisory" section
-  const careerAdvisorySection = articles.find(
-    (section) => section.title === "Career Advice"
-  );
+  const [careerAdvisorySection, setCareerAdvisorySection] = useState();
+  let getBlogs = async () => {
+    try {
+      let res = await GetApi(`api/blogroutes/all`);
+      setCareerAdvisorySection({ cards: res?.data?.data });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  useEffect(() => {
+    getBlogs();
+  }, []);
 
   return (
     <div>
@@ -21,7 +31,7 @@ function CareerAdvise() {
                 <div className="mb-12">
                   {/* Section Title */}
                   <h2 className="text-2xl font-bold mb-4">
-                    {careerAdvisorySection.title}
+                    Career Advice
                   </h2>
 
                   {/* Display Cards for the "Career Advisory" section */}
@@ -29,9 +39,9 @@ function CareerAdvise() {
                     <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                       {careerAdvisorySection.cards.map((card) => (
                         <ArticleCard
-                          key={card.id}
-                          id={card.id}
-                          img={card.img}
+                          key={card._id}
+                          id={card._id}
+                          image={card.image}
                           title={card.title}
                           description={card.description}
                         />
@@ -51,83 +61,3 @@ function CareerAdvise() {
 }
 
 export default CareerAdvise;
-
-
-
-
-
-// this gives all component with a search function
-// import React ,{useState} from "react";
-// import { Routes, Route } from "react-router-dom";
-// import ArticleCard from "../ArticleCard";
-// import articles from "../ArticalsData";
-// function CareerAdvise() {
-//     const [searchQuery, setSearchQuery] = useState("");
-
-//     // Filter articles based on the search query
-//     const filteredArticles = articles
-//       .map((section) => ({
-//         ...section,
-//         cards: section.cards.filter(
-//           (card) =>
-//             card.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//             section.title.toLowerCase().includes(searchQuery.toLowerCase())
-//         ),
-//       }))
-//       .filter((section) => section.cards.length > 0);
-
-//   return (
-//     <div className=" mt-12">
-//         <div>
-//       {/* Search Input */}
-//       <div className="p-8">
-//         <input
-//           type="text"
-//           value={searchQuery}
-//           onChange={(e) => setSearchQuery(e.target.value)}
-//           placeholder="Search Career Advisory..."
-//           className="px-4 py-2 border border-gray-300 rounded w-full"
-//         />
-//       </div>
-      
-//       <Routes>
-//         <Route
-//           path="/"
-//           element={
-//             <div className="p-8">
-//               {/* Iterate through filtered sections */}
-//               {filteredArticles.length > 0 ? (
-//                 filteredArticles.map((section, index) => (
-//                   <div key={index} className="mb-12">
-//                     {/* Section Title */}
-//                     <h2 className="text-2xl font-bold mb-4">{section.title}</h2>
-
-//                     {/* Display Cards for the current section */}
-//                     <section className="flex justify-center py-8">
-//                       <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//                         {section.cards.map((card) => (
-//                           <ArticleCard
-//                             key={card.id}
-//                             id={card.id}
-//                             img={card.img}
-//                             title={card.title}
-//                             description={card.description}
-//                           />
-//                         ))}
-//                       </div>
-//                     </section>
-//                   </div>
-//                 ))
-//               ) : (
-//                 <p>No results found for "{searchQuery}"</p>
-//               )}
-//             </div>
-//           }
-//         />
-//       </Routes>
-//     </div>
-//     </div>
-//   )
-// }
-
-// export default CareerAdvise

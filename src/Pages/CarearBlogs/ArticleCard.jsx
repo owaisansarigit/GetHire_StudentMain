@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-const ArticleCard = ({ id, img, title, description } ) => {
+const ArticleCard = ({ id, image, title, description } ) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
-    console.log("button clicked of id " , id);
     navigate(`/blank/article/${id}`);
   };
 
@@ -16,7 +15,7 @@ const ArticleCard = ({ id, img, title, description } ) => {
     <div className="border border-gray-200 rounded-lg shadow-md overflow-hidden"
       onClick={handleClick}
      >
-    <img src={img} alt={title} className="w-full h-48 object-cover" />
+    <img src={image} alt={title} className="w-full h-48 object-cover" />
     <div className="p-4">
       <h3 className="text-lg font-semibold hover:underline hover:cursor-pointer">{title}</h3>
       <p className="text-gray-600  mt-2">{description}</p>
