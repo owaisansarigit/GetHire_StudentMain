@@ -84,14 +84,32 @@ const StartInterview = () => {
     }
   };
 
+  const convertBlobToWav = async (videoBlob) => {
+    const ffmpeg = createFFmpeg({ log: true });
+    await ffmpeg.load();
+    const fileName = "audio.webm";
+    ffmpeg.FS(
+      "writeFile",
+      fileName,
+      new Uint8Array(await videoBlob.arrayBuffer())
+    );
+    await ffmpeg.run("-i", fileName, "output.wav");
+    const data = ffmpeg.FS("readFile", "output.wav");
+    console.log("Conversion to WAV successful");
+    return new Blob([data.buffer], { type: "audio/wav" });
+  };
+
   const handleSubmitVideo = async () => {
     setInLoading(true);
     if (mediaBlobUrl) {
       setSubmissionStatus("submitting");
       const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
       const audioBlob = new Blob([videoBlob], { type: "audio/webm" });
+      const wavBlob = await convertBlobToWav(videoBlob);
+      const wavFile = new File([wavBlob], "audio.wav", { type: "audio/wav" });
+
       const formData = new FormData();
-      formData.append("audio", audioBlob);
+      formData.append("audio", wavFile);
       try {
         const aitext = await getTextFromAudio(formData);
         const points = await getResult(aitext);

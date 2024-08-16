@@ -85,7 +85,7 @@ const ResumeBuilder = () => {
                 </p>
               </div>
             </h2>
-            
+
             <div className="mt-4">
               <h3 className="text-md font- border-b">Summary</h3>
               <p className="text-sm">{resumeData?.summary}</p>
@@ -124,7 +124,6 @@ const ResumeBuilder = () => {
                 ))}
               </ul>
             </div>
-
           </div>
         </div>
       )}
