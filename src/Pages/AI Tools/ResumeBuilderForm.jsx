@@ -13,7 +13,7 @@ import {
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import axios from "axios";
 const webLinkOptions = [
   { label: "Twitter", value: "Twitter" },
   { label: "LinkedIn", value: "LinkedIn" },
@@ -32,6 +32,31 @@ function SectionedForm({ resumeData, setResumeData }) {
   const [newSkill, setNewSkill] = useState("");
   const [customSkill, setCustomSkill] = useState("");
   const skillOptions = ["JavaScript", "React", "Node.js"];
+
+  const getSummary = async () => {
+    try {
+      const data = {
+        jobTitle: resumeData.jobTitle,
+        suggestionFor: "summary for this role for resume",
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      };
+
+      let response = await axios.post(
+        "https://get-hire-ai.vercel.app/job-suggestion",
+        data,
+        config
+      );
+      setResumeData((prev) => ({ ...prev, summary: response.data.res }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -275,7 +300,12 @@ function SectionedForm({ resumeData, setResumeData }) {
           Summary
         </AccordionSummary>
         <AccordionDetails>
-          <Button variant="contained" color="primary" size="small">
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={getSummary}
+          >
             Generate with AI
           </Button>
           <TextField
