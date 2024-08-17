@@ -1291,16 +1291,16 @@ const [aiModal, setAiModal] = useState(false);
                       <div className="flex flex-row gap-6   max-lg:pr-7 max-2xl:-mt-6 -mt-6 w-full ">
                               <div className=" w-[90%] max-lg:w-14 max-lg:-pl-5  ">
                                       {selectedtab === "MyJobs" && (
-                                        <div className=" flex flex-row gap-3">
-                                              <div className="flex flex-col flex-1 gap-1 max-sm:gap-3  ">
+                                        <div className=" flex flex-row gap-3  -ml-3 ">
+                                                <div className="flex flex-col flex-1 gap-1 max-sm:gap-3  ">
                                                 {dummyJobs.map((job, index) => (
                                                   <div
                                                     key={index}
                                                     onClick={() => handleJobClick(job)}
                                                     ref={sectionRefs.section2} id="section2" 
-                                                    className="bg-[#fff] p-[14px] -ml-5  max-2xl:h-36 w-52 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
+                                                    className="bg-[#fff] p-[14px] flex flex-col -ml-5  max-2xl:h-24 w-52 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
                                                   >
-                                                    <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-2 max-sm:gap-1">
+                                                    <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-1 max-sm:gap-0">
                                                       <p className="text-[15px] max-2xl:text-[14px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
                                                       <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[17px] h-[17px] max-lg:w-[15px] max-lg:h-[15px]" />
                                                     </div>
@@ -1308,7 +1308,7 @@ const [aiModal, setAiModal] = useState(false);
                                                       <img src="/images/carbon_location.svg" className="w-[16px] h-[20px] max-lg:w-[15px] max-lg:h-[18px]" alt="Location" />
                                                       <p className="text-black text-opacity-[60%] text-[12px] max-lg:text-[11px] max-sm:text-[10px] font-[500]">{job.JobId.location}</p>
                                                     </div>
-                                                    <div className="flex mt-[20px] gap-8 max-sm:gap-2 justify-between">
+                                                    <div className="flex mt-[20px] gap-4 max-2xl:gap-1 max-sm:gap-2 justify-between">
                                                       <p className="text-black text-opacity-[60%] text-[12px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
                                                       {job.JobId.result === 'Cleared' ? (
                                                         <p className="text-blue-500 text-[11px] max-lg:text-[10px]">{job.JobId.result}</p>
@@ -1318,18 +1318,18 @@ const [aiModal, setAiModal] = useState(false);
                                                     </div>
                                                   </div>
                                                 ))}
-                                              </div>
-                                                 <div
-                                                  className="min-w-[320px] max-2xl:min-w-[290px] max-xl:min-w-[270px]   max-2xl:w-[290px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
+                                                </div>
+                                                <div
+                                                  className="min-w-[300px] flex-grow-1 max-2xl:min-w-[260px] max-xl:min-w-[270px] max-2xl:-ml-2 bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
                                                  >
                                                   <div className="flex flex-row justify-between">
                                                     <div>
-                                                      <h2 className="text-[17px] font-[700] max-lg:text-[17px]">{selectedJob.JobId.positionName}</h2>
+                                                      <h2 className="text-[17px] font-[700] max-lg:text-[16px] max-2xl:text-[16px] ">{selectedJob.JobId.positionName}</h2>
                                                       <p className="text-[11px]">{selectedJob.JobId.location}</p>
                                                     </div>
                                                     <div>
                                                       <button
-                                                        className="bg-blue-600 p-3 text-[11px] h-9 flex items-center rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                                                        className="bg-blue-600 p-3 text-[11px] h-9 flex items-center max-2xl:text-[10px] max-2xl:p-1 max-2xl:rounded-lg max-2xl:h-7  rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
                                                         onClick={() => alert("View job button is clicked")}
                                                       >
                                                         View Jobs
@@ -1337,7 +1337,7 @@ const [aiModal, setAiModal] = useState(false);
                                                     </div>
                                                   </div>
                                                   <hr className="border-t-2 border-gray-300 my-2" />
-                                                  <p className="text-[16px]">Application status</p>
+                                                  <p className="text-[16px] max-2xl:text-[15px]">Application status</p>
                                                   <div className="ml-4">
                                                     <p className=" text-[14px] mb-[3px]">Applied</p>
                                                     <div className="flex flex-row gap-12">
@@ -1423,7 +1423,7 @@ const [aiModal, setAiModal] = useState(false);
                                         </div>
                                       )}
                               </div> */}
-                          </div>
+                      </div>
                    
 
                         

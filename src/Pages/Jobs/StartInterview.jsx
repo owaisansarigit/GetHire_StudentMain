@@ -6,6 +6,7 @@ import { GetApi, PostApi } from "../utilis/Api_Calling";
 import axios from "axios";
 import { toast } from "react-toastify";
 import sampleAudio from "./sampleaudio.mp3";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
 
 const StartInterview = () => {
   const {
@@ -84,14 +85,43 @@ const StartInterview = () => {
     }
   };
 
+  const convertBlobToWav = async (videoBlob) => {
+    const ffmpeg = new FFmpeg({ log: true });
+    await ffmpeg.load();
+
+    // Create a file system in memory
+    const fileName = "audio.webm";
+    ffmpeg.FS(
+      "writeFile",
+      fileName,
+      new Uint8Array(await videoBlob.arrayBuffer())
+    );
+
+    // Convert webm to wav
+    await ffmpeg.run("-i", fileName, "output.wav");
+
+    // Read the result
+    const data = ffmpeg.FS("readFile", "output.wav");
+
+    // Convert the result to a Blob
+    const wavBlob = new Blob([data.buffer], { type: "audio/wav" });
+
+    console.log("Conversion to WAV successful");
+
+    return wavBlob;
+  };
+
   const handleSubmitVideo = async () => {
     setInLoading(true);
     if (mediaBlobUrl) {
       setSubmissionStatus("submitting");
       const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
       const audioBlob = new Blob([videoBlob], { type: "audio/webm" });
+      const wavBlob = await convertBlobToWav(videoBlob);
+      const wavFile = new File([wavBlob], "audio.wav", { type: "audio/wav" });
+
       const formData = new FormData();
-      formData.append("audio", audioBlob);
+      formData.append("audio", wavFile);
       try {
         const aitext = await getTextFromAudio(formData);
         const points = await getResult(aitext);

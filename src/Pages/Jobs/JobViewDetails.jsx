@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetApi, PostApi } from "../utilis/Api_Calling";
+import { ThreeDots } from 'react-loader-spinner'
 import {
   Button,
   Box,
@@ -14,6 +15,7 @@ import JobApplyModelResumeCheck from "./JobApplyModelResumeCheck";
 import { toast } from "react-toastify";
 import JobApplyModelChat from "./JobApplyModelChat";
 const stepsHead = ["View Job", "Job Apply", "Shortlisted"];
+
 
 const JobViewDetails = () => {
   const { id } = useParams();
@@ -157,7 +159,17 @@ const JobViewDetails = () => {
     <>
       {Loading ? (
         <div className="bg-white flex justify-center pt-20 min-w-[100vw] min-h-[100vh] text-2xl">
-          Loading...
+          {/* Loading... */}
+          <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="blue"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              />
         </div>
       ) : (
         <div className="w-full flex justify-center items-start gap-10 font-[poppins] bg-[#f8f9fa]">
@@ -179,11 +191,11 @@ const JobViewDetails = () => {
               <div className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5">
                 <div className="mt-[8px]">
                   <div className="flex justify-between gap-[20px]">
-                    <p className="text-xl font-medium lg:w-[476px] flex-wrap">
+                    <p className="text-xl font-medium inline-block lg:w-[476px] flex-wrap ">
                       {Jobdetail?.positionName}
                     </p>
                   </div>
-                  <p className="text-gray-600  text-md font-normal">
+                  <p className="text-gray-600  text-md font-normal hover:text-blue-600 cursor-pointer" onClick={()=>{alert("redirecting to company page")}}>
                     {Jobdetail?.Company?.Name}
                   </p>
                   <div className="flex flex-col text-[14px] font-[400] text-black text-opacity-[50%] mt-[5px] gap-2">
@@ -408,8 +420,9 @@ const JobViewDetails = () => {
                               Years &nbsp; |
                             </span>
                             <span>
-                              <i className="fa-solid fa-dollar-sign mr-2"></i>{" "}
-                              {job.minSalary}-{job.maxSalary} salary &nbsp; |
+                              {/* <i className="fa-solid fa-dollar-sign mr-2"></i>{" "} */}
+                              {/* {job.minSalary}-{job.maxSalary} salary &nbsp; | */}
+                              12-14 LPA CTC &nbsp; |
                             </span>
                             <span>
                               <i className="fa-solid fa-location-dot mr-2"></i>{" "}

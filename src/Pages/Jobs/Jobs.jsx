@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GetApi } from "../utilis/Api_Calling";
+import {Triangle} from 'react-loader-spinner'
 
 const Jobs = () => {
   const navigate = useNavigate();
@@ -128,7 +129,16 @@ const Jobs = () => {
     <>
       {Loading ? (
         <div className="bg-white flex justify-center pt-20 min-w-[100vw] text-2xl">
-          Loading...
+          {/* Loading... */}
+          <Triangle
+              visible={true}
+              height="90"
+              width="80"
+              color="blue"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              />
         </div>
       ) : (
         <div

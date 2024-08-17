@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Layout from "./Layouts/Layout";
 import Home from "./Pages/Home/Home";
 import Notification from "./Pages/Notification/Notification";
@@ -38,9 +43,8 @@ import Chat from "./Pages/Chat/Chat.jsx";
 import AllRounds from "./Pages/Jobs/AllRounds";
 import Todo from "./Pages/Todo/Index";
 import ResumeAnalyser from "./Pages/AI Tools/ResumeAnalyser.jsx";
-import ResumeBuilder from './Pages/AI Tools/ResumeBuilder.jsx'
-import MockInterview from './Pages/AI Tools/MockInterview.jsx'
-
+import ResumeBuilder from "./Pages/AI Tools/ResumeBuilder.jsx";
+import MockInterview from "./Pages/AI Tools/MockInterview.jsx";
 
 import AITools from "./Pages/AiTools/AiTools.js";
 
@@ -52,9 +56,7 @@ import HiringPlatefrom from "./Pages/CarearBlogs/CareerBarNavigate/HiringPlatefo
 import HrInsight from "./Pages/CarearBlogs/CareerBarNavigate/HrInsight.jsx";
 import InterviewAdvice from "./Pages/CarearBlogs/CareerBarNavigate/InterviewAdvice.jsx";
 import News from "./Pages/CarearBlogs/CareerBarNavigate/News.jsx";
-
-
-
+import ResumeEdit from "./Pages/AI Tools/ResumeEdit.jsx";
 
 const ProjectRoutes = () => {
   const [loading, setLoading] = useState(false);
@@ -120,29 +122,37 @@ const ProjectRoutes = () => {
         <Route path="/blank" element={<HeaderLayout />}>
           <Route path="/blank/Portfolio" element={<Portfolio />} />
           <Route path="/blank/Jobs" element={<Jobs />} />
-          <Route path="/blank/ai-tools/resume-analyser" element={<ResumeAnalyser />} />
-          <Route path="/blank/ai-tools/resume-builder" element={<ResumeBuilder />} />
-          <Route path="/blank/ai-tools/mockinterview" element={<MockInterview />} />
+          <Route
+            path="/blank/ai-tools/resume-analyser"
+            element={<ResumeAnalyser />}
+          />
+          <Route
+            path="/blank/ai-tools/resume-builder"
+            element={<ResumeBuilder />}
+          />
+          <Route
+            path="/blank/ai-tools/resume-builder/edit/:id"
+            element={<ResumeEdit />}
+          />
+          <Route
+            path="/blank/ai-tools/mockinterview"
+            element={<MockInterview />}
+          />
           <Route path="/blank/allrounds/:id" element={<AllRounds />} />
           <Route path="/blank/start/:jobId" element={<Start />} />
           <Route path="/blank/continue/:jobId" element={<Continue />} />
           <Route path="/blank/interview/:jobId" element={<Interview />} />
           <Route path="/blank/successful/:id" element={<Successful />} />
           <Route path="/blank/interview-setting/:id" element={<ISetting />} />
-
           <Route path="/blank/aitools" element={<AITools />} />
           <Route path="/blank/career" element={<CareerMain />} />
-        <Route path="/blank/article/:id" element={<ArticlePage />} />
-          
+          <Route path="/blank/article/:id" element={<ArticlePage />} />
           {/* all career page nac routes */}
-           <Route path="/blank/careerAdvise" element={<CareerAdvise/>}/>;
-           <Route path="/blank/hiringPlteform" element={<HiringPlatefrom/>}/>;
-           <Route path="/blank/hrInsight" element={<HrInsight/>}/>;
-           <Route path="/blank/interviewAdvice" element={<InterviewAdvice/>}/>;
-           <Route path="/blank/news" element={<News/>}/>;
-
-
-
+          <Route path="/blank/careerAdvise" element={<CareerAdvise />} />;
+          <Route path="/blank/hiringPlteform" element={<HiringPlatefrom />} />;
+          <Route path="/blank/hrInsight" element={<HrInsight />} />;
+          <Route path="/blank/interviewAdvice" element={<InterviewAdvice />} />;
+          <Route path="/blank/news" element={<News />} />;
           <Route
             path="/blank/start-interview/:jobId"
             element={<StartInterview />}

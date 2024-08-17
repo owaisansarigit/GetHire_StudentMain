@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
+import { PostApi } from "../utilis/Api_Calling";
 
-const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
+const ResumeModal = ({ closeModal }) => {
+  const navigate = useNavigate();
+  const [resumeData, setResumeData] = useState({});
   const [step, setStep] = useState(0);
-
-  const [currentJobTitle, setCurrentJobTitle] = useState("");
-  const [currentSkill, setCurrentSkill] = useState("");
 
   const handleNextStep = () => setStep(step + 1);
   const handlePrevStep = () => setStep(step - 1);
@@ -17,43 +18,36 @@ const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
     });
   };
 
-  const handleArrayChange = (e, arrayName) => {
-    const newArray = [...resumeData[arrayName], e.target.value];
-    setResumeData((prevData) => ({
-      ...prevData,
-      [arrayName]: newArray,
-    }));
-    e.target.value = "";
-  };
-
-  const handleExperienceChange = (e) => {
-    setResumeData({
-      ...resumeData,
-      isExperienced: e.target.value === "true",
-    });
-  };
-
-  const handleRemoveItem = (arrayName, index) => {
-    const updatedArray = resumeData[arrayName].filter((_, i) => i !== index);
-    setResumeData((prevData) => ({
-      ...prevData,
-      [arrayName]: updatedArray,
-    }));
-  };
-
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       closeModal();
     }
   };
 
+  let createResume = async () => {
+    if (resumeData.jobTitle === "" || resumeData.jobDescription === "") {
+      alert("please fill details");
+      return;
+    }
+    try {
+      let res = await PostApi(`api/studentroutes/ai-resume`, resumeData);
+      if (res.status === 200) {
+        navigate(`/blank/ai-tools/resume-builder/edit/${res.data.data._id}`);
+        closeModal();
+      }
+    } catch (error) {
+      alert("error in create");
+      console.log(error);
+    }
+  };
+
   return ReactDOM.createPortal(
     <div
-      className="fixed min-w-[75vw] inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center font-[poppins]"
+      className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center font-[poppins]"
       onClick={handleOutsideClick}
     >
       <div
-        className="bg-white px-6 py-4 rounded shadow-lg w-3/4"
+        className="bg-white px-6 py-4 rounded shadow-lg w-3/6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full flex justify-between items-center border-gray-500 border-b">
@@ -120,139 +114,63 @@ const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
         )}
 
         {step === 1 && (
-          <div>
-            <h3 className="text-md my-4">Basic Details</h3>
+          <div className="w-full">
+            <h3 className="text-md my-4">Target Job Title</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Enter the job title you are aiming for or targetting your job
+              search . This helps tailor your job search and alerts to match
+              your career goal.
+            </p>
             <input
               type="text"
-              name="name"
-              placeholder="Full Name"
-              value={resumeData.name}
+              name="jobTitle"
+              placeholder="Job Title"
+              value={resumeData.jobTitle}
               onChange={handleInputChange}
               className="mb-4 p-2 border border-gray-300 rounded w-full"
             />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={resumeData.email}
-              onChange={handleInputChange}
-              className="mb-4 p-2 border border-gray-300 rounded w-full"
-            />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone"
-              value={resumeData.phone}
-              onChange={handleInputChange}
-              className="mb-4 p-2 border border-gray-300 rounded w-full"
-            />
-            <button
-              onClick={handleNextStep}
-              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
-            >
-              Next
-            </button>
+            <div className="w-full flex justify-end">
+              <button
+                onClick={() => {
+                  if (resumeData.jobTitle === "") {
+                    alert("please fill details");
+                    return;
+                  }
+                  handleNextStep();
+                }}
+                className="px-3 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 ml-auto"
+              >
+                Next
+              </button>
+            </div>
           </div>
         )}
 
         {step === 2 && (
-          <div>
-            <h3 className="text-md my-4">Experience Level</h3>
-            <select
-              name="isExperienced"
-              onChange={handleExperienceChange}
-              className="mb-4 p-2 border border-gray-300 rounded w-full"
-            >
-              <option value="false">Fresher</option>
-              <option value="true">Experienced</option>
-            </select>
-            <button
-              onClick={handleNextStep}
-              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
-            >
-              Next
-            </button>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div>
-            <h3 className="text-md my-4">Skills</h3>
-            <input
+          <div className="w-full">
+            <h3 className="text-md my-4">Target Job Description</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Enter the job description you are aiming for or targetting your
+              job search . This helps tailor your job search and alerts to match
+              your career goal.
+            </p>
+            <textarea
               type="text"
-              value={currentSkill}
-              onChange={(e) => setCurrentSkill(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && currentSkill.trim()) {
-                  handleArrayChange(e, "skills");
-                  setCurrentSkill("");
-                }
-              }}
-              placeholder="Enter a skill and press Enter"
+              rows={5}
+              name="jobDescription"
+              placeholder="Job Description"
+              value={resumeData.jobDescription}
+              onChange={handleInputChange}
               className="mb-4 p-2 border border-gray-300 rounded w-full"
-            />
-            <div className="flex gap-3 justify-start flex-wrap">
-              {resumeData.skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="flex gap-3 border rounded-3xl px-3 py-2 items-center mb-2"
-                >
-                  <span>{skill}</span>
-                  <button
-                    onClick={() => handleRemoveItem("skills", index)}
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
+            ></textarea>
+            <div className="w-full flex justify-end">
+              <button
+                onClick={createResume}
+                className="px-3 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 ml-auto"
+              >
+                Next
+              </button>
             </div>
-            <button
-              onClick={handleNextStep}
-              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
-            >
-              Next
-            </button>
-          </div>
-        )}
-
-        {step === 4 && resumeData.isExperienced && (
-          <div>
-            <h3 className="text-md my-4">Work Experience</h3>
-            <input
-              type="text"
-              placeholder="Enter work experience"
-              onBlur={(e) => handleArrayChange(e, "workExperience")}
-              className="mb-4 p-2 border border-gray-300 rounded w-full"
-            />
-            <button
-              onClick={handleNextStep}
-              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
-            >
-              Next
-            </button>
-          </div>
-        )}
-
-        {step === 5 && (
-          <div>
-            <h3 className="text-md my-4">Educational Details</h3>
-            <input
-              type="text"
-              placeholder="Enter educational details"
-              onBlur={(e) => handleArrayChange(e, "education")}
-              className="mb-4 p-2 border border-gray-300 rounded w-full"
-            />
-            <button
-              onClick={() => {
-                // Handle saving resume data
-                console.log(resumeData);
-                closeModal();
-              }}
-              className="px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600"
-            >
-              Save
-            </button>
           </div>
         )}
       </div>

@@ -56,9 +56,81 @@ const useScreenAudioRecorder = () => {
     }
   };
 
-  const startRecording = async () => {
-    setStatus("requesting_permissions");
 
+  // const startRecording = async () => {
+  //   console.log("Starting recording process...");
+    
+  //   setStatus("requesting_permissions");
+    
+  //   try {
+  //     const displayStream = await getDisplayStream();
+  //     const audioStream = await getAudioStream();
+  //     const webcamStream = await getWebcamStream();
+  
+  //     // Save streams to ref
+  //     streamsRef.current = { displayStream, audioStream, webcamStream };
+  
+  //     // Create combined stream
+  //     const combinedStream = new MediaStream([
+  //       ...displayStream.getVideoTracks(),
+  //       ...audioStream.getAudioTracks(),
+  //     ]);
+  
+  //     // Check if combined stream has audio tracks
+  //     if (!combinedStream.getAudioTracks().length) {
+  //       console.error("No audio tracks found in the combined stream.");
+  //       toast.error("No audio tracks found. Ensure your microphone is enabled.", { autoClose: 1000 });
+  //       setStatus("idle");
+  //       return;
+  //     }
+  
+  //     console.log("All permissions granted. Starting recording.");
+  //     setStatus("recording");
+  
+  //     // Initialize and start recording
+  //     recorderRef.current = new RecordRTC(combinedStream, {
+  //       type: "video",
+  //       mimeType: "video/webm",
+  //       bitsPerSecond: 300000,
+  //     });
+  //     recorderRef.current.startRecording();
+  
+  //     audioRecorderRef.current = new RecordRTC(audioStream, {
+  //       type: "audio",
+  //       mimeType: "audio/webm",
+  //     });
+  //     audioRecorderRef.current.startRecording();
+  
+  //     // Set video sources if refs are available
+  //     if (screenVideoRef.current) {
+  //       screenVideoRef.current.srcObject = combinedStream;
+  //       screenVideoRef.current.play();
+  //     } else {
+  //       console.error("screenVideoRef is not set.");
+  //       toast.error("Screen video element is not available.", { autoClose: 1000 });
+  //     }
+  
+  //     if (webcamVideoRef.current) {
+  //       webcamVideoRef.current.srcObject = webcamStream;
+  //       webcamVideoRef.current.play();
+  //     } else {
+  //       console.error("webcamVideoRef is not set.");
+  //       toast.error("Webcam video element is not available.", { autoClose: 1000 });
+  //     }
+      
+  //   } catch (error) {
+  //     console.error("Error starting recording: ", error.message);
+  //     setStatus("idle");
+  //     toast.error(`Failed to start recording: ${error.message}`, { autoClose: 1000 });
+  //   }
+  // };
+  
+
+
+  const startRecording = async () => {
+    console.log("   ayaaaa   ");
+    
+    setStatus("requesting_permissions");
     try {
       const displayStream = await getDisplayStream();
       const audioStream = await getAudioStream();
@@ -111,6 +183,8 @@ const useScreenAudioRecorder = () => {
       });
     }
   };
+
+  
 
   const stopRecording = () => {
     setStatus("stopped");

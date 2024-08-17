@@ -150,7 +150,7 @@ const ChatContainer = styled(List)(({ theme }) => ({
 
   // Spacing between chat items
   "& > * + *": {
-    marginTop: theme.spacing(1),
+    margin: theme.spacing(1),
   },
 
   [theme.breakpoints.down("sm")]: {
@@ -315,6 +315,7 @@ const JobApplyModelChat = ({
                 }}
               />
             )}
+           className="sticky bottom-0 z-10 bg-white p-2 mt-44"
           />
         );
       case 1:
@@ -343,6 +344,7 @@ const JobApplyModelChat = ({
                 }}
               />
             )}
+            className="sticky bottom-0 z-10 bg-white p-2 mt-44"
           />
         );
       case 2:
@@ -363,6 +365,7 @@ const JobApplyModelChat = ({
                 }}
               />
             )}
+            className="sticky bottom-0 z-10 bg-white p-2 mt-44"
           />
         );
       case 3:
@@ -379,6 +382,7 @@ const JobApplyModelChat = ({
                   handleNext();
                 }
               }}
+              className="sticky bottom-0 z-10 bg-white p-2 mt-44"
             />
             <TextField
               label="Years of Experience"
@@ -392,6 +396,7 @@ const JobApplyModelChat = ({
                   handleNext();
                 }
               }}
+            className="sticky bottom-0 z-10 bg-white p-2 mt-44"
             />
           </>
         );

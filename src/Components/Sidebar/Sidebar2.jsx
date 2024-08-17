@@ -3,16 +3,16 @@ import React from "react";
 const Sidebar = () => {
   // Array of possible questions
   const questions = [
-    "Actively Looking for jobs",
+    "Actively Looking ",
     "Open to offers",
-    "Not looking, but open to ",
+    "Not looking, but  ",
     "Not looking at all",
     "Considering a career",
-    "Looking to start project",
+    "Looking for project",
     "mprove current job ",
     "Networkingindustry ",
     "Updating my resume ",
-    "Exploring job market ",
+    "Exploring market ",
   ];
 
   // Select 4 random questions
