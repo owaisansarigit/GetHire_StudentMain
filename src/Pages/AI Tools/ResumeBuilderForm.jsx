@@ -14,12 +14,15 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
+import { PutApi } from "../utilis/Api_Calling";
+import { useNavigate } from "react-router-dom";
 const webLinkOptions = [
   { label: "Twitter", value: "Twitter" },
   { label: "LinkedIn", value: "LinkedIn" },
   { label: "GitHub", value: "GitHub" },
 ];
 function SectionedForm({ resumeData, setResumeData }) {
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const [currentWebLink, setCurrentWebLink] = useState({ name: "", url: "" });
   const [currentWorkExp, setCurrentWorkExp] = useState({
@@ -36,7 +39,7 @@ function SectionedForm({ resumeData, setResumeData }) {
   const getSummary = async () => {
     try {
       const data = {
-        jobTitle: resumeData.jobTitle,
+        jobTitle: resumeData?.jobTitle,
         suggestionFor: "summary for this role for resume",
       };
 
@@ -106,7 +109,7 @@ function SectionedForm({ resumeData, setResumeData }) {
   };
 
   const handleAddSkill = (categoryIndex, skill) => {
-    const updatedSkills = [...resumeData.skills];
+    const updatedSkills = [...resumeData?.skills];
     updatedSkills[categoryIndex].skill = [
       ...updatedSkills[categoryIndex].skill,
       skill,
@@ -116,7 +119,7 @@ function SectionedForm({ resumeData, setResumeData }) {
   };
 
   const handleRemoveSkill = (categoryIndex, skillToRemove) => {
-    const updatedSkills = [...resumeData.skills];
+    const updatedSkills = [...resumeData?.skills];
     updatedSkills[categoryIndex].skill = updatedSkills[
       categoryIndex
     ].skill.filter((skill) => skill !== skillToRemove);
@@ -124,14 +127,14 @@ function SectionedForm({ resumeData, setResumeData }) {
   };
 
   const handleDeleteCategory = (categoryIndex) => {
-    const updatedSkills = resumeData.skills.filter(
+    const updatedSkills = resumeData?.skills.filter(
       (_, index) => index !== categoryIndex
     );
     setResumeData({ ...resumeData, skills: updatedSkills });
   };
 
   const handleEduInputChange = (field, value, index) => {
-    const updatedEducation = [...resumeData.education];
+    const updatedEducation = [...resumeData?.education];
     updatedEducation[index][field] = value;
     setResumeData({ ...resumeData, education: updatedEducation });
   };
@@ -147,12 +150,14 @@ function SectionedForm({ resumeData, setResumeData }) {
   };
 
   const handleRemoveEducation = (index) => {
-    const updatedEducation = resumeData.education.filter((_, i) => i !== index);
+    const updatedEducation = resumeData?.education.filter(
+      (_, i) => i !== index
+    );
     setResumeData({ ...resumeData, education: updatedEducation });
   };
 
   const handleCertInputChange = (field, value, index) => {
-    const updatedCertificates = [...resumeData.certificates];
+    const updatedCertificates = [...resumeData?.certificates];
     updatedCertificates[index][field] = value;
     setResumeData({ ...resumeData, certificates: updatedCertificates });
   };
@@ -168,12 +173,23 @@ function SectionedForm({ resumeData, setResumeData }) {
   };
 
   const handleRemoveCertificete = (index) => {
-    const updatedEducation = resumeData.certificates.filter(
+    const updatedEducation = resumeData?.certificates.filter(
       (_, i) => i !== index
     );
     setResumeData({ ...resumeData, certificates: updatedEducation });
   };
 
+  const handleUpdate = async () => {
+    try {
+      let res = await PutApi(
+        `api/studentroutes/ai-resume/${resumeData._id}`,
+        resumeData
+      );
+      navigate(`/blank/ai-tools/resume-builder`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="w-1/2 p-4 rounded shadow max-h-screen overflow-y-auto bg-gray-50">
       <h1 className="text-xl text-gray-800 mb-4">Edit Resume</h1>
@@ -190,7 +206,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="First Name"
             name="firstName"
-            value={resumeData.firstName}
+            value={resumeData?.firstName}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -198,7 +214,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Last Name"
             name="lastName"
-            value={resumeData.lastName}
+            value={resumeData?.lastName}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -206,7 +222,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Job Title"
             name="jobTitle"
-            value={resumeData.jobTitle}
+            value={resumeData?.jobTitle}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -214,7 +230,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Email"
             name="email"
-            value={resumeData.email}
+            value={resumeData?.email}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -222,7 +238,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Phone"
             name="phone"
-            value={resumeData.phone}
+            value={resumeData?.phone}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -230,7 +246,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Location"
             name="location"
-            value={resumeData.location}
+            value={resumeData?.location}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -238,7 +254,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="City"
             name="city"
-            value={resumeData.city}
+            value={resumeData?.city}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -246,7 +262,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="State"
             name="state"
-            value={resumeData.state}
+            value={resumeData?.state}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -254,7 +270,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Country"
             name="country"
-            value={resumeData.country}
+            value={resumeData?.country}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -262,7 +278,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Zip Code"
             name="zipCode"
-            value={resumeData.zipCode}
+            value={resumeData?.zipCode}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -271,7 +287,7 @@ function SectionedForm({ resumeData, setResumeData }) {
             control={
               <Checkbox
                 name="openForRemote"
-                checked={resumeData.openForRemote}
+                checked={resumeData?.openForRemote}
                 onChange={handleInputChange}
               />
             }
@@ -282,7 +298,7 @@ function SectionedForm({ resumeData, setResumeData }) {
             control={
               <Checkbox
                 name="openForRelocate"
-                checked={resumeData.openForRelocate}
+                checked={resumeData?.openForRelocate}
                 onChange={handleInputChange}
               />
             }
@@ -311,7 +327,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           <TextField
             label="Summary"
             name="summary"
-            value={resumeData.summary}
+            value={resumeData?.summary}
             onChange={handleInputChange}
             fullWidth
             margin="normal"
@@ -445,7 +461,7 @@ function SectionedForm({ resumeData, setResumeData }) {
           Skills
         </AccordionSummary>
         <AccordionDetails>
-          {resumeData.skills.map((skillCat, categoryIndex) => (
+          {resumeData?.skills?.map((skillCat, categoryIndex) => (
             <div
               key={categoryIndex}
               style={{ marginBottom: "16px" }}
@@ -526,7 +542,7 @@ function SectionedForm({ resumeData, setResumeData }) {
         </AccordionSummary>
         <AccordionDetails>
           <div>
-            {resumeData.education.map((edu, index) => (
+            {resumeData?.education?.map((edu, index) => (
               <div key={index} style={{ marginBottom: "16px" }}>
                 <div
                   style={{
@@ -613,7 +629,7 @@ function SectionedForm({ resumeData, setResumeData }) {
         </AccordionSummary>
         <AccordionDetails>
           <div>
-            {resumeData.certificates.map((edu, index) => (
+            {resumeData?.certificates?.map((edu, index) => (
               <div key={index} style={{ marginBottom: "16px" }}>
                 <div
                   style={{
@@ -682,7 +698,7 @@ function SectionedForm({ resumeData, setResumeData }) {
       </Accordion>
 
       <Button
-        onClick={() => console.log(resumeData)}
+        onClick={handleUpdate}
         variant="contained"
         color="primary"
         className="mt-4"

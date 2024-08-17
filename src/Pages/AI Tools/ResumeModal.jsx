@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
+import { PostApi } from "../utilis/Api_Calling";
 
-const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
+const ResumeModal = ({ closeModal }) => {
+  const navigate = useNavigate();
+  const [resumeData, setResumeData] = useState({});
   const [step, setStep] = useState(0);
 
   const handleNextStep = () => setStep(step + 1);
@@ -17,6 +21,23 @@ const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       closeModal();
+    }
+  };
+
+  let createResume = async () => {
+    if (resumeData.jobTitle === "" || resumeData.jobDescription === "") {
+      alert("please fill details");
+      return;
+    }
+    try {
+      let res = await PostApi(`api/studentroutes/ai-resume`, resumeData);
+      if (res.status === 200) {
+        navigate(`/blank/ai-tools/resume-builder/edit/${res.data.data._id}`);
+        closeModal();
+      }
+    } catch (error) {
+      alert("error in create");
+      console.log(error);
     }
   };
 
@@ -110,7 +131,13 @@ const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
             />
             <div className="w-full flex justify-end">
               <button
-                onClick={handleNextStep}
+                onClick={() => {
+                  if (resumeData.jobTitle === "") {
+                    alert("please fill details");
+                    return;
+                  }
+                  handleNextStep();
+                }}
                 className="px-3 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 ml-auto"
               >
                 Next
@@ -138,10 +165,7 @@ const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
             ></textarea>
             <div className="w-full flex justify-end">
               <button
-                onClick={() => {
-                  console.log(resumeData);
-                  closeModal();
-                }}
+                onClick={createResume}
                 className="px-3 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 ml-auto"
               >
                 Next
@@ -149,7 +173,6 @@ const ResumeModal = ({ closeModal, setResumeData, resumeData }) => {
             </div>
           </div>
         )}
-
       </div>
     </div>,
     document.body

@@ -37,6 +37,8 @@ const MockInterview = () => {
             <button className="text-white rounded bg-blue-600 font-semibold px-5 py-2 mt-5">
               Start Your Mock Interview
             </button>
+            <div className="text-lg mt-5  text-gray-600">Powered By :
+            </div>
           </div>
         </div>
         <div className="w-1/2 h-[40vh] flex justify-center items-center">
@@ -47,7 +49,29 @@ const MockInterview = () => {
           />
         </div>
       </div>
-      <div className="w-full flex flex-col justify-around items-center bg-[#f9fafb] overflow-hidden">
+      <div className="bg-[#f9fafb] flex w-full mx-auto flex-col gap-5 justify-center items-center py-5">
+        <h1 className="text-black text-3xl  text-center mt-10">
+          View an AI Mock Interview in action
+        </h1>
+        <iframe
+          width="667"
+          height="317"
+          src="https://www.youtube.com/embed/hNr1a2MC91k"
+          title="GenAI Interview Coach: Practicing an interview on Yoodli"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          className="rounded-lg"
+        ></iframe>
+        <p className="text-lg text-gray-700 w-1/2">
+          We've partnered with Yoodli.ai to bring you an AI powered Mock
+          Interview with an AI Interview Coach, with unlimited usage included as
+          a part of the Careerflow.ai Premium Subscription, at no additional
+          charge!
+        </p>
+      </div>
+      <div className="w-full flex flex-col justify-around items-center bg-[white] overflow-hidden">
         <h1 className="text-black text-5xl font-semibold text-center mt-10">
           How the AI Mock Interview Works
         </h1>

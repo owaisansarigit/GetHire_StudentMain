@@ -56,6 +56,7 @@ import HiringPlatefrom from "./Pages/CarearBlogs/CareerBarNavigate/HiringPlatefo
 import HrInsight from "./Pages/CarearBlogs/CareerBarNavigate/HrInsight.jsx";
 import InterviewAdvice from "./Pages/CarearBlogs/CareerBarNavigate/InterviewAdvice.jsx";
 import News from "./Pages/CarearBlogs/CareerBarNavigate/News.jsx";
+import ResumeEdit from "./Pages/AI Tools/ResumeEdit.jsx";
 
 const ProjectRoutes = () => {
   const [loading, setLoading] = useState(false);
@@ -128,6 +129,10 @@ const ProjectRoutes = () => {
           <Route
             path="/blank/ai-tools/resume-builder"
             element={<ResumeBuilder />}
+          />
+          <Route
+            path="/blank/ai-tools/resume-builder/edit/:id"
+            element={<ResumeEdit />}
           />
           <Route
             path="/blank/ai-tools/mockinterview"
