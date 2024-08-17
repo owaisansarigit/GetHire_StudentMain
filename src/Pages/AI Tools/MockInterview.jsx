@@ -97,7 +97,7 @@ const MockInterview = () => {
               alt=""
             />
           </div>
-          <div className="w-1/2 min-h-[50vh] flex flex-col justify-center items-center gap-3 pt-36">
+          <div className="w-1/2 min-h-[50vh] flex flex-col justify-center items-center gap-3 pt-36 ml-[-7rem]">
             <span className="text-gray-900 text-3xl font-semibold w-1/2">
               Receive Instant Feedback
             </span>
