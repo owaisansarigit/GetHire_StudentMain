@@ -27,10 +27,10 @@ const ResumeBuilder = () => {
 
   const handleDelete = async (resumeId) => {
     try {
-      await DeleteApi(`api/studentroutes/ai-resume`, resumeId);
+      let res = await DeleteApi(`api/studentroutes/ai-resume`, resumeId);
       fetchResumeData();
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 
@@ -66,12 +66,12 @@ const ResumeBuilder = () => {
 
       {/* Tailwind CSS Table */}
       <div className="w-full p-5">
-        <table className="min-w-full bg-white border border-gray-300">
+        <table className="min-w-full bg-white border border-gray-300 rounded">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b">Job Title</th>
-              <th className="py-2 px-4 border-b">Created At</th>
-              <th className="py-2 px-4 border-b">Actions</th>
+              <td className="py-2 text-center px-4 border-b">Job Title</td>
+              <td className="py-2 text-center px-4 border-b">Created At</td>
+              <td className="py-2 text-center px-4 border-b">Actions</td>
             </tr>
           </thead>
           <tbody>
