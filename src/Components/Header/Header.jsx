@@ -533,7 +533,7 @@ const Header = () => {
                 <div className="w-[50px] max-xl:w-[40px] max-xl:-ml-24 max-xl:h-3/4 h-full flex items-center justify-center  rounded-full rounded-l-none">
                   <IoSearchCircleSharp
                     size={45}
-                    color="blue"
+                    color="#3B82F6"
                     onClick={() => {
                       alert("search button clicked");
                     }}
@@ -638,6 +638,7 @@ const Header = () => {
                 </MenuItem>
               </Menu>
             </div>
+
           </div>
     
 
@@ -845,55 +846,48 @@ const Header = () => {
        </div>
 
          {/* for opportunities section */}
-         {opportunities && (
+         {/* {opportunities && (
             <div 
               onMouseEnter={() => setOpportunities(true)} 
               onMouseLeave={() => setOpportunities(false)}
-              className=" w-52 ml-56 -mt-5  bg-white shadow-md cursor-pointer"
+              className=" flex flex-col w-52 ml-56 -mt-5  bg-white shadow-md cursor-pointer"
               style={{ minHeight: '50px' }}  // Ensures the div has a minimum height
              >
-              <div className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
-                onMouseEnter={() => {setAnchorEl2(true); setOpportunities(true)}} 
-                onMouseLeave={() => setAnchorEl2(false)}
-              >
-                Jobs
+              <div className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md  -mb-3 cursor-pointer flex items-center justify-center"
+                  onMouseEnter={() => { setOpportunities(true)}} 
+                  // onMouseLeave={() => setAnchorEl2(false)}
+                >
+                  Jobs
               </div>
               <div 
-                className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
-                style={{ minHeight: '50px' }}
-                onMouseEnter={() => {setShowInternshipDropDown(true); setOpportunities(true) } } 
-                onMouseLeave={() => setShowInternshipDropDown(false)}
-              >
-                Internships
+                  className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md  -mb-3 cursor-pointer flex items-center justify-center"
+                  style={{ minHeight: '50px' }}
+                  onMouseEnter={() => { setOpportunities(true) } } 
+                  // onMouseLeave={() => setShowInternshipDropDown(false)}
+                >
+                  Internships
               </div>
               <div 
-                className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
-                style={{ minHeight: '50px' }}
-                onMouseEnter={() => { setOpportunities(true) } } 
-              >
-                Events
+                  className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md  -mb-3 cursor-pointer flex items-center justify-center"
+                  style={{ minHeight: '50px' }}
+                  onMouseEnter={() => { setOpportunities(true) } } 
+                >
+                  Events
               </div>
               <div 
-                className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
-                style={{ minHeight: '50px' }}
-                onMouseEnter={() => { setOpportunities(true) } } 
-              >
-                Invites
+                  className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md  -mb-3 cursor-pointer flex items-center justify-center"
+                  style={{ minHeight: '50px' }}
+                  onMouseEnter={() => { setOpportunities(true) } } 
+                >
+                  Invites
               </div>
               <div 
-                className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
-                style={{ minHeight: '50px' }}
-                onMouseEnter={() => { setOpportunities(true) } } 
-              >
-                My Applications
+                  className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md  -mb-3 cursor-pointer flex items-center justify-center"
+                  style={{ minHeight: '50px' }}
+                  onMouseEnter={() => { setOpportunities(true) } } 
+                >
+                  My Applications
               </div>
-              {/* <div 
-                className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
-                style={{ minHeight: '50px' }}
-                onMouseEnter={() => { setOpportunities(true) } } 
-              >
-                AI Recommended
-              </div> */}
               <div 
                 className="w-full text-lg gap-1  text-gray-800 hover:text-white bg-gradient-to-r from-blue-300 to-blue-500 hover:from-blue-600 hover:to-blue-800 rounded-lg px-1 py-2 cursor-pointer flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
                 style={{ minHeight: '50px' }}
@@ -908,10 +902,74 @@ const Header = () => {
                    <p className=" text-xs font-normal -mt-2">profile matched</p>
                  </div>
               </div>
-
           </div> 
-          
-             )}
+             )} */}
+                 {opportunities && (
+                      <div 
+                        onMouseEnter={() => setOpportunities(true)} 
+                        onMouseLeave={() => setOpportunities(false)}
+                        className="flex flex-col w-52 ml-56 -mt-5 bg-white shadow-md cursor-pointer"
+                        style={{ minHeight: '50px' }}
+                      >
+                         <div
+                            className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
+                            onMouseEnter={() => setOpportunities(true)}
+                            onClick={() => navigate('/blank/Jobs')}
+                          >
+                            Jobs
+                          </div>
+                        <div
+                          className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
+                          onMouseEnter={() => setOpportunities(true)}
+                        >
+                          Internships
+                        </div>
+                        <div
+                          className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
+                          onMouseEnter={() => setOpportunities(true)}
+                        >
+                          Events
+                        </div>
+                        <div
+                          className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
+                          onMouseEnter={() => setOpportunities(true)}
+                        >
+                          Invites
+                        </div>
+                        <div
+                          className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
+                          onMouseEnter={() => setOpportunities(true)}
+                        >
+                          My Applications
+                        </div>
+                        <div 
+                          className="w-full text-lg gap-1 text-gray-800 hover:text-white bg-gradient-to-r from-blue-300 to-blue-500 hover:from-blue-600 hover:to-blue-800 rounded-lg px-1 py-2 cursor-pointer flex items-center justify-center shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
+                          onMouseEnter={() => setOpportunities(true)}
+                        >
+                          <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="logo" className="w-5" />
+                          <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="logo" className="w-3 -mt-3 -ml-2" />
+                          <div>
+                            <p>AI Recommended</p>
+                            <p className="text-xs font-normal -mt-2">profile matched</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+
+
+
+
+
+                 
+                    {/* <div 
+                className="w-full hover:text-blue-600 text-lg text-gray-700 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer flex items-center justify-center"
+                style={{ minHeight: '50px' }}
+                onMouseEnter={() => { setOpportunities(true) } } 
+              >
+                AI Recommended
+              </div> */}
+
 
                   {/* <p 
                     className="text-lg text-gray-700 hover:bg-blue-50 rounded-md px-2 py-1 cursor-pointer"
@@ -928,7 +986,7 @@ const Header = () => {
           {/* //  </div> */}
            
           {/* for jobs */}
-          { anchorEl2 && (
+          {/* { anchorEl2 && (
                <div className=" -mt-[18%] ml-[25%] max-2xl:ml-[28%] max-2xl:-mt-[20%] " 
                 onMouseEnter={()=>{setAnchorEl2(true);setOpportunities(true)}} onMouseLeave={()=>{setAnchorEl2(false);}}>
                      <div className=" bg-white shadow-xl w-[20%] rounded-lg ">
@@ -966,7 +1024,7 @@ const Header = () => {
                          </div>
                      </div>
                </div>
-          )}
+          )} */}
           {/* for interships */}
            {showInternshipDropDown && (
                   <div
@@ -1043,7 +1101,7 @@ const Header = () => {
           {/* for switch mode */}
           {mode && (
             <div
-              className=" flex flex-col items-center bg-gray-50 rounded-2xl -mt-4 ml-[30%]    max-w-xs mx-auto"
+              className=" flex flex-col items-center bg-gray-50 rounded-2xl -mt-5 ml-[30%]    max-w-xs mx-auto"
               onMouseEnter={() => setMode(true)}
               onMouseLeave={() => setMode(false)}
             >

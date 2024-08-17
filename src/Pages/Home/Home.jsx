@@ -287,6 +287,62 @@ const dummyJobs = [
   },
 ];
 
+
+// dummy data for my interview
+const applicationData = [
+  {
+    id: 1,
+    jobTitle: 'Human Resource Intern',
+    company: 'GoodSpace',
+    status: [
+      { stage: 'Applied', passed: true, date: '26 Jul, 2024', feedback: 'Shortlisted' },
+      { stage: 'AI Interview', passed: false, date: '26 Jul, 2024', feedback: '...Pending' },
+      { stage: 'Recruiter viewed your application', passed: true },
+    ]
+  },
+  {
+    id: 2,
+    jobTitle: 'Software Developer Intern',
+    company: 'TechStart',
+    status: [
+      { stage: 'Applied', passed: true, date: '20 Jul, 2024', feedback: 'Shortlisted' },
+      { stage: 'Technical Interview', passed: true, date: '22 Jul, 2024', feedback: 'Passed' },
+      { stage: 'Final Interview', passed: false, date: '25 Jul, 2024', feedback: '...Pending' },
+    ]
+  },
+  {
+    id: 3,
+    jobTitle: 'Marketing Intern',
+    company: 'BrandBoost',
+    status: [
+      { stage: 'Applied', passed: true, date: '15 Jul, 2024', feedback: 'Shortlisted' },
+      { stage: 'HR Interview', passed: true, date: '18 Jul, 2024', feedback: 'Passed' },
+      { stage: 'Offer Sent', passed: false, date: '20 Jul, 2024', feedback: '...Pending' },
+    ]
+  },
+  {
+    id: 4,
+    jobTitle: 'Finance Analyst Intern',
+    company: 'WealthManage',
+    status: [
+      { stage: 'Applied', passed: true, date: '10 Jul, 2024', feedback: 'Shortlisted' },
+      { stage: 'Assessment', passed: true, date: '12 Jul, 2024', feedback: 'Passed' },
+      { stage: 'HR Interview', passed: false, date: '15 Jul, 2024', feedback: '...Pending' },
+    ]
+  },
+  {
+    id: 5,
+    jobTitle: 'Content Writer Intern',
+    company: 'WriteUp',
+    status: [
+      { stage: 'Applied', passed: true, date: '28 Jun, 2024', feedback: 'Shortlisted' },
+      { stage: 'Writing Test', passed: true, date: '30 Jun, 2024', feedback: 'Passed' },
+      { stage: 'Interview', passed: false, date: '02 Jul, 2024', feedback: '...Pending' },
+    ]
+  }
+];
+
+
 // dummy data for companies
 const companies = [
   {
@@ -884,7 +940,7 @@ const [aiModal, setAiModal] = useState(false);
               />
               <p className="text-[16px] max-lg:text-[13px] font-[500] hover:cursor-pointer text-[#4234a2]">View all</p>
             </div>
-            <div className="grid md:grid-cols-2  mt-[46px] gap-[40px] ">
+            <div className="grid md:grid-cols-2 w-full  mt-[46px] gap-[40px] ">
               {/* <div
                 className="rounded-[16px] py-[26px] px-[20px] bg-gradient-to-tl from-[#0f87b3] to-[#462da1]"
                 onClick={() => navigate("/premium")}
@@ -1145,95 +1201,230 @@ const [aiModal, setAiModal] = useState(false);
                             </div>
                         } */}
                          
-                      
+                       {/* my original one main -----------------------------------------------------------------  */}
+                           {/* <div className="flex flex-row gap-6  max-lg:pr-7 max-2xl:-mt-6 -mt-6 w-full ">
+                              <div className=" w-40 max-lg:w-14 max-lg:-pl-5  ">
+                                      {selectedtab === "MyJobs" && (
+                                        <div className="flex flex-col flex-1 gap-1 max-sm:gap-3  ">
+                                          {dummyJobs.map((job, index) => (
+                                            <div
+                                              key={index}
+                                              onClick={() => handleJobClick(job)}
+                                              ref={sectionRefs.section2} id="section2" 
+                                              className="bg-[#fff] p-[14px] -ml-5  max-2xl:h-36 w-48 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
+                                            >
+                                              <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-2 max-sm:gap-1">
+                                                <p className="text-[15px] max-2xl:text-[14px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
+                                                <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[17px] h-[17px] max-lg:w-[15px] max-lg:h-[15px]" />
+                                              </div>
+                                              <div className="flex gap-[5px] max-2xl:-mb-3 -mb-3 mt-[20px] max-lg:gap-[6px]">
+                                                <img src="/images/carbon_location.svg" className="w-[16px] h-[20px] max-lg:w-[15px] max-lg:h-[18px]" alt="Location" />
+                                                <p className="text-black text-opacity-[60%] text-[12px] max-lg:text-[11px] max-sm:text-[10px] font-[500]">{job.JobId.location}</p>
+                                              </div>
+                                              <div className="flex mt-[20px] gap-8 max-sm:gap-2 justify-between">
+                                                <p className="text-black text-opacity-[60%] text-[12px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
+                                                {job.JobId.result === 'Cleared' ? (
+                                                  <p className="text-blue-500 text-[11px] max-lg:text-[10px]">{job.JobId.result}</p>
+                                                ) : (
+                                                  <p className="text-red-500 max-lg:text-[13px] text-[12px] ">X {job.JobId.result}</p>
+                                                )}
+                                              </div>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      )}
+                              </div>
+                              <div className=" w-96  ">
+                                      {selectedJob && (
+                                        <div
+                                          className="w-72  max-2xl:w-[290px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
+                                        >
+                                          <div className="flex flex-row justify-between">
+                                            <div>
+                                              <h2 className="text-[19px] font-[700] max-lg:text-[17px]">{selectedJob.JobId.positionName}</h2>
+                                              <p className="text-[12px]">{selectedJob.JobId.location}</p>
+                                            </div>
+                                            <div>
+                                              <button
+                                                className="bg-blue-600 p-3 text-[12px] h-9 flex items-center rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                                                onClick={() => alert("View job button is clicked")}
+                                              >
+                                                View Jobs
+                                              </button>
+                                            </div>
+                                          </div>
+                                          <hr className="border-t-2 border-gray-300 my-2" />
+                                          <p className="text-[17px]">Application status</p>
+                                          <div className="ml-4">
+                                            <p className=" text-[14px] mb-[3px]">Applied</p>
+                                            <div className="flex flex-row gap-12">
+                                              {selectedJob.JobId.result === 'Cleared' ? (
+                                                <p className="text-blue-500 text-[14px]">{selectedJob.JobId.result}</p>
+                                              ) : (
+                                                <p className="text-red-500 text-[14px]">X {selectedJob.JobId.result}</p>
+                                              )}
+                                              <div className="flex flex-col -ml-2">
+                                                <button className="text-blue-500 text-xs hover:text-blue-700">View Feedback</button>
+                                                <hr className="border-t-1 border-blue-300" />
+                                              </div>
+                                            </div>
+                                            <p className="text-blue-600 text-[14px] mt-[2px]">On 7 Aug 2024</p>
+                                          </div>
+                                          <div className="flex items-center mt-5">
+                                            <div className="">
+                                              <p className="text-base font-extralight">Our Suggested Product</p>
+                                              <div className="ml-4 mt-2">
+                                                <p className="text-red-500 text-lg">Profile Boost</p>
+                                                <p className="font-extralight text-sm">Your application would be shown on the priority list to the recruiter</p>
+                                                <div className="flex flex-row gap-6 mt-2">
+                                                  <button className="hover:text-blue-500 text-[14px] hover:scale-105 duration-300">Buy Now</button>
+                                                  <button className="text-red-400 hover:scale-105 text-sm duration-300">Explore</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      )}
+                              </div>
+                          </div> */}
 
+                      <div className="flex flex-row gap-6   max-lg:pr-7 max-2xl:-mt-6 -mt-6 w-full ">
+                              <div className=" w-[90%] max-lg:w-14 max-lg:-pl-5  ">
+                                      {selectedtab === "MyJobs" && (
+                                        <div className=" flex flex-row gap-3">
+                                              <div className="flex flex-col flex-1 gap-1 max-sm:gap-3  ">
+                                                {dummyJobs.map((job, index) => (
+                                                  <div
+                                                    key={index}
+                                                    onClick={() => handleJobClick(job)}
+                                                    ref={sectionRefs.section2} id="section2" 
+                                                    className="bg-[#fff] p-[14px] -ml-5  max-2xl:h-36 w-52 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
+                                                  >
+                                                    <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-2 max-sm:gap-1">
+                                                      <p className="text-[15px] max-2xl:text-[14px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
+                                                      <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[17px] h-[17px] max-lg:w-[15px] max-lg:h-[15px]" />
+                                                    </div>
+                                                    <div className="flex gap-[5px] max-2xl:-mb-3 -mb-3 mt-[20px] max-lg:gap-[6px]">
+                                                      <img src="/images/carbon_location.svg" className="w-[16px] h-[20px] max-lg:w-[15px] max-lg:h-[18px]" alt="Location" />
+                                                      <p className="text-black text-opacity-[60%] text-[12px] max-lg:text-[11px] max-sm:text-[10px] font-[500]">{job.JobId.location}</p>
+                                                    </div>
+                                                    <div className="flex mt-[20px] gap-8 max-sm:gap-2 justify-between">
+                                                      <p className="text-black text-opacity-[60%] text-[12px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
+                                                      {job.JobId.result === 'Cleared' ? (
+                                                        <p className="text-blue-500 text-[11px] max-lg:text-[10px]">{job.JobId.result}</p>
+                                                      ) : (
+                                                        <p className="text-red-500 max-lg:text-[13px] text-[12px] ">X {job.JobId.result}</p>
+                                                      )}
+                                                    </div>
+                                                  </div>
+                                                ))}
+                                              </div>
+                                                 <div
+                                                  className="min-w-[320px] max-2xl:min-w-[290px] max-xl:min-w-[270px]   max-2xl:w-[290px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
+                                                 >
+                                                  <div className="flex flex-row justify-between">
+                                                    <div>
+                                                      <h2 className="text-[17px] font-[700] max-lg:text-[17px]">{selectedJob.JobId.positionName}</h2>
+                                                      <p className="text-[11px]">{selectedJob.JobId.location}</p>
+                                                    </div>
+                                                    <div>
+                                                      <button
+                                                        className="bg-blue-600 p-3 text-[11px] h-9 flex items-center rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                                                        onClick={() => alert("View job button is clicked")}
+                                                      >
+                                                        View Jobs
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                  <hr className="border-t-2 border-gray-300 my-2" />
+                                                  <p className="text-[16px]">Application status</p>
+                                                  <div className="ml-4">
+                                                    <p className=" text-[14px] mb-[3px]">Applied</p>
+                                                    <div className="flex flex-row gap-12">
+                                                      {selectedJob.JobId.result === 'Cleared' ? (
+                                                        <p className="text-blue-500 text-[14px] mb-1">{selectedJob.JobId.result}</p>
+                                                      ) : (
+                                                        <p className="text-red-500 text-[14px] mb-1 ">X {selectedJob.JobId.result}</p>
+                                                      )}
+                                                      <div className="flex flex-col -ml-2">
+                                                        <button className="text-blue-500 text-xs hover:text-blue-700">View Feedback</button>
+                                                        <hr className="border-t-1 border-blue-300" />
+                                                      </div>
+                                                    </div>
+                                                    <p className="text-blue-600 text-[14px] mt-[2px]">On 7 Aug 2024</p>
+                                                  </div>
+                                                  <div className="flex items-center mt-5">
+                                                    <div className="">
+                                                      <p className="text-[15px] font-extralight">Our Suggested Product</p>
+                                                      <div className="ml-4 mt-2">
+                                                        <p className="text-red-500 text-[16px]">Profile Boost</p>
+                                                        <p className="font-extralight text-[13px]">Your application would be shown on the priority list to the recruiter</p>
+                                                        <div className="flex flex-row gap-6 mt-2">
+                                                          <button className="hover:text-blue-500 text-[14px] hover:scale-105 duration-300">Buy Now</button>
+                                                          <button className="text-red-400 hover:scale-105 text-sm duration-300">Explore</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
 
-      <div className="flex flex-row gap-8  max-lg:pr-7 max-2xl:-mt-6 -mt-6 ">
-          <div className=" max-lg:w-14 max-lg:-pl-5  ">
-                  {selectedtab === "MyJobs" && (
-                    <div className="flex flex-col flex-1 gap-3 max-sm:gap-4  ">
-                      {dummyJobs.map((job, index) => (
-                        <div
-                          key={index}
-                          onClick={() => handleJobClick(job)}
-                          ref={sectionRefs.section2} id="section2" 
-                          className="bg-[#fff] p-[14px] -ml-5  max-2xl:h-36 w-44 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
-                        >
-                          <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-2 max-sm:gap-1">
-                            <p className="text-[18px] max-2xl:text-[16px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
-                            <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[24px] h-[24px] max-lg:w-[20px] max-lg:h-[20px]" />
+                                        </div>
+                                      )}
+                              </div>
+                              {/* <div className=" w-96  ">
+                                      {selectedJob && (
+                                        <div
+                                          className="w-72  max-2xl:w-[290px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
+                                        >
+                                          <div className="flex flex-row justify-between">
+                                            <div>
+                                              <h2 className="text-[19px] font-[700] max-lg:text-[17px]">{selectedJob.JobId.positionName}</h2>
+                                              <p className="text-[12px]">{selectedJob.JobId.location}</p>
+                                            </div>
+                                            <div>
+                                              <button
+                                                className="bg-blue-600 p-3 text-[12px] h-9 flex items-center rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                                                onClick={() => alert("View job button is clicked")}
+                                              >
+                                                View Jobs
+                                              </button>
+                                            </div>
+                                          </div>
+                                          <hr className="border-t-2 border-gray-300 my-2" />
+                                          <p className="text-[17px]">Application status</p>
+                                          <div className="ml-4">
+                                            <p className=" text-[14px] mb-[3px]">Applied</p>
+                                            <div className="flex flex-row gap-12">
+                                              {selectedJob.JobId.result === 'Cleared' ? (
+                                                <p className="text-blue-500 text-[14px]">{selectedJob.JobId.result}</p>
+                                              ) : (
+                                                <p className="text-red-500 text-[14px]">X {selectedJob.JobId.result}</p>
+                                              )}
+                                              <div className="flex flex-col -ml-2">
+                                                <button className="text-blue-500 text-xs hover:text-blue-700">View Feedback</button>
+                                                <hr className="border-t-1 border-blue-300" />
+                                              </div>
+                                            </div>
+                                            <p className="text-blue-600 text-[14px] mt-[2px]">On 7 Aug 2024</p>
+                                          </div>
+                                          <div className="flex items-center mt-5">
+                                            <div className="">
+                                              <p className="text-base font-extralight">Our Suggested Product</p>
+                                              <div className="ml-4 mt-2">
+                                                <p className="text-red-500 text-lg">Profile Boost</p>
+                                                <p className="font-extralight text-sm">Your application would be shown on the priority list to the recruiter</p>
+                                                <div className="flex flex-row gap-6 mt-2">
+                                                  <button className="hover:text-blue-500 text-[14px] hover:scale-105 duration-300">Buy Now</button>
+                                                  <button className="text-red-400 hover:scale-105 text-sm duration-300">Explore</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      )}
+                              </div> */}
                           </div>
-                          <div className="flex gap-[5px] max-2xl:-mb-3 -mb-3 mt-[20px] max-lg:gap-[6px]">
-                            <img src="/images/carbon_location.svg" className="w-[18px] h-[22px] max-lg:w-[18px] max-lg:h-[20px]" alt="Location" />
-                            <p className="text-black text-opacity-[60%] text-[14px] max-lg:text-[13px] max-sm:text-[11px] font-[500]">{job.JobId.location}</p>
-                          </div>
-                          <div className="flex mt-[20px] gap-8 max-sm:gap-2 justify-between">
-                            <p className="text-black text-opacity-[60%] text-[12px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
-                            {job.JobId.result === 'Cleared' ? (
-                              <p className="text-blue-500 text-[12px] max-lg:text-[13px]">{job.JobId.result}</p>
-                            ) : (
-                              <p className="text-red-500 max-lg:text-[13px] text-[12px] ">X {job.JobId.result}</p>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-          </div>
-              <div className=" w-72 ">
-                  {selectedJob && (
-                    <div
-                      className="w-[320px] -ml-4 max-2xl:w-[290px] max-xl:w-[300px] bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
-                    >
-                      <div className="flex flex-row justify-between">
-                        <div>
-                          <h2 className="text-[21px] font-[700] max-lg:text-[18px]">{selectedJob.JobId.positionName}</h2>
-                          <p className="text-[14px]">{selectedJob.JobId.location}</p>
-                        </div>
-                        <div>
-                          <button
-                            className="bg-blue-600 p-3 text-[12px] h-9 flex items-center rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
-                            onClick={() => alert("View job button is clicked")}
-                          >
-                            View Jobs
-                          </button>
-                        </div>
-                      </div>
-                      <hr className="border-t-2 border-gray-300 my-2" />
-                      <p className="text-[18px]">Application status</p>
-                      <div className="ml-4">
-                        <p>Applied</p>
-                        <div className="flex flex-row gap-12">
-                          {selectedJob.JobId.result === 'Cleared' ? (
-                            <p className="text-blue-500">{selectedJob.JobId.result}</p>
-                          ) : (
-                            <p className="text-red-500">X {selectedJob.JobId.result}</p>
-                          )}
-                          <div className="flex flex-col -ml-2">
-                            <button className="text-blue-500 text-xs hover:text-blue-700">View Feedback</button>
-                            <hr className="border-t-1 border-blue-300" />
-                          </div>
-                        </div>
-                        <p className="text-blue-600">On 7 Aug 2024</p>
-                      </div>
-                      <div className="flex items-center mt-8">
-                        <div>
-                          <p className="text-base font-extralight">Our Suggested Product</p>
-                          <div className="ml-4 mt-4">
-                            <p className="text-red-500 text-xl">Profile Boost</p>
-                            <p className="font-extralight">Your application would be shown on the priority list to the recruiter</p>
-                            <div className="flex flex-row gap-6 mt-4">
-                              <button className="hover:text-blue-500 hover:scale-105 duration-300">Buy Now</button>
-                              <button className="text-red-400 hover:scale-105 duration-300">Explore</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-            </div>
-      </div>
-
+                   
 
                         
 
@@ -1365,7 +1556,7 @@ const [aiModal, setAiModal] = useState(false);
 
 
                 {/* -------------------------------------------------------------- */}
-                {selectedtab === "MyInterview" &&
+                {/* {selectedtab === "MyInterview" &&
                 allinterview?.map((job, index) => {
                   return (
                     <div
@@ -1439,7 +1630,99 @@ const [aiModal, setAiModal] = useState(false);
                       </div>
                     </div>
                   );
-                })}
+                })} */}
+                {selectedtab === "MyInterview" && (
+                    <div className="p-4  -mt-14">
+                    <div
+                      className="grid grid-cols-1 gap-6 -ml-64 mx-auto max-h-screen overflow-y-auto"
+                      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} // For Firefox and Internet Explorer/Edge
+                    >
+                      {/* Hide scrollbar for WebKit browsers (Chrome, Safari) */}
+                      <style>
+                        {`
+                          ::-webkit-scrollbar {
+                            display: none;
+                          }
+                        `}
+                      </style>
+                  
+                      {applicationData.map((app) => (
+                        <div
+                          key={app.id}
+                          className="bg-white shadow-lg rounded-lg p-4 w-full"
+                        >
+                          {/* Job Title and Company */}
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h2 className="text-[15px] font-semibold">{app.jobTitle}</h2>
+                              <p className="text-gray-500 text-[13px]">{app.company}</p>
+                            </div>
+                            <button
+                              onClick={() => navigate(`/blank/${app.jobTitle.replace(/\s+/g, '')}`)}
+                              className="text-blue-600 border border-blue-600 rounded-full px-3 py-1 text-xs hover:bg-blue-50"
+                            >
+                              View Job
+                            </button>
+                          </div>
+                  
+                          {/* Application Status */}
+                          <div className="mt-1">
+                            <h3 className="text-[14px] font-medium">Application Status</h3>
+                            <div className="mt-2 space-y-4">
+                              {app.status.map((item, index) => (
+                                <div
+                                  key={index}
+                                  className="flex items-start space-x-3 "
+                                >
+                                  <div className="flex-shrink-0 flex flex-col items-center -mb-3">
+                                    <div
+                                      className={`w-3 h-3 ${item.passed ? 'bg-blue-600' : 'bg-white border border-gray-400'} rounded-full`}
+                                    ></div>
+                                    {index < app.status.length - 1 && (
+                                      <div className="w-px h-10 bg-gray-300"></div>
+                                    )}
+                                  </div>
+                                  <div className="flex-grow -mb-3">
+                                    <h4 className="text-sm font-medium">{item.stage}</h4>
+                                    {item.feedback && (
+                                      <p
+                                        className={`text-xs ${item.passed ? 'text-green-600' : 'text-gray-500'}`}
+                                      >
+                                        {item.feedback}
+                                      </p>
+                                    )}
+                                    {item.date && (
+                                      <p className="text-gray-500 text-xs">
+                                        On {item.date}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                  
+                          {/* Suggested Product */}
+                          <div className="mt-4">
+                            <h4 className="text-md font-medium">Our Suggested Product</h4>
+                            <div className="mt-1 bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                              <h5 className="text-red-600 font-semibold">Profile Boost</h5>
+                              <p className="text-gray-500 text-xs">
+                                Your application would be shown on priority list to the recruiters.
+                              </p>
+                              <div className="mt-2 flex space-x-3">
+                                <button className="text-blue-600 text-xs">Buy Now</button>
+                                <button className="text-blue-600 text-xs">Explore</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                   
+                )}
             </div>
           </div>
         </div>

@@ -10,6 +10,13 @@ const Jobs = () => {
     setValue(event.target.value);
   };
 
+  const [showAll, setShowAll] = useState(false);
+
+  const handleToggle = () => {
+    setShowAll(!showAll);
+  };
+
+
   const [AllJobs, setAllJobs] = useState([]);
   const [Loading, setLoading] = useState(true);
   const [appiledjobs, setappiledjobs] = useState([]);
@@ -113,6 +120,9 @@ const Jobs = () => {
     setSalaryFilter(0);
     setExperienceFilter("");
   };
+
+ const  WHATSAPP_GROUP_LINK  = 'https://whatsapp.com/channel/0029Va7Rxc32ER6hBAuIL222';
+
 
   return (
     <>
@@ -239,7 +249,7 @@ const Jobs = () => {
                     {totaljob} Jobs Available
                   </span>
                   <span className="text-sm text-blue-600 hover:underline duration-200 cursor-pointer font-semibold">
-                    send me more jobs like these
+                    Ai auto applier
                   </span>
                 </div>
                 {applyFilters(AllJobs)?.length > 0 ? (
@@ -247,11 +257,11 @@ const Jobs = () => {
                     const isJobApplied = appiledjobs.includes(job._id);
                     return (
                       <div
-                        onClick={() => {
-                          jobDetail(job?._id);
-                        }}
+                        // onClick={() => {
+                        //   jobDetail(job?._id);
+                        // }}
                         key={index}
-                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5 cursor-pointer"
+                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5 "
                       >
                         <div className="mt-[8px]">
                           <div className="flex justify-between gap-[20px]">
@@ -268,14 +278,14 @@ const Jobs = () => {
                                   onClick={() => {
                                     jobDetail(job?._id);
                                   }}
-                                  className="w-[103px] h-[32px] text-white  hover:scale-105  bg-violet-500 hover:bg-blue-900 duration-200  rounded-[5px] flex justify-center items-center"
+                                  className="w-[103px] h-[32px] text-white  hover:scale-105  bg-blue-500 hover:bg-blue-900 duration-200  rounded-[5px] flex justify-center items-center"
                                 >
                                   Apply now
                                 </button>
                               )}
                             </p>
                           </div>
-                          <p className="text-gray-600  text-md font-normal">
+                          <p className="text-gray-600 hover:text-blue-500 hover:cursor-pointer inline-block p-2 text-md font-normal" >
                             {job?.Company?.Name}
                           </p>
                           <div className="flex flex-col  text-[14px] font-[400] text-black text-opacity-[50%] mt-[5px] gap-2">
@@ -285,8 +295,9 @@ const Jobs = () => {
                                 0-5 Years &nbsp; |
                               </span>
                               <span>
-                                <i className="fa-solid fa-dollar-sign mr-2"></i>{" "}
-                                {job?.minSalary}-{job?.maxSalary} salary &nbsp;
+                                {/* <i className="fa-solid fa-dollar-sign mr-2"></i>{" "} */}
+                                {/* {job?.minSalary}-{job?.maxSalary} salary &nbsp; */}
+                                 6-8 LPA CTC &nbsp;
                                 |
                               </span>
                               <span>
@@ -304,6 +315,35 @@ const Jobs = () => {
                                 ))}
                               </span>
                             </div>
+                            <div className="flex flex-col items-start gap-3">
+                              {/* <div>
+                                <i className="fa-solid fa-clipboard mr-2"></i> Must have
+                                <span className="mx-1">
+                                  {job?.skillAssessment?.[0]?.skill || 'No skills available'}
+                                </span>
+                              </div> */}
+
+                              {/* {job?.skillAssessment?.length > 1 && (
+                                <div>
+                                  <button
+                                    onClick={handleToggle}
+                                    className="text-blue-500 hover:underline ml-2"
+                                  >
+                                    {showAll ? 'Show Less' : 'View More'}
+                                  </button>
+                                  {showAll && (
+                                    <div className="mt-2 p-2 border border-gray-300 rounded bg-white shadow-md">
+                                      {job.skillAssessment.slice(1).map((skill, index) => (
+                                        <div key={index} className="mx-1">
+                                          {skill.skill}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              )} */}
+                            </div>
+                            
                             <div className="flex justify-start items-center flex-wrap gap-3">
                               {job?.skillsRequired?.map((skill) => (
                                 <span>{skill} &nbsp;&nbsp; .</span>
@@ -334,7 +374,30 @@ const Jobs = () => {
                   </div>
                 )}
               </div>
-              <div className="bg-white min-h-[100] w-1/5 rounded-[8px]  flex flex-col  items-start p-[26px] border-[1px] "></div>
+              <div className=" min-h-[100] w-1/5 rounded-[8px]  flex flex-col  items-start p-[26px]  ">
+                   <div className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-300 to-blue-600 text-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+                      <div className="flex items-center">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // Link to a WhatsApp logo
+                          alt="WhatsApp Logo"
+                          className="w-10 h-10 mr-4"
+                        />
+                        <h3 className="text-xl font-bold">Join Our WhatsApp Community</h3>
+                      </div>
+                      <p className="mt-4 text-center text-sm">
+                        Get daily updates and stay connected with our community!
+                      </p>
+                      <a
+                        href={WHATSAPP_GROUP_LINK} // Replace with your WhatsApp group link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 px-4 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition duration-200"
+                      >
+                        Join Now
+                      </a>
+                    </div>
+
+              </div>
             </div>
           </>
         </div>
@@ -344,3 +407,12 @@ const Jobs = () => {
 };
 
 export default Jobs;
+
+
+
+/*
+
+
+
+
+*/

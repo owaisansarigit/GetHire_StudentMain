@@ -41,7 +41,7 @@ const Layout = () => {
             <Sidebar  activeSection={activeSection} 
           scrollToSection={scrollToSection}  />
           </div>
-          <div className="w-[55%] -mr-[260px] max-2xl:-mr-[250px]">
+          <div className="w-[60%] -mr-[285px] max-2xl:-mr-[250px]">
             <Home onSectionVisible={handleSectionVisible} 
              onSectionHidden={handleSectionHidden}/>
           </div>

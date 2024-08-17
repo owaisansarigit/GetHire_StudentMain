@@ -193,8 +193,9 @@ const JobViewDetails = () => {
                         &nbsp;&nbsp;
                       </span>
                       <span>
-                        <i className="fa-solid fa-dollar-sign mr-2"></i>{" "}
-                        {Jobdetail?.minSalary}-{Jobdetail?.maxSalary} salary
+                        {/* <i className="fa-solid fa-dollar-sign mr-2"></i>{" "} */}
+                        {/* {Jobdetail?.minSalary}-{Jobdetail?.maxSalary} salary */}
+                        10-12 LPA CTC
                         &nbsp;&nbsp;
                       </span>
                     </div>
