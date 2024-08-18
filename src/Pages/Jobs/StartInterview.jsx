@@ -79,106 +79,60 @@ const StartInterview = () => {
     }
   };
 
+  
+
   const handleSubmitVideo = async () => {
     setInLoading(true);
-  
-    if (audioBlobUrl) {
+    if (mediaBlobUrl) {
       setSubmissionStatus("submitting");
-  
-      const ffmpeg = new FFmpeg({ log: true });
-      await ffmpeg.load();
-  
-      // Fetch the audio blob
-      const audioBlob = await fetch(audioBlobUrl).then(res => res.blob());
-  
-      // Convert the blob to an ArrayBuffer
-      const arrayBuffer = await audioBlob.arrayBuffer();
-  
-      // Write the audio file to the ffmpeg virtual file system
-      ffmpeg.FS("writeFile", "input.webm", new Uint8Array(arrayBuffer));
-  
-      // Convert the audio file to WAV format
-      await ffmpeg.run("-i", "input.webm", "output.wav");
-  
-      // Read the WAV file from the ffmpeg virtual file system
-      const wavData = ffmpeg.FS("readFile", "output.wav");
-  
-      // Create a new Blob from the WAV file data
-      const wavBlob = new Blob([wavData.buffer], { type: "audio/wav" });
-  
-      // Prepare formData with the WAV file
-      const formData = new FormData();
-      formData.append("audio", wavBlob);
-  
-      console.log("formData", formData);
-  
-      try {
-        // Replace with your API endpoint
-        await PostApi("/your-endpoint", formData);
-        toast.success("Video and audio submitted successfully!");
-        setSubmissionStatus("submitted");
-      } catch (error) {
-        toast.error("Submission failed. Please try again.");
-        setSubmissionStatus("failed");
-      } finally {
-        setInLoading(false);
+      if (audioBlobUrl) {
+        setSubmissionStatus("submitting");
+
+        const ffmpeg = FFmpeg({ log: true });
+        await ffmpeg.load();
+
+        // Fetch the audio blob
+        const audioBlob = await fetch(audioBlobUrl).then((res) => res.blob());
+
+        // Convert the blob to an ArrayBuffer
+        const arrayBuffer = await audioBlob.arrayBuffer();
+
+        // Write the audio file to the ffmpeg virtual file system
+        ffmpeg.FS("writeFile", "input.webm", new Uint8Array(arrayBuffer));
+
+        // Convert the audio file to WAV format
+        await ffmpeg.run("-i", "input.webm", "output.wav");
+
+        // Read the WAV file from the ffmpeg virtual file system
+        const wavData = ffmpeg.FS("readFile", "output.wav");
+
+        // Create a new Blob from the WAV file data
+        const wavBlob = new Blob([wavData.buffer], { type: "audio/wav" });
+
+        // Prepare formData with the WAV file
+        const formData = new FormData();
+        formData.append("audio", wavBlob);
+
+        console.log("formData", formData);
       }
+
+      // try {
+      //   const aitext = await getTextFromAudio(formData);
+      //   const points = await getResult(aitext);
+      //   await submitResult(points, aitext);
+      //   setSubmissionStatus("submitted");
+      //   toast.success("Video submitted successfully!", { autoClose: 1000 });
+      // } catch (error) {
+      //   console.error("Error submitting video:", error);
+      //   toast.error("Failed to submit video. Please try again.", {
+      //     autoClose: 1000,
+      //   });
+      //   setSubmissionStatus("idle");
+      // } finally {
+      //   setInLoading(false);
+      // }
     }
   };
-  
-
-  // const handleSubmitVideo = async () => {
-  //   setInLoading(true);
-  //   if (mediaBlobUrl) {
-  //     setSubmissionStatus("submitting");
-  //     if (audioBlobUrl) {
-  //       setSubmissionStatus("submitting");
-
-  //       const ffmpeg = FFmpeg({ log: true });
-  //       await ffmpeg.load();
-
-  //       // Fetch the audio blob
-  //       const audioBlob = await fetch(audioBlobUrl).then((res) => res.blob());
-
-  //       // Convert the blob to an ArrayBuffer
-  //       const arrayBuffer = await audioBlob.arrayBuffer();
-
-  //       // Write the audio file to the ffmpeg virtual file system
-  //       ffmpeg.FS("writeFile", "input.webm", new Uint8Array(arrayBuffer));
-
-  //       // Convert the audio file to WAV format
-  //       await ffmpeg.run("-i", "input.webm", "output.wav");
-
-  //       // Read the WAV file from the ffmpeg virtual file system
-  //       const wavData = ffmpeg.FS("readFile", "output.wav");
-
-  //       // Create a new Blob from the WAV file data
-  //       const wavBlob = new Blob([wavData.buffer], { type: "audio/wav" });
-
-  //       // Prepare formData with the WAV file
-  //       const formData = new FormData();
-  //       formData.append("audio", wavBlob);
-
-  //       console.log("formData", formData);
-  //     }
-
-  //     // try {
-  //     //   const aitext = await getTextFromAudio(formData);
-  //     //   const points = await getResult(aitext);
-  //     //   await submitResult(points, aitext);
-  //     //   setSubmissionStatus("submitted");
-  //     //   toast.success("Video submitted successfully!", { autoClose: 1000 });
-  //     // } catch (error) {
-  //     //   console.error("Error submitting video:", error);
-  //     //   toast.error("Failed to submit video. Please try again.", {
-  //     //     autoClose: 1000,
-  //     //   });
-  //     //   setSubmissionStatus("idle");
-  //     // } finally {
-  //     //   setInLoading(false);
-  //     // }
-  //   }
-  // };
   const getTextFromAudio = async (formData) => {
     console.log("audio sent");
     const response = await fetch(
