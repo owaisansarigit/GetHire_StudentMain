@@ -72,6 +72,10 @@ const StartInterview = () => {
     getJob(jobId);
   }, [jobId]);
 
+  useEffect(() => {
+    console.log("status changing sdg : " , status);
+  } , [status]);
+
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -79,6 +83,7 @@ const StartInterview = () => {
       if (status === "recording") {
         stopRecording();
         handleSubmitVideo();
+        alert("interview completed successfully")
       } else {
         handleSubmitVideo();
       }
@@ -261,19 +266,51 @@ const StartInterview = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-full">
+              {/* <div className="w-full">
                 <button
                   className="bg-[#2569aa] text-white font-sm font-semibold px-2 py-3 w-full rounded-3xl mt-4"
                   onClick={startRecording}
                 >
                   Accept And continue
                 </button>
-              </div>
+              </div> */}
+               <div>
+                             {/* Video element for combined stream */}
+                             <video ref={screenVideoRef} controls />
+
+                             {/* Video element for webcam stream */}
+                             <video ref={webcamVideoRef} controls />
+
+                            <div className="w-full">
+                                <button
+                                  className="bg-[#2569aa] text-white font-sm font-semibold px-2 py-3 w-full rounded-3xl mt-4"
+                                  onClick={startRecording}
+                               >
+                                Accept And continue
+                               </button>
+                            </div>
+                         </div>
             </div>
           </div>
+          
+      //     <div>
+      //        <video ref={screenVideoRef} controls />
+      //        <video ref={webcamVideoRef} controls />
+      //        <div className="w-full">
+      //          <button
+      //            className="bg-[#2569aa] text-white font-sm font-semibold px-2 py-3 w-full rounded-3xl mt-4"
+      //            onClick={startRecording}
+      //           >
+      //           Accept And continue
+      //         </button>
+      //       </div>
+      //    </div>
+
+
         ) : (
           <div className="min-h-[100vh] bg-black p-2">
-            <div className="flex bg-black w-[100vw] justify-between px-5 gap-4 mb-4">
+            {/* <p>dffnkdnk dk dkjnvd vkdj vkjdnvd vkd vkjd v,d vkd vkdj vdkv dakjv da admn vjdh vd</p> */}
+            {/* <div className="flex bg-black w-[100vw] justify-between px-5 gap-4 mb-4">
               <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-black flex justify-center items-center">
                 <video
                   ref={webcamVideoRef}
@@ -291,7 +328,7 @@ const StartInterview = () => {
                   className="object-cover h-[50vh] w-full"
                 />
               </div>
-            </div>
+            </div> */}
             <div className="px-5">
               <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3 text-gray-300">
                 {status === "recording" && (
@@ -313,6 +350,34 @@ const StartInterview = () => {
             </div>
           </div>
         )}
+       
+       {status === 'recording' && (
+          <>
+            <div className="min-h-[100vh] bg-black p-2">
+          
+            <div className="px-5">
+              <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3 text-gray-300">
+                {status === "recording" && (
+                  <>
+                    <span className="text-md">
+                      {questions[currentQuestionIndex]}
+                    </span>
+                    <button
+                      onClick={handleNextQuestion}
+                      className="mr-auto p-1 px-3 bg-blue-600 text-white border-none rounded cursor-pointer mt-2.5"
+                    >
+                      {currentQuestionIndex < questions.length - 1
+                        ? "Next Question"
+                        : "Finish"}
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          </> 
+       )}
+
       </div>
     </div>
   );
