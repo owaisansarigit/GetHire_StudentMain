@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import useScreenAudioRecorder from "../utilis/useScreenAudioRecorder";
 import { Box, Typography, Container } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { GetApi, PostApi } from "../utilis/Api_Calling";
+import { GetApi, PostApi, Api_Url } from "../utilis/Api_Calling";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FFmpeg } from "@ffmpeg/ffmpeg";
 
 const StartInterview = () => {
   const {
@@ -79,74 +78,67 @@ const StartInterview = () => {
     }
   };
 
-  
-
   const handleSubmitVideo = async () => {
     setInLoading(true);
-    if (mediaBlobUrl) {
+    if (audioBlobUrl) {
       setSubmissionStatus("submitting");
-      if (audioBlobUrl) {
-        setSubmissionStatus("submitting");
+      const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
+      const audioBlob = new Blob([videoBlob], { type: "audio/vaw" });
+      const formData = new FormData();
+      formData.append("audio", audioBlob);
+      formData.append("audio1", "audioBlob");
+      const aitext = await getTextFromAudio(formData);
+      // let res = await axios.post(
+      //   `${Api_Url}api/testroutes/submitaudio`,
+      //   formData,
+      //   {
+      //     headers: {
+      //       Accept: "application/json",
+      //       Authorization: `Bearer ${authToken}`,
+      //     },
+      //   }
+      // );
+    }
 
-        const ffmpeg = FFmpeg({ log: true });
-        await ffmpeg.load();
+    // try {
+    //   const points = await getResult(aitext);
+    //   await submitResult(points, aitext);
+    //   setSubmissionStatus("submitted");
+    //   toast.success("Video submitted successfully!", { autoClose: 1000 });
+    // } catch (error) {
+    //   console.error("Error submitting video:", error);
+    //   toast.error("Failed to submit video. Please try again.", {
+    //     autoClose: 1000,
+    //   });
+    //   setSubmissionStatus("idle");
+    // } finally {
+    //   setInLoading(false);
+    // }
+  };
 
-        // Fetch the audio blob
-        const audioBlob = await fetch(audioBlobUrl).then((res) => res.blob());
-
-        // Convert the blob to an ArrayBuffer
-        const arrayBuffer = await audioBlob.arrayBuffer();
-
-        // Write the audio file to the ffmpeg virtual file system
-        ffmpeg.FS("writeFile", "input.webm", new Uint8Array(arrayBuffer));
-
-        // Convert the audio file to WAV format
-        await ffmpeg.run("-i", "input.webm", "output.wav");
-
-        // Read the WAV file from the ffmpeg virtual file system
-        const wavData = ffmpeg.FS("readFile", "output.wav");
-
-        // Create a new Blob from the WAV file data
-        const wavBlob = new Blob([wavData.buffer], { type: "audio/wav" });
-
-        // Prepare formData with the WAV file
-        const formData = new FormData();
-        formData.append("audio", wavBlob);
-
-        console.log("formData", formData);
-      }
-
-      // try {
-      //   const aitext = await getTextFromAudio(formData);
-      //   const points = await getResult(aitext);
-      //   await submitResult(points, aitext);
-      //   setSubmissionStatus("submitted");
-      //   toast.success("Video submitted successfully!", { autoClose: 1000 });
-      // } catch (error) {
-      //   console.error("Error submitting video:", error);
-      //   toast.error("Failed to submit video. Please try again.", {
-      //     autoClose: 1000,
-      //   });
-      //   setSubmissionStatus("idle");
-      // } finally {
-      //   setInLoading(false);
-      // }
+  const getTextFromAudio = async (formData) => {
+    try {
+      console.log("audio sent");
+      const authToken = localStorage.getItem("StudentToken");
+      let response = await axios.post(
+        `${Api_Url}api/testroutes/submitaudio`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
+      const jsonData = await response.json();
+      console.log(jsonData);
+      return jsonData;
+    } catch (error) {
+      console.log(error.response);
     }
   };
-  const getTextFromAudio = async (formData) => {
-    console.log("audio sent");
-    const response = await fetch(
-      "https://shining-needed-bug.ngrok-free.app/transcribe",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    console.log(response);
-    const jsonData = await response.json();
-    console.log(jsonData);
-    return jsonData;
-  };
+
   const getResult = async (aitext) => {
     const data = {
       question: aitext,
@@ -165,6 +157,7 @@ const StartInterview = () => {
     const jsonData = await response.json();
     return jsonData?.points;
   };
+
   const submitResult = async (points, aitext) => {
     try {
       const data = {
@@ -177,6 +170,7 @@ const StartInterview = () => {
       console.error("Error submitting result:", error);
     }
   };
+
   if (loading) {
     return (
       <div className="text-2xl min-h-[30vh] w-full text-center flex justify-center items-center bg-white">
