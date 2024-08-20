@@ -97,7 +97,7 @@ const workItems = [
     link: "/", // Example route
   },
   {
-    title: "Club",
+    title: "Club & Events",
     description: "Join a global community to enhance your skills.",
     icon: <PiNotebookLight />,
     link: "/blank/clubs", // Example route
@@ -983,12 +983,12 @@ const Header = () => {
                         >
                           Internships
                         </div>
-                        <div
+                        {/* <div
                           className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
                           onMouseEnter={() => setOpportunities(true)}
                         >
                           Events
-                        </div>
+                        </div> */}
                         <div
                           className="w-full text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md mb-2 cursor-pointer flex items-center justify-center"
                           onMouseEnter={() => setOpportunities(true)}

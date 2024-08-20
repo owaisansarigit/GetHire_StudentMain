@@ -58,6 +58,9 @@ import InterviewAdvice from "./Pages/CarearBlogs/CareerBarNavigate/InterviewAdvi
 import News from "./Pages/CarearBlogs/CareerBarNavigate/News.jsx";
 import ResumeEdit from "./Pages/AI Tools/ResumeEdit.jsx";
 
+// importing events
+import MainEvent from "./Pages/Events/MainEvent.jsx";
+
 const ProjectRoutes = () => {
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -153,6 +156,8 @@ const ProjectRoutes = () => {
           <Route path="/blank/hrInsight" element={<HrInsight />} />;
           <Route path="/blank/interviewAdvice" element={<InterviewAdvice />} />;
           <Route path="/blank/news" element={<News />} />;
+          {/* all events section */}
+          <Route path="/blank/mainEvent" element={<MainEvent />} />
           <Route
             path="/blank/start-interview/:jobId"
             element={<StartInterview />}

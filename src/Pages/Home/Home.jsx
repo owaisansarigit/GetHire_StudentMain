@@ -553,6 +553,9 @@ useEffect(() => {
 // for ai modal opener
 const [aiModal, setAiModal] = useState(false);
 
+// this below is for my interview section
+
+
   return (
     
   //   <>
@@ -1304,6 +1307,9 @@ const [aiModal, setAiModal] = useState(false);
                                                       <p className="text-[15px] max-2xl:text-[14px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
                                                       <img src="/images/material-symbols-light_share.svg" alt="Share" className="w-[17px] h-[17px] max-lg:w-[15px] max-lg:h-[15px]" />
                                                     </div>
+                                                    <div className="flex gap-[5px] max-2xl:-mb-4 -mb-4 mt-[18px] max-lg:gap-[6px]">
+                                                      <p className="text-black text-opacity-[60%] text-[12px] max-lg:text-[11px] max-sm:text-[10px] font-[500]">{job.CompanyId.Name}</p>
+                                                    </div>
                                                     <div className="flex gap-[5px] max-2xl:-mb-3 -mb-3 mt-[20px] max-lg:gap-[6px]">
                                                       <img src="/images/carbon_location.svg" className="w-[16px] h-[20px] max-lg:w-[15px] max-lg:h-[18px]" alt="Location" />
                                                       <p className="text-black text-opacity-[60%] text-[12px] max-lg:text-[11px] max-sm:text-[10px] font-[500]">{job.JobId.location}</p>
@@ -1325,7 +1331,8 @@ const [aiModal, setAiModal] = useState(false);
                                                   <div className="flex flex-row justify-between">
                                                     <div>
                                                       <h2 className="text-[17px] font-[700] max-lg:text-[16px] max-2xl:text-[16px] ">{selectedJob.JobId.positionName}</h2>
-                                                      <p className="text-[11px]">{selectedJob.JobId.location}</p>
+                                                      <p className="text-[12px]">{selectedJob.CompanyId.Name}</p>
+                                                      <p className="text-[10px]">{selectedJob.JobId.location}</p>
                                                     </div>
                                                     <div>
                                                       <button
@@ -1367,6 +1374,10 @@ const [aiModal, setAiModal] = useState(false);
                                                     </div>
                                                   </div>
                                                 </div>
+                       
+
+
+
 
                                         </div>
                                       )}
@@ -1748,7 +1759,9 @@ const [aiModal, setAiModal] = useState(false);
                   </p>
                 </div>
               </div>
-              <button className="mt-4 md:mt-0 px-8 py-3 text-sm font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300">
+              <button className="mt-4 md:mt-0 px-8 py-3 text-sm font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300"
+               onClick={()=>(navigate('/blank/ai-tools/mockinterview'))}
+               >
                 Start preparing
               </button>
             </div>
@@ -1774,7 +1787,9 @@ const [aiModal, setAiModal] = useState(false);
                         </p>
                       </div>
                     </div>
-                    <button className="mt-4 md:mt-0 px-8 py-3 text-sm font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300">
+                    <button className="mt-4 md:mt-0 px-8 py-3 text-sm font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300"
+                     onClick={()=>(navigate('/blank/ai-tools/resume-builder'))}
+                    >
                       Update Now
                     </button>
                   </div>      
