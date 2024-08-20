@@ -1301,7 +1301,7 @@ const [aiModal, setAiModal] = useState(false);
                                                     key={index}
                                                     onClick={() => handleJobClick(job)}
                                                     ref={sectionRefs.section2} id="section2" 
-                                                    className="bg-[#fff] p-[14px] flex flex-col -ml-5  max-2xl:h-24 w-52 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
+                                                    className="bg-[#fff] p-[14px] flex flex-col -ml-5  max-2xl:h-28 w-52 max-lg:w-48 max-sm:w-36 max-sm:h-40 rounded-[20px] shadow-xl hover:shadow-2xl cursor-pointer transition-transform transform hover:scale-105"
                                                   >
                                                     <div className="flex justify-between max-2xl:-mb-3 -mb-3  items-center gap-4 max-lg:gap-1 max-sm:gap-0">
                                                       <p className="text-[15px] max-2xl:text-[14px] max-sm:text-[16px] font-[700]">{job.JobId.positionName}</p>
