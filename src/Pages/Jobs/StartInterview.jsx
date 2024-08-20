@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import useScreenAudioRecorder from "../utilis/useScreenAudioRecorder";
 import { Box, Typography, Container } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { GetApi, PostApi } from "../utilis/Api_Calling";
+import { GetApi, PostApi, Api_Url } from "../utilis/Api_Calling";
 import axios from "axios";
 import { toast } from "react-toastify";
-import sampleAudio from "./sampleaudio.mp3";
-import { FFmpeg } from "@ffmpeg/ffmpeg";
 
 const StartInterview = () => {
   const {
@@ -31,7 +29,6 @@ const StartInterview = () => {
   const [level, setLevel] = useState("");
   const [criteria, setCriteria] = useState([]);
   const [questions, setQuestions] = useState([]);
-
   const getJob = async (id) => {
     setLoading(true);
     try {
@@ -54,7 +51,6 @@ const StartInterview = () => {
       setLoading(false);
     }
   };
-
   const getStudent = async () => {
     setLoading(true);
     try {
@@ -66,98 +62,81 @@ const StartInterview = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     getStudent();
     getJob(jobId);
   }, [jobId]);
-
-  useEffect(() => {
-    console.log("status changing sdg : " , status);
-  } , [status]);
-
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       if (status === "recording") {
         stopRecording();
-        handleSubmitVideo();
-        alert("interview completed successfully")
       } else {
         handleSubmitVideo();
       }
     }
   };
 
-  const convertBlobToWav = async (videoBlob) => {
-    const ffmpeg = new FFmpeg({ log: true });
-    await ffmpeg.load();
-
-    // Create a file system in memory
-    const fileName = "audio.webm";
-    ffmpeg.FS(
-      "writeFile",
-      fileName,
-      new Uint8Array(await videoBlob.arrayBuffer())
-    );
-
-    // Convert webm to wav
-    await ffmpeg.run("-i", fileName, "output.wav");
-
-    // Read the result
-    const data = ffmpeg.FS("readFile", "output.wav");
-
-    // Convert the result to a Blob
-    const wavBlob = new Blob([data.buffer], { type: "audio/wav" });
-
-    console.log("Conversion to WAV successful");
-
-    return wavBlob;
-  };
-
   const handleSubmitVideo = async () => {
     setInLoading(true);
-    if (mediaBlobUrl) {
+    if (audioBlobUrl) {
       setSubmissionStatus("submitting");
       const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
-      const audioBlob = new Blob([videoBlob], { type: "audio/webm" });
-      const wavBlob = await convertBlobToWav(videoBlob);
-      const wavFile = new File([wavBlob], "audio.wav", { type: "audio/wav" });
-
+      const audioBlob = new Blob([videoBlob], { type: "audio/vaw" });
       const formData = new FormData();
-      formData.append("audio", wavFile);
-      try {
-        const aitext = await getTextFromAudio(formData);
-        const points = await getResult(aitext);
-        await submitResult(points, aitext);
-        setSubmissionStatus("submitted");
-        toast.success("Video submitted successfully!", { autoClose: 1000 });
-      } catch (error) {
-        console.error("Error submitting video:", error);
-        toast.error("Failed to submit video. Please try again.", {
-          autoClose: 1000,
-        });
-        setSubmissionStatus("idle");
-      } finally {
-        setInLoading(false);
-      }
+      formData.append("audio", audioBlob);
+      formData.append("audio1", "audioBlob");
+      const aitext = await getTextFromAudio(formData);
+      // let res = await axios.post(
+      //   `${Api_Url}api/testroutes/submitaudio`,
+      //   formData,
+      //   {
+      //     headers: {
+      //       Accept: "application/json",
+      //       Authorization: `Bearer ${authToken}`,
+      //     },
+      //   }
+      // );
     }
+
+    // try {
+    //   const points = await getResult(aitext);
+    //   await submitResult(points, aitext);
+    //   setSubmissionStatus("submitted");
+    //   toast.success("Video submitted successfully!", { autoClose: 1000 });
+    // } catch (error) {
+    //   console.error("Error submitting video:", error);
+    //   toast.error("Failed to submit video. Please try again.", {
+    //     autoClose: 1000,
+    //   });
+    //   setSubmissionStatus("idle");
+    // } finally {
+    //   setInLoading(false);
+    // }
   };
 
   const getTextFromAudio = async (formData) => {
-    console.log("audio sent");
-    const response = await fetch(
-      "https://shining-needed-bug.ngrok-free.app/transcribe",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    console.log(response);
-    const jsonData = await response.json();
-    console.log(jsonData);
-    return jsonData;
+    try {
+      console.log("audio sent");
+      const authToken = localStorage.getItem("StudentToken");
+      let response = await axios.post(
+        `${Api_Url}api/testroutes/submitaudio`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
+      const jsonData = await response.json();
+      console.log(jsonData);
+      return jsonData;
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const getResult = async (aitext) => {
@@ -165,7 +144,6 @@ const StartInterview = () => {
       question: aitext,
       criteria: criteria,
     };
-
     const response = await fetch(
       "https://shining-needed-bug.ngrok-free.app/check-answer",
       {
@@ -200,11 +178,10 @@ const StartInterview = () => {
       </div>
     );
   }
-
   return (
     <div className="flex flex-col items-center p-4">
       <div className="mb-2">
-        {status === "idle" || "requesting_permissions" ? (
+        {status === "idle" ? (
           <div className="w-full flex justify-around px-5">
             <div className="w-3/5 flex flex-col justify-start items-center border rounded-3xl p-2 m-2 bg-[#f1f1f1]">
               <div className="w-full my-4">
@@ -266,52 +243,20 @@ const StartInterview = () => {
                   </span>
                 </div>
               </div>
-              {/* <div className="w-full">
+              <div className="w-full">
                 <button
                   className="bg-[#2569aa] text-white font-sm font-semibold px-2 py-3 w-full rounded-3xl mt-4"
                   onClick={startRecording}
                 >
                   Accept And continue
                 </button>
-              </div> */}
-               <div>
-                             {/* Video element for combined stream */}
-                             <video ref={screenVideoRef} controls />
-
-                             {/* Video element for webcam stream */}
-                             <video ref={webcamVideoRef} controls />
-
-                            <div className="w-full">
-                                <button
-                                  className="bg-[#2569aa] text-white font-sm font-semibold px-2 py-3 w-full rounded-3xl mt-4"
-                                  onClick={startRecording}
-                               >
-                                Accept And continue
-                               </button>
-                            </div>
-                         </div>
+              </div>
             </div>
           </div>
-          
-      //     <div>
-      //        <video ref={screenVideoRef} controls />
-      //        <video ref={webcamVideoRef} controls />
-      //        <div className="w-full">
-      //          <button
-      //            className="bg-[#2569aa] text-white font-sm font-semibold px-2 py-3 w-full rounded-3xl mt-4"
-      //            onClick={startRecording}
-      //           >
-      //           Accept And continue
-      //         </button>
-      //       </div>
-      //    </div>
-
-
         ) : (
-          <div className="min-h-[100vh] bg-black p-2">
-            {/* <p>dffnkdnk dk dkjnvd vkdj vkjdnvd vkd vkjd v,d vkd vkdj vdkv dakjv da admn vjdh vd</p> */}
-            {/* <div className="flex bg-black w-[100vw] justify-between px-5 gap-4 mb-4">
-              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-black flex justify-center items-center">
+          <>
+            <div className="flex  w-[100vw] justify-between px-2 gap-4 mb-4">
+              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-gray-100 flex justify-center items-center">
                 <video
                   ref={webcamVideoRef}
                   autoPlay
@@ -320,7 +265,7 @@ const StartInterview = () => {
                   // style={{objectFit:"fill"}}
                 />
               </div>
-              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-black flex justify-center items-center">
+              <div className="w-1/2 border rounded-2xl min-h-[50vh] bg-gray-100 flex justify-center items-center">
                 <video
                   ref={screenVideoRef}
                   autoPlay
@@ -328,59 +273,22 @@ const StartInterview = () => {
                   className="object-cover h-[50vh] w-full"
                 />
               </div>
-            </div> */}
-            <div className="px-5">
-              <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3 text-gray-300">
-                {status === "recording" && (
-                  <>
-                    <span className="text-md">
-                      {questions[currentQuestionIndex]}
-                    </span>
-                    <button
-                      onClick={handleNextQuestion}
-                      className="mr-auto p-1 px-3 bg-blue-600 text-white border-none rounded cursor-pointer mt-2.5"
-                    >
-                      {currentQuestionIndex < questions.length - 1
-                        ? "Next Question"
-                        : "Finish"}
-                    </button>
-                  </>
-                )}
-              </div>
             </div>
-          </div>
+            <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3">
+              <span className="text-md">{questions[currentQuestionIndex]}</span>
+              <button
+                onClick={handleNextQuestion}
+                className="mr-auto p-1 px-3 bg-blue-600 text-white border-none rounded cursor-pointer mt-2.5"
+              >
+                {currentQuestionIndex < questions.length - 1
+                  ? "Next Question"
+                  : "Finish"}
+              </button>
+            </div>
+          </>
         )}
-       
-       {status === 'recording' && (
-          <>
-            <div className="min-h-[100vh] bg-black p-2">
-          
-            <div className="px-5">
-              <div className="w-full border rounded-2xl min-h-[10vh] flex flex-col p-3 text-gray-300">
-                {status === "recording" && (
-                  <>
-                    <span className="text-md">
-                      {questions[currentQuestionIndex]}
-                    </span>
-                    <button
-                      onClick={handleNextQuestion}
-                      className="mr-auto p-1 px-3 bg-blue-600 text-white border-none rounded cursor-pointer mt-2.5"
-                    >
-                      {currentQuestionIndex < questions.length - 1
-                        ? "Next Question"
-                        : "Finish"}
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-          </> 
-       )}
-
       </div>
     </div>
   );
 };
-
 export default StartInterview;
