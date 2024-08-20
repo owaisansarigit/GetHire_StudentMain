@@ -244,7 +244,7 @@ const dummyJobs = [
       maxSalary: 120000,
       Openings: 3,
       time:'2 days ago',
-      result:'Not shortlisted'
+      result:'shortlisted'
     },
     CompanyId: {
       Image: '/images/company1.png',
@@ -261,7 +261,7 @@ const dummyJobs = [
       maxSalary: 150000,
       Openings: 2,
        time:'2 days ago',
-      result:'Resume Rejected'
+      result:'rejected'
     },
     CompanyId: {
       Image: '/images/company2.png',
@@ -278,7 +278,7 @@ const dummyJobs = [
       maxSalary: 80000,
       Openings: 5,
        time:'2 days ago',
-      result:'Cleared'
+      result:'selected'
     },
     CompanyId: {
       Image: '/images/company3.png',
@@ -1316,16 +1316,16 @@ const [aiModal, setAiModal] = useState(false);
                                                     </div>
                                                     <div className="flex mt-[20px] gap-4 max-2xl:gap-1 max-sm:gap-2 justify-between">
                                                       <p className="text-black text-opacity-[60%] text-[12px] font-[500] max-lg:text-[13px] max-sm:text-[11px]">{job.JobId.time}</p>
-                                                      {job.JobId.result === 'Cleared' ? (
-                                                        <p className="text-blue-500 text-[11px] max-lg:text-[10px]">{job.JobId.result}</p>
-                                                      ) : (
+                                                      {job.JobId.result === 'rejected' ? (
                                                         <p className="text-red-500 max-lg:text-[13px] text-[12px] ">X {job.JobId.result}</p>
+                                                      ) : (
+                                                        <p className="text-blue-500 text-[11px] max-lg:text-[10px]">{job.JobId.result}</p>
                                                       )}
                                                     </div>
                                                   </div>
                                                 ))}
                                                 </div>
-                                                <div
+                                                {/* <div
                                                   className="min-w-[300px] flex-grow-1 max-2xl:min-w-[260px] max-xl:min-w-[270px] max-2xl:-ml-2 bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9] "
                                                  >
                                                   <div className="flex flex-row justify-between">
@@ -1373,7 +1373,92 @@ const [aiModal, setAiModal] = useState(false);
                                                       </div>
                                                     </div>
                                                   </div>
+                                                </div> */}
+                                             <div className="min-w-[300px] flex-grow-1 max-2xl:min-w-[260px] max-xl:min-w-[270px] max-2xl:-ml-2 bg-[#fff] p-[24px] rounded-[20px] shadow-xl border border-[#d9d9d9]">
+                                                <div className="flex flex-row justify-between">
+                                                  <div>
+                                                    <h2 className="text-[17px] font-[700] max-lg:text-[16px] max-2xl:text-[16px]">
+                                                      {selectedJob.JobId.positionName}
+                                                    </h2>
+                                                    <p className="text-[12px]">{selectedJob.CompanyId.Name}</p>
+                                                    <p className="text-[10px]">{selectedJob.JobId.location}</p>
+                                                  </div>
+                                                  <div>
+                                                    <button
+                                                      className="bg-blue-600 p-3 text-[11px] h-9 flex items-center max-2xl:text-[10px] max-2xl:p-1 max-2xl:rounded-lg max-2xl:h-7 rounded-md shadow-lg text-white max-lg:p-2 hover:bg-blue-900 hover:shadow-2xl"
+                                                      onClick={() => alert("View job button is clicked")}
+                                                    >
+                                                      View Jobs
+                                                    </button>
+                                                  </div>
                                                 </div>
+                                                <hr className="border-t-2 border-gray-300 my-2" />
+                                                <p className="text-[16px] max-2xl:text-[15px]">Application Status</p>
+
+                                                <div className="ml-4 mt-4">
+                                                  {["Applied", "Shortlisted", "Selected", "Rejected"].map((status, index, statuses) => {
+                                                    const currentIndex = statuses.findIndex(
+                                                      (s) => s.toLowerCase() === selectedJob.JobId.result.toLowerCase()
+                                                    );
+                                                    const isActive = index === currentIndex;
+                                                    const isBeforeActive = index <= currentIndex;
+                                                    const isPending = index > currentIndex;
+
+                                                    return (
+                                                      <div key={index} className="flex items-center mb-4">
+                                                        <div className="relative flex items-center justify-center">
+                                                          <div
+                                                            className={`w-3 h-3 rounded-full ${status === "Rejected" && isActive ? "bg-red-600" : isBeforeActive ? "bg-blue-600" : "bg-white border border-blue-600"}`}
+                                                          ></div>
+                                                          {index < statuses.length - 1 && (
+                                                            <div
+                                                              className={`absolute w-[2px] h-8 top-3/4 left-1/2 -translate-x-1/2 ${isBeforeActive ? "bg-blue-600" : "bg-gray-300"}`}
+                                                            ></div>
+                                                          )}
+                                                        </div>
+                                                        <div className="ml-4">
+                                                          <p className={`text-[14px] ${isBeforeActive ? "text-blue-600" : "text-gray-500"}`}>
+                                                            {status}
+                                                          </p>
+                                                          {isPending && <p className="text-[12px] text-red-400">Pending...</p>}
+                                                          {isActive && !isPending && status !== "Rejected" && (
+                                                            <p className="text-[12px] text-gray-400">On 26 Jul, 2024</p>
+                                                          )}
+                                                          {status === "Rejected" && isActive && (
+                                                            <p className="text-[12px] text-red-600">Rejected on 26 Jul, 2024</p>
+                                                          )}
+                                                        </div>
+                                                      </div>
+                                                    );
+                                                  })}
+                                                </div>
+
+                                                <div className="flex items-center mt-5">
+                                                  <div>
+                                                    <p className="text-[15px] font-extralight">Our Suggested Product</p>
+                                                    <div className="ml-4 mt-2">
+                                                      <p className="text-red-500 text-[16px]">Profile Boost</p>
+                                                      <p className="font-extralight text-[13px]">
+                                                        Your application would be shown on the priority list to the recruiter
+                                                      </p>
+                                                      <div className="flex flex-row gap-6 mt-2">
+                                                        <button className="hover:text-blue-500 text-[14px] hover:scale-105 duration-300">
+                                                          Buy Now
+                                                        </button>
+                                                        <button className="text-red-400 hover:scale-105 text-sm duration-300">
+                                                          Explore
+                                                        </button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+
+
+
+
+
                        
 
 

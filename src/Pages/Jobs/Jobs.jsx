@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { GetApi } from "../utilis/Api_Calling";
 import {Triangle} from 'react-loader-spinner'
 
+import JobCard from "./JobCard";
+
 const Jobs = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState(50);
@@ -263,126 +265,22 @@ const Jobs = () => {
                   </span>
                 </div>
                 {applyFilters(AllJobs)?.length > 0 ? (
-                  applyFilters(AllJobs)?.map((job, index) => {
-                    const isJobApplied = appiledjobs.includes(job._id);
-                    return (
-                      <div
-                        // onClick={() => {
-                        //   jobDetail(job?._id);
-                        // }}
-                        key={index}
-                        className="bg-white rounded-3xl border-[1px] border-[#efecec] p-5 "
-                      >
-                        <div className="mt-[8px]">
-                          <div className="flex justify-between gap-[20px]">
-                            <p className="text-xl font-medium lg:w-[476px] flex-wrap">
-                              {job?.positionName}
-                            </p>
-                            <p>
-                              {isJobApplied ? (
-                                <button className="w-[103px] h-[32px] text-white bg-gradient-to-tl from-[#0f87b3] to-[#462da1] rounded-[5px] flex justify-center items-center">
-                                  Applied
-                                </button>
-                              ) : (
-                                <button
-                                  onClick={() => {
-                                    jobDetail(job?._id);
-                                  }}
-                                  className="w-[103px] h-[32px] text-white  hover:scale-105  bg-blue-500 hover:bg-blue-900 duration-200  rounded-[5px] flex justify-center items-center"
-                                >
-                                  Apply now
-                                </button>
-                              )}
-                            </p>
-                          </div>
-                          <p className="text-gray-600 hover:text-blue-500 hover:cursor-pointer inline-block p-2 text-md font-normal" >
-                            {job?.Company?.Name}
-                          </p>
-                          <div className="flex flex-col  text-[14px] font-[400] text-black text-opacity-[50%] mt-[5px] gap-2">
-                            <div className="flex justify-start items-center flex-wrap gap-3">
-                              <span>
-                                <i className="fa-solid fa-briefcase mr-2"></i>{" "}
-                                0-5 Years &nbsp; |
-                              </span>
-                              <span>
-                                {/* <i className="fa-solid fa-dollar-sign mr-2"></i>{" "} */}
-                                {/* {job?.minSalary}-{job?.maxSalary} salary &nbsp; */}
-                                 6-8 LPA CTC &nbsp;
-                                |
-                              </span>
-                              <span>
-                                {" "}
-                                <i className="fa-solid fa-location-dot mr-2"></i>
-                                {job?.location} &nbsp; |
-                              </span>
-                            </div>
-                            <div className="flex justify-start items-center flex-wrap gap-3">
-                              <span>
-                                <i className="fa-solid fa-clipboard mr-2"></i>{" "}
-                                Must have
-                                {job?.skillAssessment?.map((skill) => (
-                                  <span className="mx-1">{skill.skill},</span>
-                                ))}
-                              </span>
-                            </div>
-                            <div className="flex flex-col items-start gap-3">
-                              {/* <div>
-                                <i className="fa-solid fa-clipboard mr-2"></i> Must have
-                                <span className="mx-1">
-                                  {job?.skillAssessment?.[0]?.skill || 'No skills available'}
-                                </span>
-                              </div> */}
-
-                              {/* {job?.skillAssessment?.length > 1 && (
-                                <div>
-                                  <button
-                                    onClick={handleToggle}
-                                    className="text-blue-500 hover:underline ml-2"
-                                  >
-                                    {showAll ? 'Show Less' : 'View More'}
-                                  </button>
-                                  {showAll && (
-                                    <div className="mt-2 p-2 border border-gray-300 rounded bg-white shadow-md">
-                                      {job.skillAssessment.slice(1).map((skill, index) => (
-                                        <div key={index} className="mx-1">
-                                          {skill.skill}
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                              )} */}
-                            </div>
-                            
-                            <div className="flex justify-start items-center flex-wrap gap-3">
-                              {job?.skillsRequired?.map((skill) => (
-                                <span>{skill} &nbsp;&nbsp; .</span>
-                              ))}
-                            </div>
-                            <div className="w-full flex justify-between items-center flex-wrap gap-3">
-                              <span className="flex gap-3">
-                                <img
-                                  src="/images/pepicons-pencil_rewind-time.svg"
-                                  className="w-[18px]"
-                                  alt=""
-                                />{" "}
-                                {NewformatDate(job?.createdAt)}
-                              </span>
-                              <span className="cursor-pointer">
-                                <i className="fa-solid fa-bookmark mr-3"></i>{" "}
-                                Save
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="bg-white rounded-[16px] border-[1px] border-[#efecec] p-[27px]">
-                    No Jobs Found With This query
-                  </div>
-                )}
+                    applyFilters(AllJobs)?.map((job, index) => {
+                      const isJobApplied = appiledjobs.includes(job._id);
+                      return (
+                        <JobCard
+                          key={index}
+                          job={job}
+                          isJobApplied={isJobApplied}
+                          jobDetail={jobDetail} // Pass the necessary props
+                        />
+                      );
+                    })
+                  ) : (
+                    <div className="bg-white rounded-[16px] border-[1px] border-[#efecec] p-[27px]">
+                      No Jobs Found With This Query
+                    </div>
+                  )}
               </div>
               <div className=" min-h-[100] w-1/5 rounded-[8px]  flex flex-col  items-start p-[26px]  ">
                    <div className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-300 to-blue-600 text-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
