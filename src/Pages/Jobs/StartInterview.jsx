@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import useScreenAudioRecorder from "../utilis/useScreenAudioRecorder";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { GetApi, PostApi, Api_Url } from "../utilis/Api_Calling";
 import axios from "axios";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 import { toast } from "react-toastify";
 
 const StartInterview = () => {
@@ -20,6 +27,8 @@ const StartInterview = () => {
   } = useScreenAudioRecorder();
 
   const { jobId } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [inLoading, setInLoading] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -80,8 +89,6 @@ const StartInterview = () => {
 
   const handleSubmitVideo = async () => {
     setInLoading(true);
-
-
     try {
       if (audioBlobUrl) {
         setSubmissionStatus("submitting");
@@ -90,19 +97,19 @@ const StartInterview = () => {
         const formData = new FormData();
         formData.append("audio", audioBlob);
         formData.append("audio1", "audioBlob");
+
         const aitext = await getTextFromAudio(formData);
         const points = await getResult(aitext);
         await submitResult(points, aitext);
-        setSubmissionStatus("submitted");
-        toast.success("Video submitted successfully!", { autoClose: 1000 });
+        setModalContent(
+          `Your score is ${points}. \nDetails: ${JSON.stringify(aitext)}`
+        );
+        setShowModal(true);
       }
-
     } catch (error) {
       console.error("Error submitting video:", error);
-      toast.error("Failed to submit video. Please try again.", {
-        autoClose: 1000,
-      });
-      setSubmissionStatus("idle");
+      setModalContent("Failed to submit video. Please try again.");
+      setShowModal(true);
     } finally {
       setInLoading(false);
     }
@@ -167,7 +174,6 @@ const StartInterview = () => {
     );
   }
   return (
-    
     <div className="flex flex-col items-center p-4">
       <div className="mb-2">
         {status === "idle" ? (
@@ -277,7 +283,37 @@ const StartInterview = () => {
           </>
         )}
       </div>
+      {inLoading && (
+        <ResultModal
+          open={showModal}
+          onClose={() => setShowModal(false)}
+          content={modalContent}
+          isLoading={inLoading}
+        />
+      )}
     </div>
   );
 };
 export default StartInterview;
+
+const ResultModal = ({ open, onClose, content, isLoading }) => (
+  <Dialog open={open} onClose={onClose}>
+    <DialogTitle>{isLoading ? "Processing" : "Submission Result"}</DialogTitle>
+    <DialogContent>
+      {isLoading ? (
+        <div className="flex justify-center items-center min-h-[100px]">
+          <CircularProgress />
+        </div>
+      ) : (
+        <Typography variant="body1">{content}</Typography>
+      )}
+    </DialogContent>
+    {!isLoading && (
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Close
+        </Button>
+      </DialogActions>
+    )}
+  </Dialog>
+);
