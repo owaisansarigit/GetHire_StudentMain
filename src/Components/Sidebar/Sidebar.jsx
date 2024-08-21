@@ -558,14 +558,15 @@ const handleClick = (sectionId) => {
           </h1>
            <div className="flex items-center justify-between w-full mt-4">
               <div className="flex-1 text-sm text-gray-600 px-2 max-xl:-ml-3 max-xl:text-[12px] max-lg:-ml-2 max-lg:text-xs max-2xl:-ml-3">
-                Search Appearances <br />
+              Invites 
+              <br />
                  <span className="font-semibold text-blue-600">
                       <div className=" flex flex-row justify-center items-center gap-2"><p>0</p><IoIosArrowForward color="#1E88E5" onClick={()=> alert("clicked") } className=" hover:cursor-pointer" /></div> 
                   </span>
               </div>
               <div className="border-l border-light-blue-300 h-12 mx-4 max-xl:-ml-1 w-1 "></div>
               <div className="flex-1 text-sm text-gray-600 px-2 max-xl:-ml-3 max-xl:text-[12px] max-lg:text-xs max-lg:-ml-4">
-                Recruiter Actions <br /> 
+              Applications <br /> 
                  <span className="font-semibold text-blue-600">
                       <div className=" flex flex-row justify-center items-center gap-2"><p>0</p><IoIosArrowForward color="#1E88E5" onClick={()=> alert("clicked") } className=" hover:cursor-pointer" /></div> 
                   </span>

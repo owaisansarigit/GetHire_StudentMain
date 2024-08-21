@@ -80,62 +80,49 @@ const StartInterview = () => {
 
   const handleSubmitVideo = async () => {
     setInLoading(true);
-    if (audioBlobUrl) {
-      setSubmissionStatus("submitting");
-      const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
-      const audioBlob = new Blob([videoBlob], { type: "audio/vaw" });
-      const formData = new FormData();
-      formData.append("audio", audioBlob);
-      formData.append("audio1", "audioBlob");
-      const aitext = await getTextFromAudio(formData);
-      // let res = await axios.post(
-      //   `${Api_Url}api/testroutes/submitaudio`,
-      //   formData,
-      //   {
-      //     headers: {
-      //       Accept: "application/json",
-      //       Authorization: `Bearer ${authToken}`,
-      //     },
-      //   }
-      // );
-    }
 
-    // try {
-    //   const points = await getResult(aitext);
-    //   await submitResult(points, aitext);
-    //   setSubmissionStatus("submitted");
-    //   toast.success("Video submitted successfully!", { autoClose: 1000 });
-    // } catch (error) {
-    //   console.error("Error submitting video:", error);
-    //   toast.error("Failed to submit video. Please try again.", {
-    //     autoClose: 1000,
-    //   });
-    //   setSubmissionStatus("idle");
-    // } finally {
-    //   setInLoading(false);
-    // }
+
+    try {
+      if (audioBlobUrl) {
+        setSubmissionStatus("submitting");
+        const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
+        const audioBlob = new Blob([videoBlob], { type: "audio/vaw" });
+        const formData = new FormData();
+        formData.append("audio", audioBlob);
+        formData.append("audio1", "audioBlob");
+        const aitext = await getTextFromAudio(formData);
+        const points = await getResult(aitext);
+        await submitResult(points, aitext);
+        setSubmissionStatus("submitted");
+        toast.success("Video submitted successfully!", { autoClose: 1000 });
+      }
+
+    } catch (error) {
+      console.error("Error submitting video:", error);
+      toast.error("Failed to submit video. Please try again.", {
+        autoClose: 1000,
+      });
+      setSubmissionStatus("idle");
+    } finally {
+      setInLoading(false);
+    }
   };
 
   const getTextFromAudio = async (formData) => {
     try {
       console.log("audio sent");
-      const authToken = localStorage.getItem("StudentToken");
-      let response = await axios.post(
-        `${Api_Url}api/testroutes/submitaudio`,
-        formData,
+      const response = await fetch(
+        "https://shining-needed-bug.ngrok-free.app/transcribe",
         {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
+          method: "POST",
+          body: formData,
         }
       );
-      console.log(response);
       const jsonData = await response.json();
       console.log(jsonData);
       return jsonData;
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
@@ -155,6 +142,7 @@ const StartInterview = () => {
       }
     );
     const jsonData = await response.json();
+    console.log(jsonData);
     return jsonData?.points;
   };
 
@@ -179,6 +167,7 @@ const StartInterview = () => {
     );
   }
   return (
+    
     <div className="flex flex-col items-center p-4">
       <div className="mb-2">
         {status === "idle" ? (
