@@ -93,24 +93,31 @@ const StartInterview = () => {
       if (audioBlobUrl) {
         setSubmissionStatus("submitting");
         const videoBlob = await fetch(mediaBlobUrl).then((res) => res.blob());
-        const audioBlob = new Blob([videoBlob], { type: "audio/vaw" });
+        const audioBlob = new Blob([videoBlob], { type: "audio/wav" });
         const formData = new FormData();
         formData.append("audio", audioBlob);
-        formData.append("audio1", "audioBlob");
 
+        // Process audio for transcription
         const aitext = await getTextFromAudio(formData);
+        if (!aitext) throw new Error("Transcription failed.");
+        // Evaluate the transcribed text
         const points = await getResult(aitext);
+        if (!points) throw new Error("Failed to evaluate transcription.");
+
+        const evaluateText = await getTexResult(aitext);
+        // Submit the result
         await submitResult(points, aitext);
         setModalContent(
-          `Your score is ${points}. \nDetails: ${JSON.stringify(aitext)}`
+          `Your score is ${points}. \nDetails: ${JSON.stringify(evaluateText)}`
         );
-        setShowModal(true);
+      } else {
+        throw new Error("No audio recorded.");
       }
     } catch (error) {
       console.error("Error submitting video:", error);
-      setModalContent("Failed to submit video. Please try again.");
-      setShowModal(true);
+      setModalContent(`Failed to submit video: ${error.message}`);
     } finally {
+      setShowModal(true);
       setInLoading(false);
     }
   };
@@ -140,6 +147,26 @@ const StartInterview = () => {
     };
     const response = await fetch(
       "https://shining-needed-bug.ngrok-free.app/check-answer",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const jsonData = await response.json();
+    console.log(jsonData);
+    return jsonData?.points;
+  };
+
+  const getTexResult = async (aitext) => {
+    const data = {
+      interviewQuestions: aitext,
+      criteria: criteria,
+    };
+    const response = await fetch(
+      "https://shining-needed-bug.ngrok-free.app/evaluate-interview",
       {
         method: "POST",
         headers: {
